@@ -4,13 +4,13 @@ public class Section {
     private String sectionID;
     private String instructorEmail;
     private String courseID;
-    private Integer maxTrainees;
+    private int maxTrainees;
 
     public Section() {
 
     }
 
-    public Section(String sectionID, String instructorEmail, String courseID, Integer maxTrainees) {
+    public Section(String sectionID, String instructorEmail, String courseID, int maxTrainees) {
         this.sectionID = sectionID;
         this.instructorEmail = instructorEmail;
         this.courseID = courseID;
@@ -41,11 +41,11 @@ public class Section {
         this.courseID = courseID;
     }
 
-    public Integer getMaxTrainees() {
+    public int getMaxTrainees() {
         return maxTrainees;
     }
 
-    public void setMaxTrainees(Integer maxTrainees) {
+    public void setMaxTrainees(int maxTrainees) {
         this.maxTrainees = maxTrainees;
     }
 }
