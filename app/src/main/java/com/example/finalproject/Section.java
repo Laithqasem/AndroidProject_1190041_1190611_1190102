@@ -5,7 +5,7 @@ public class Section {
     private String instructorEmail;
     private String courseID;
     private int maxTrainees;
-    //
+    //////
 
     public Section() {
 
