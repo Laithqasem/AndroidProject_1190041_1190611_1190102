@@ -55,8 +55,6 @@ public class SignUp extends AppCompatActivity {
                 instructor_button.setTextColor(getApplication().getResources().getColor(R.color.whiteColor));;
                 instructor_button.setBackgroundColor(getApplication().getResources().getColor(R.color.mainColor));
                 instructor_button.setBackground(Drawable.createFromPath("@drawable/round_buttons_dashboard2"));
-
-
             }
         });
 
