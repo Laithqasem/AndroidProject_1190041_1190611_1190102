@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, SignUp.class);
                 startActivity(intent);
                 finish();
+                //                asdad
+
+ 
                 // This is my commit
             }
         });
