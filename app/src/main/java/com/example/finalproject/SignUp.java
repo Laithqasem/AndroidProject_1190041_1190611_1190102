@@ -22,7 +22,7 @@ public class SignUp extends AppCompatActivity {
         Button admin_button = (Button) findViewById(R.id.login);
         Button trainee_button = (Button) findViewById(R.id.trainee);
         Button instructor_button = (Button) findViewById(R.id.instructor);
-        Button sign_up_button = (Button) findViewById(R.id.login_button);
+        Button sign_up_button = (Button) findViewById(R.id.sign_up);
         trainee_button.setTextColor(getApplication().getResources().getColor(R.color.mainColor));;
         trainee_button.setBackgroundColor(getApplication().getResources().getColor(R.color.whiteColor));
         instructor_button.setTextColor(getApplication().getResources().getColor(R.color.mainColor));;
