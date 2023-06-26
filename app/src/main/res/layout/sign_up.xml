@@ -10,9 +10,9 @@
         android:id="@+id/view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#B9D2EE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="#B9D2EE"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -36,11 +36,11 @@
         android:layout_marginHorizontal="5dp"
         android:background="@drawable/custom_border_layout"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/sign_up"
+        app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view2"
-        app:layout_constraintVertical_bias="0.087">
+        app:layout_constraintVertical_bias="0.666">
 
         <Button
             android:id="@+id/login"
@@ -79,30 +79,15 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/sign_up"
-        android:layout_width="300dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="40dp"
-        android:background="@drawable/round_buttons"
-        android:text="Sign Up"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#FFFDFA"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView3"
         android:name="com.example.finalproject.admin_sign_up_fragment"
-        android:layout_width="390dp"
-        android:layout_height="510dp"
-        app:layout_constraintBottom_toTopOf="@+id/sign_up"
+        android:layout_width="399dp"
+        android:layout_height="616dp"
+        android:layout_marginTop="115dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toTopOf="@+id/view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

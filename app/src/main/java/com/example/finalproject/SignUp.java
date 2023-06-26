@@ -104,12 +104,7 @@ public class SignUp extends AppCompatActivity {
                 instructor_button.setBackground(Drawable.createFromPath("@drawable/round_buttons_dashboard2"));
             }
         });
-        sign_up_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println();
-            }
-        });
+
 
 
     }
