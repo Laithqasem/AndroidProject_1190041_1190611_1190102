@@ -97,9 +97,11 @@ public class SignUp extends AppCompatActivity {
                 trainee_button.setBackgroundColor(getApplication().getResources().getColor(R.color.whiteColor));
                 instructor_button.setTextColor(getApplication().getResources().getColor(R.color.whiteColor));;
                 instructor_button.setBackgroundColor(getApplication().getResources().getColor(R.color.mainColor));
+
                 replaceFragment(new instructor_sign_up_fragment());
 
 
+                instructor_button.setBackground(Drawable.createFromPath("@drawable/round_buttons_dashboard2"));
             }
         });
         sign_up_button.setOnClickListener(new View.OnClickListener() {
