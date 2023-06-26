@@ -45,9 +45,7 @@ public class Admin {
     public String getLastName() {
         return lastName;
     }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    // trying to add
 }
