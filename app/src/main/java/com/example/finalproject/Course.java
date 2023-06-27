@@ -11,6 +11,7 @@ public class Course {
     private String endDate;
     private String registrationStart;
     private String registrationEnd;
+    private String description;
 
     public Course() {
 
@@ -49,6 +50,14 @@ public class Course {
 
     public void setPrerequisites(ArrayList<Course> prerequisites) {
         this.prerequisites = prerequisites;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getStartDate() {

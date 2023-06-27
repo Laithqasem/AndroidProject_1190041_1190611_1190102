@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalProject">
-        <activity android:name=".Login"></activity>
+        <activity
+            android:name=".TraineeActivites"
+            android:exported="false" />
+        <activity android:name=".Login" />
         <activity android:name=".SignUp" />
         <activity android:name=".CreateNewCourse" />
         <activity
