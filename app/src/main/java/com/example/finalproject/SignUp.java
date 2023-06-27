@@ -103,7 +103,6 @@ public class SignUp extends AppCompatActivity {
                 instructor_button.setBackground(Drawable.createFromPath("@drawable/round_buttons_dashboard2"));
             }
         });
-
     }
 
     private void replaceFragment(Fragment fragment) {
