@@ -112,4 +112,15 @@ public class Trainee_Search_Fragment extends Fragment {
 
         return rootView;
     }
+
+    public void SearchFilter(){
+        String search = searchEditText.getText().toString();
+        filteredCourseList = new ArrayList<>();
+        for (Course course : courseList) {
+            if (course.getCourseName().toLowerCase().contains(search.toLowerCase())) {
+                filteredCourseList.add(course);
+            }
+        }
+        //courseAdapter.filterList(filteredCourseList);
+    }
 }

@@ -1,12 +1,23 @@
 package com.example.finalproject;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -43,12 +54,15 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         private Button buttonRegister;
 
         public ViewHolder(@NonNull View itemView) {
+
             super(itemView);
             courseNameTextView = itemView.findViewById(R.id.textViewCourseName);
             courseDescriptionTextView = itemView.findViewById(R.id.textViewCourseDescription);
             buttonView = itemView.findViewById(R.id.buttonView);
             buttonRegister = itemView.findViewById(R.id.buttonRegister);
             buttonRegister = itemView.findViewById(R.id.buttonRegister);
+            final Trainee_Search_Fragment currentfragment = new Trainee_Search_Fragment();
+            final FragmentManager fragmentManager = ((FragmentActivity) itemView.getContext()).getSupportFragmentManager();
 
             buttonView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -68,8 +82,30 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         Course course = courseList.get(position);
-                        // Perform the action for registering in the course
-                        // Perform the registration process or any desired action
+
+                        Ccourse_desc_Frag_Trainee fragment = new Ccourse_desc_Frag_Trainee();
+
+                        Bundle args = new Bundle();
+                        args.putString("courseName", course.getCourseName());
+                        args.putString("courseDescription", course.getDescription());
+                        fragment.setArguments(args);
+
+                        FragmentManager fragmentManager = ((FragmentActivity) itemView.getContext()).getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                        Fragment currentFragment = fragmentManager.findFragmentById(R.id.FirstFragment);
+                        if (currentFragment != null) {
+                            fragmentTransaction.replace(R.id.FirstFragment, fragment);
+                        } else {
+                            fragmentTransaction.add(R.id.FirstFragment, fragment);
+                        }
+
+                        fragmentTransaction.addToBackStack(null);
+
+                        // Commit the transaction
+                        fragmentTransaction.commit();
+
+
                     }
                 }
             });
