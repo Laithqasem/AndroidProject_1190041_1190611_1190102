@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
@@ -22,7 +23,7 @@ public class SignUp extends AppCompatActivity {
         Button admin_button = (Button) findViewById(R.id.login);
         Button trainee_button = (Button) findViewById(R.id.trainee);
         Button instructor_button = (Button) findViewById(R.id.instructor);
-        Button sign_up_button = (Button) findViewById(R.id.sign_up);
+        Button sign_up_button = (Button) findViewById(R.id.sign_up_button);
         trainee_button.setTextColor(getApplication().getResources().getColor(R.color.mainColor));;
         trainee_button.setBackgroundColor(getApplication().getResources().getColor(R.color.whiteColor));
         instructor_button.setTextColor(getApplication().getResources().getColor(R.color.mainColor));;
@@ -38,7 +39,6 @@ public class SignUp extends AppCompatActivity {
 //        Password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 //        // set the max password length to 8
 //        Password.setFilters(new InputFilter[] {new InputFilter.LengthFilter(8)});
-
 
         admin_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,10 +69,10 @@ public class SignUp extends AppCompatActivity {
                 first_name.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
                 last_name.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
 
-
-
             }
         });
+
+
 
         trainee_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +85,6 @@ public class SignUp extends AppCompatActivity {
                 trainee_button.setBackgroundColor(getApplication().getResources().getColor(R.color.mainColor));
                 trainee_button.setBackground(Drawable.createFromPath("@drawable/round_buttons_dashboard2"));
                 replaceFragment(new trainee_sign_up_fragment());
-
             }
         });
         instructor_button.setOnClickListener(new View.OnClickListener() {
@@ -104,13 +103,6 @@ public class SignUp extends AppCompatActivity {
                 instructor_button.setBackground(Drawable.createFromPath("@drawable/round_buttons_dashboard2"));
             }
         });
-        sign_up_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println();
-            }
-        });
-
 
     }
 

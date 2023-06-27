@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/sign_up"
+        android:id="@+id/sign_up_button"
         android:layout_width="300dp"
         android:layout_height="70dp"
         android:layout_marginBottom="40dp"
@@ -51,7 +51,7 @@
         android:layout_height="303dp"
         android:background="@drawable/round_two"
 
-        app:layout_constraintBottom_toTopOf="@+id/sign_up"
+        app:layout_constraintBottom_toTopOf="@+id/sign_up_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view2" />
