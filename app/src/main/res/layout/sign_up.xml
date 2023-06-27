@@ -78,7 +78,6 @@
             android:textStyle="bold" />
 
     </LinearLayout>
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView3"
         android:name="com.example.finalproject.admin_sign_up_fragment"
