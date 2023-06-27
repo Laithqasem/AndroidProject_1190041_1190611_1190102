@@ -11,6 +11,7 @@
         android:theme="@style/Theme.FinalProject">
         <activity android:name=".Login"></activity>
         <activity android:name=".SignUp" />
+        <activity android:name=".CreateNewCourse" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
