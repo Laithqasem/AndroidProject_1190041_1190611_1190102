@@ -87,7 +87,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
                         Bundle args = new Bundle();
                         args.putString("courseName", course.getCourseName());
-                        args.putString("courseDescription", course.getDescription());
+                        args.putString("courseDescription", "course.getDescription()");
                         fragment.setArguments(args);
 
                         FragmentManager fragmentManager = ((FragmentActivity) itemView.getContext()).getSupportFragmentManager();

@@ -5,20 +5,21 @@ import java.util.ArrayList;
 public class Course {
     private String courseID;
     private String courseName;
-    private ArrayList<Course> prerequisites;
+    private String prerequisites;
     // Todo: photo
     private String startDate;
     private String endDate;
     private String registrationStart;
     private String registrationEnd;
-    private String description;
+
+    private byte[] image;
 
     public Course() {
 
     }
 
-    public Course(String courseID, String courseName, ArrayList<Course> prerequisites,
-                  String startDate, String endDate, String registrationStart, String registrationEnd) {
+    public Course(String courseID, String courseName, String prerequisites, String startDate,
+                  String endDate, String registrationStart, String registrationEnd, byte[] image) {
         this.courseID = courseID;
         this.courseName = courseName;
         this.prerequisites = prerequisites;
@@ -26,6 +27,7 @@ public class Course {
         this.endDate = endDate;
         this.registrationStart = registrationStart;
         this.registrationEnd = registrationEnd;
+        this.image = image;
     }
 
     public String getCourseID() {
@@ -44,20 +46,12 @@ public class Course {
         this.courseName = courseName;
     }
 
-    public ArrayList<Course> getPrerequisites() {
+    public String getPrerequisites() {
         return prerequisites;
     }
 
-    public void setPrerequisites(ArrayList<Course> prerequisites) {
+    public void setPrerequisites(String prerequisites) {
         this.prerequisites = prerequisites;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getStartDate() {
@@ -90,5 +84,26 @@ public class Course {
 
     public void setRegistrationEnd(String registrationEnd) {
         this.registrationEnd = registrationEnd;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseID='" + courseID + '\'' +
+                ", courseName='" + courseName + '\'' +
+                ", prerequisites='" + prerequisites + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", registrationStart='" + registrationStart + '\'' +
+                ", registrationEnd='" + registrationEnd + '\'' +
+                '}';
     }
 }
