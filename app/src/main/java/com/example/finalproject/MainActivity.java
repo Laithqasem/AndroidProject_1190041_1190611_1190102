@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
 //                DataBaseHelper dataBaseHelper = new DataBaseHelper(
 //                        MainActivity.this,"TRAINING_CENTER",null,1);
-////////
+//////////
 //                Instructor instructor = new Instructor("mazen@gmail.com", "1234", "Mazen", "Batrawi", "0597969540",
 //                        "Ramallah", "CSE", "Bachelor");
 //
@@ -57,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
         view_courses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(MainActivity.this, EditDeleteCourses.class);
+                startActivity(intent);
+                finish();
             }
         });
 

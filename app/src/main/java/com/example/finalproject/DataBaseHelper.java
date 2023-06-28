@@ -17,11 +17,11 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         sqLiteDatabase.execSQL("CREATE TABLE ADMIN(email TEXT PRIMARY KEY, password TEXT, " +
                 "firstName TEXT, lastName TEXT)");
 
-//        sqLiteDatabase.execSQL("CREATE TABLE COURSES(COURSE_ID TEXT PRIMARY KEY, COURSE_NAME TEXT, PREREQUISITES TEXT, " +
-//                                    "START_DATE TEXT, END_DATE TEXT, START_REG TEXT, END_REG TEXT, IMAGE BLOB)");
-
         sqLiteDatabase.execSQL("CREATE TABLE COURSES(COURSE_ID TEXT PRIMARY KEY, COURSE_NAME TEXT, PREREQUISITES TEXT, " +
-                "START_DATE TEXT, END_DATE TEXT, START_REG TEXT, END_REG TEXT)");
+                                    "START_DATE TEXT, END_DATE TEXT, START_REG TEXT, END_REG TEXT, IMAGE BLOB)");
+
+//        sqLiteDatabase.execSQL("CREATE TABLE COURSES(COURSE_ID TEXT PRIMARY KEY, COURSE_NAME TEXT, PREREQUISITES TEXT, " +
+//                "START_DATE TEXT, END_DATE TEXT, START_REG TEXT, END_REG TEXT)");
 
         sqLiteDatabase.execSQL("CREATE TABLE TOPICS(TOPIC_ID INTEGER PRIMARY KEY AUTOINCREMENT, COURSE_ID TEXT, TOPIC_NAME TEXT)");
 
@@ -78,7 +78,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         contentValues.put("END_DATE", course.getEndDate());
         contentValues.put("START_REG", course.getRegistrationStart());
         contentValues.put("END_REG", course.getRegistrationEnd());
-        //contentValues.put("IMAGE", course.getImage());
+        contentValues.put("IMAGE", course.getImage());
         sqLiteDatabase.insert("COURSES", null, contentValues);
     }
 
