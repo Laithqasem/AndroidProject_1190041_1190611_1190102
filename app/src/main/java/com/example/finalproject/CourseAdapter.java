@@ -47,6 +47,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     public int getItemCount() {
         return courseList.size();
     }
+
+    public void filterList(List<Course> filteredCourseList) {
+        courseList = filteredCourseList;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView courseNameTextView;
         private TextView courseDescriptionTextView;
@@ -61,8 +67,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             buttonView = itemView.findViewById(R.id.buttonView);
             buttonRegister = itemView.findViewById(R.id.buttonRegister);
             buttonRegister = itemView.findViewById(R.id.buttonRegister);
-            final Trainee_Search_Fragment currentfragment = new Trainee_Search_Fragment();
-            final FragmentManager fragmentManager = ((FragmentActivity) itemView.getContext()).getSupportFragmentManager();
+            //final Trainee_Search_Fragment currentfragment = new Trainee_Search_Fragment();
+            //final FragmentManager fragmentManager = ((FragmentActivity) itemView.getContext()).getSupportFragmentManager();
 
             buttonView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -70,24 +76,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         Course course = courseList.get(position);
-                        // Perform the action for viewing the course
-                        // Open a new fragment or perform any desired action
-                    }
-                }
-            });
-
-            buttonRegister.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        Course course = courseList.get(position);
-
                         Ccourse_desc_Frag_Trainee fragment = new Ccourse_desc_Frag_Trainee();
 
                         Bundle args = new Bundle();
                         args.putString("courseName", course.getCourseName());
-                        args.putString("courseDescription", "course.getDescription()");
+                        args.putString("courseDescription", "course.getDescription()"); //topics
                         fragment.setArguments(args);
 
                         FragmentManager fragmentManager = ((FragmentActivity) itemView.getContext()).getSupportFragmentManager();
@@ -104,6 +97,18 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
                         // Commit the transaction
                         fragmentTransaction.commit();
+                    }
+                }
+            });
+
+            buttonRegister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Course course = courseList.get(position);
+                        System.out.println(courseList);
+
 
 
                     }
@@ -115,5 +120,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             courseNameTextView.setText(course.getCourseName());
             //courseDescriptionTextView.setText(course.getDescription());
         }
+
+
+
     }
 }
