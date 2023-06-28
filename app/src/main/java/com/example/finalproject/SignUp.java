@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
@@ -20,7 +19,7 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
 
-        Button admin_button = (Button) findViewById(R.id.login);
+        Button admin_button = (Button) findViewById(R.id.delete);
         Button trainee_button = (Button) findViewById(R.id.trainee);
         Button instructor_button = (Button) findViewById(R.id.instructor);
         Button sign_up_button = (Button) findViewById(R.id.sign_up_button);

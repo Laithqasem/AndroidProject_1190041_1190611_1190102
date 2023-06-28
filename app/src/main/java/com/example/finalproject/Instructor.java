@@ -90,4 +90,18 @@ public class Instructor {
     public void setDegree(String degree) {
         this.degree = degree;
     }
+
+    @Override
+    public String toString() {
+        return "Instructor{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", mobileNumber='" + mobileNumber + '\'' +
+                ", address='" + address + '\'' +
+                ", specialization='" + specialization + '\'' +
+                ", degree='" + degree + '\'' +
+                '}';
+    }
 }

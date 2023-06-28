@@ -15,6 +15,7 @@
         <activity android:name=".Login" />
         <activity android:name=".SignUp" />
         <activity android:name=".CreateNewCourse" />
+        <activity android:name=".CreateNewSection"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

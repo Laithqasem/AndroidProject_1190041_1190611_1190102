@@ -52,6 +52,7 @@
                         android:text=" Course ID"
                         android:textSize="20sp"
                         android:textStyle="bold"
+                        android:id="@+id/idtv"
                         android:translationY="10dp" />
 
                     <EditText
@@ -79,6 +80,7 @@
                         android:text=" Course Name"
                         android:textSize="20sp"
                         android:textStyle="bold"
+                        android:id="@+id/nametv"
                         android:translationY="10dp" />
 
                     <EditText
@@ -101,6 +103,7 @@
                     android:text="Topics"
                     android:textSize="20sp"
                     android:textStyle="bold"
+                    android:id="@+id/topicstv"
                     android:translationY="10dp" />
 
                 <TextView
@@ -141,6 +144,7 @@
                     android:text="Start Date"
                     android:textSize="20sp"
                     android:textStyle="bold"
+                    android:id="@+id/startdatetv"
                     android:translationY="10dp" />
 
                 <Button
@@ -166,6 +170,7 @@
                     android:text="End Date"
                     android:textSize="20sp"
                     android:textStyle="bold"
+                    android:id="@+id/enddatetv"
                     android:translationY="10dp" />
 
                 <Button
@@ -191,6 +196,7 @@
                     android:text="Registration Start Date"
                     android:textSize="20sp"
                     android:textStyle="bold"
+                    android:id="@+id/regstarttv"
                     android:translationY="10dp" />
 
                 <Button
@@ -216,6 +222,7 @@
                     android:text="Registration End Date"
                     android:textSize="20sp"
                     android:textStyle="bold"
+                    android:id="@+id/regendtv"
                     android:translationY="10dp" />
 
                 <Button
@@ -234,6 +241,39 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginHorizontal="40dp"
+                    android:text="Course Photo"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:id="@+id/phototv"
+                    android:translationY="10dp" />
+
+                <Button
+                    android:id="@+id/add_photo"
+                    android:layout_width="329dp"
+
+                    android:layout_height="70dp"
+                    android:layout_marginHorizontal="40dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="40dp"
+                    android:background="@drawable/round_buttons2"
+                    android:text="Upload Photo"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    android:textColor="@color/mainColor"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/uploaded_image"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_marginHorizontal="105dp"
+                    android:scaleType="fitXY" />
+
                 <Button
                     android:id="@+id/add_the_course"
                     android:layout_width="329dp"
@@ -248,6 +288,8 @@
                     android:textColor="@color/mainColor"
                     android:textSize="22sp"
                     android:textStyle="bold" />
+
+
 
             </LinearLayout>
         </ScrollView>

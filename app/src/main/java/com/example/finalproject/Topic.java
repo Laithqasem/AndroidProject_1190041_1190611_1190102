@@ -1,7 +1,9 @@
 package com.example.finalproject;
 
+import androidx.annotation.NonNull;
+
 public class Topic {
-    private String topicID;
+    private int topicID;
     private String courseID;
     private String topicName;
 
@@ -9,17 +11,17 @@ public class Topic {
 
     }
 
-    public Topic(String topicID, String courseID, String topicName) {
+    public Topic(int topicID, String courseID, String topicName) {
         this.topicID = topicID;
         this.courseID = courseID;
         this.topicName = topicName;
     }
 
-    public String getTopicID() {
+    public int getTopicID() {
         return topicID;
     }
 
-    public void setTopicID(String topicID) {
+    public void setTopicID(int topicID) {
         this.topicID = topicID;
     }
 
@@ -37,5 +39,14 @@ public class Topic {
 
     public void setTopicName(String topicName) {
         this.topicName = topicName;
+    }
+
+    @Override
+    public String toString() {
+        return "Topic{" +
+                "topicID=" + topicID +
+                ", courseID='" + courseID + '\'' +
+                ", topicName='" + topicName + '\'' +
+                '}';
     }
 }
