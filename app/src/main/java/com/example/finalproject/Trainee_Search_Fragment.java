@@ -96,7 +96,9 @@ public class Trainee_Search_Fragment extends Fragment {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Search button clicked");
+
+                SearchFilter();
+
             }
         });
 
@@ -121,6 +123,6 @@ public class Trainee_Search_Fragment extends Fragment {
                 filteredCourseList.add(course);
             }
         }
-        //courseAdapter.filterList(filteredCourseList);
+        courseAdapter.filterList(filteredCourseList);
     }
 }

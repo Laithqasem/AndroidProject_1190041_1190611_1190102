@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 //                        "Ramallah", "CSE", "Bachelor");
 //
 //                dataBaseHelper.insertInstructor(instructor);
-////
+//////
 //                Cursor cursor = dataBaseHelper.getAllInstructor();
 //
 //                while(cursor.moveToNext()){
@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
 //                            cursor.getString(7)
 //                            );
 //                    System.out.println(instructor1.toString());
-//                }
-                Intent intent = new Intent(MainActivity.this, CreateNewCourse.class);
+//             }
+                Intent intent = new Intent(MainActivity.this, TraineeActivites.class);
                 startActivity(intent);
                 finish();
             }
