@@ -106,4 +106,19 @@ public class Section {
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
+
+    @Override
+    public String toString() {
+        return
+                "Section ID = " + sectionID +
+                "\nInstructor Email = '" + instructorEmail + '\'' +
+                "\nCourse ID = '" + courseID + '\'' +
+                "\nMax Trainees = " + maxTrainees +
+                "\nStart Time = '" + startTime + '\'' +
+                "\nEnd Time = '" + endTime + '\'' +
+                "\nDays = '" + days + '\'' +
+                "\nRoom = '" + room + '\'' +
+                "\nStart Date = '" + startDate + '\'' +
+                "\nEnd Date = '" + endDate + '\'';
+    }
 }
