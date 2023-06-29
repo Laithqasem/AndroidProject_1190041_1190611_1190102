@@ -66,7 +66,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             courseDescriptionTextView = itemView.findViewById(R.id.textViewCourseDescription);
             buttonView = itemView.findViewById(R.id.buttonView);
             buttonRegister = itemView.findViewById(R.id.buttonRegister);
-            buttonRegister = itemView.findViewById(R.id.buttonRegister);
             //final Trainee_Search_Fragment currentfragment = new Trainee_Search_Fragment();
             //final FragmentManager fragmentManager = ((FragmentActivity) itemView.getContext()).getSupportFragmentManager();
 
@@ -88,9 +87,9 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
                         Fragment currentFragment = fragmentManager.findFragmentById(R.id.FirstFragment);
                         if (currentFragment != null) {
-                            fragmentTransaction.replace(R.id.FirstFragment, fragment);
+                            fragmentTransaction.replace(R.id.content_frame, fragment);
                         } else {
-                            fragmentTransaction.add(R.id.FirstFragment, fragment);
+                            fragmentTransaction.add(R.id.content_frame, fragment);
                         }
 
                         fragmentTransaction.addToBackStack(null);
@@ -107,9 +106,28 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         Course course = courseList.get(position);
-                        System.out.println(courseList);
 
+                        Trainee_Course_Registration fragment = new Trainee_Course_Registration();
 
+                        FragmentManager fragmentManager = ((FragmentActivity) itemView.getContext()).getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                        Bundle args = new Bundle();
+                        args.putString("courseName", course.getCourseName());
+                        args.putString("courseDescription", "course.getDescription()"); //topics
+                        fragment.setArguments(args);
+
+                        Fragment currentFragment = fragmentManager.findFragmentById(R.id.FirstFragment);
+                        if (currentFragment != null) {
+                            fragmentTransaction.replace(R.id.content_frame, fragment);
+                        } else {
+                            fragmentTransaction.add(R.id.content_frame, fragment);
+                        }
+
+                        fragmentTransaction.addToBackStack(null);
+
+                        // Commit the transaction
+                        fragmentTransaction.commit();
 
                     }
                 }
