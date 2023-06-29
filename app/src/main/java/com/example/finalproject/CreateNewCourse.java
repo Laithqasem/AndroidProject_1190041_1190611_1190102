@@ -195,7 +195,12 @@ public class CreateNewCourse  extends AppCompatActivity {
                                 Collections.sort(pre_index);
                             }
                             else{
-                                pre_index.remove(i);
+                                for(int j = 0; j < pre_index.size(); j++){
+                                    if(pre_index.get(j) == i){
+                                        pre_index.remove(j);
+                                        break;
+                                    }
+                                }
                             }
                         }
                     });
