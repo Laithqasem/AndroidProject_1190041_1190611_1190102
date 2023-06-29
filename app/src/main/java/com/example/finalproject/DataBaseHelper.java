@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.ImageView;
 
 public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
     public DataBaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -52,6 +51,34 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         contentValues.put("START_DATE", section.getStartDate());
         contentValues.put("END_DATE", section.getEndDate());
         sqLiteDatabase.insert("SECTION", null, contentValues);
+    }
+
+    // This will return all sections who's course id = courseID
+    public Cursor getAllOfferings (String courseID) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM SECTION WHERE COURSE_ID = ?", new String[]{courseID});
+        return cursor;
+    }
+
+    public void deleteCourse(String courseID){
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        sqLiteDatabase.delete("COURSES", "COURSE_ID = ?", new String[]{courseID});
+        sqLiteDatabase.delete("SECTION", "COURSE_ID = ?", new String[]{courseID});
+    }
+
+    public void updateSection(Section section) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("INSTRUCTOR_EMAIL", section.getInstructorEmail());
+        contentValues.put("COURSE_ID", section.getCourseID());
+        contentValues.put("MAX_TRAINEES", section.getMaxTrainees());
+        contentValues.put("START_TIME", section.getStartTime());
+        contentValues.put("END_TIME", section.getEndTime());
+        contentValues.put("DAYS", section.getDays());
+        contentValues.put("ROOM", section.getRoom());
+        contentValues.put("START_DATE", section.getStartDate());
+        contentValues.put("END_DATE", section.getEndDate());
+        sqLiteDatabase.update("SECTION", contentValues, "SECTION_ID = ?", new String[]{String.valueOf(section.getSectionID())});
     }
 
     public void insertInstructor(Instructor instructor){
@@ -131,5 +158,10 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
             cnt++;
         }
         return cnt == 1;
+    }
+
+    public void deleteSection(String valueOf) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        sqLiteDatabase.delete("SECTION", "SECTION_ID = ?", new String[]{valueOf});
     }
 }

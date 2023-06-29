@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 //                DataBaseHelper dataBaseHelper = new DataBaseHelper(
 //                        MainActivity.this,"TRAINING_CENTER",null,1);
 //////////
-//                Instructor instructor = new Instructor("mazen@gmail.com", "1234", "Mazen", "Batrawi", "0597969540",
+//                Instructor instructor = new Instructor("basha@gmail.com", "1234", "Mazen", "Batrawi", "0597969540",
 //                        "Ramallah", "CSE", "Bachelor");
 //
 //                dataBaseHelper.insertInstructor(instructor);
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 //                            );
 //                    System.out.println(instructor1.toString());
 //             }
-                Intent intent = new Intent(MainActivity.this, TraineeActivites.class);
+                Intent intent = new Intent(MainActivity.this, CreateNewCourse.class);
                 startActivity(intent);
                 finish();
             }
@@ -66,7 +66,9 @@ public class MainActivity extends AppCompatActivity {
         view_profiles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(MainActivity.this, ViewOfferingHistory.class);
+                startActivity(intent);
+                finish();
             }
         });
 

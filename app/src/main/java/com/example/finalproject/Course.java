@@ -96,14 +96,14 @@ public class Course {
 
     @Override
     public String toString() {
-        return "Course{" +
-                "courseID='" + courseID + '\'' +
-                ", courseName='" + courseName + '\'' +
-                ", prerequisites='" + prerequisites + '\'' +
-                ", startDate='" + startDate + '\'' +
-                ", endDate='" + endDate + '\'' +
-                ", registrationStart='" + registrationStart + '\'' +
-                ", registrationEnd='" + registrationEnd + '\'' +
-                '}';
+        // This will return them with new lines between each one
+        return "Course ID: " + courseID + "\n" +
+                "Course Name: " + courseName + "\n" +
+                "Prerequisites: " + prerequisites + "\n" +
+                "Start Date: " + startDate + "\n" +
+                "End Date: " + endDate + "\n" +
+                "Registration Start: " + registrationStart + "\n" +
+                "Registration End: " + registrationEnd + "\n\n";
+
     }
 }
