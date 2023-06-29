@@ -120,7 +120,9 @@ public class TraineeActivites extends AppCompatActivity {
         if (currentFragment instanceof Trainee_Profile_Fragment) {
             // If it is, perform the default back button behavior
             super.onBackPressed();
-        } else {
+        } else if(currentFragment instanceof Trainee_Search_Fragment){
+            openSearch();
+        }else {
             // If it's not, go back to the profile fragment
             openProfile();
         }

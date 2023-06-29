@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +16,14 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class Trainee_editProfile_Fragment extends Fragment {
+
+    private EditText textViewFirstName;
+    private EditText textViewLastName;
+    private EditText textViewEmail;
+    private EditText textViewMobileNumber;
+    private EditText textViewAddress;
+    private Button buttonSave;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,6 +70,39 @@ public class Trainee_editProfile_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView =  inflater.inflate(R.layout.fragment_trainee_edit_profile_, container, false);
+        textViewFirstName = rootView.findViewById(R.id.editTextFirstName);
+        textViewLastName = rootView.findViewById(R.id.editTextLastName);
+        textViewEmail = rootView.findViewById(R.id.editTextEmail);
+        textViewMobileNumber = rootView.findViewById(R.id.editTextMobileNumber);
+        textViewAddress = rootView.findViewById(R.id.editTextAddress);
+        buttonSave = rootView.findViewById(R.id.buttonSave);
+
+        //query database for trainee info
+
+        textViewFirstName.setText("First Name");
+        textViewLastName.setText("Last Name");
+        textViewEmail.setText("Email");
+        textViewMobileNumber.setText("Mobile Number");
+        textViewAddress.setText("Address");
+
+        //
+
+       buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String alteredFirst = textViewFirstName.getText().toString();
+                String alteredLast = textViewLastName.getText().toString();
+                String alteredEmail = textViewEmail.getText().toString();
+                String alteredMobile = textViewMobileNumber.getText().toString();
+                String alteredAddress = textViewAddress.getText().toString();
+
+                //query database to update trainee info
+
+            }
+        });
+
+
+
 
     return rootView;
     }
