@@ -80,10 +80,6 @@ public class Trainee_Search_Fragment extends Fragment {
         searchButton = rootView.findViewById(R.id.buttonSearch);
         coursesRecyclerView = rootView.findViewById(R.id.recyclerViewCourses);
 
-
-        courseList = new ArrayList<>();
-        courseAdapter = new CourseAdapter(courseList);
-
         // Initialize the course list and adapter
         courseList = new ArrayList<>();
         courseAdapter = new CourseAdapter(courseList);

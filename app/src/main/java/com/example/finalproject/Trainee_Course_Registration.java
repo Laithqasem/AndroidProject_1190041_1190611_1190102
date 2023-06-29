@@ -3,21 +3,27 @@ package com.example.finalproject;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Ccourse_desc_Frag_Trainee#newInstance} factory method to
+ * Use the {@link Trainee_Course_Registration#newInstance} factory method to
  * create an instance of this fragment.
  */
-//inside the view course after search
-public class Ccourse_desc_Frag_Trainee extends Fragment {
+//fragment for trainee course registration
+public class Trainee_Course_Registration extends Fragment {
+
+
+    private Course courseList;
+    private ArrayList<Course> filteredCourseList;
+    Trainee_Reg_withraw courseAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,7 +34,7 @@ public class Ccourse_desc_Frag_Trainee extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Ccourse_desc_Frag_Trainee() {
+    public Trainee_Course_Registration() {
         // Required empty public constructor
     }
 
@@ -38,11 +44,11 @@ public class Ccourse_desc_Frag_Trainee extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Ccourse_desc_Frag_Trainee.
+     * @return A new instance of fragment Trainee_Course_Registration.
      */
     // TODO: Rename and change types and number of parameters
-    public static Ccourse_desc_Frag_Trainee newInstance(String param1, String param2) {
-        Ccourse_desc_Frag_Trainee fragment = new Ccourse_desc_Frag_Trainee();
+    public static Trainee_Course_Registration newInstance(String param1, String param2) {
+        Trainee_Course_Registration fragment = new Trainee_Course_Registration();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,34 +69,29 @@ public class Ccourse_desc_Frag_Trainee extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView =  inflater.inflate(R.layout.fragment_ccourse_desc__frag__trainee, container, false);
+        View rootView =  inflater.inflate(R.layout.fragment_trainee__course__registration, container, false);
 
-        TextView textViewCourseName = rootView.findViewById(R.id.textViewCourseName);
-        TextView textViewCourseDescription = rootView.findViewById(R.id.textViewCourseDescription);
-        Button buttonBack = rootView.findViewById(R.id.buttonBack);
-
-        // Get the course data (replace with your actual course data retrieval)
+        RecyclerView recyclerViewCourses = rootView.findViewById(R.id.recyclerViewCourses);
+        // Initialize the course list and adapter
 
         Bundle args = getArguments();
+        String courseName = "ds";
         if (args != null) {
             // Get the course name from the arguments
-            String courseName = args.getString("courseName");
-            String courseDescription = args.getString("courseDescription");
-
-            // Set the course name to the TextView
-            textViewCourseName.setText(courseName);
-            textViewCourseDescription.setText(courseDescription);
-
+            courseName = args.getString("courseName"); //sent from course adapter
         }
 
-        buttonBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate back to the previous fragment
-                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                fragmentManager.popBackStack();
-            }
-        });
+        //query about the (from the arg) course section and the trainee and send to trainee_Reg_withraw
+        
+        courseList = new Course();
+        courseList.setCourseName(courseName);
+        courseAdapter = new Trainee_Reg_withraw(courseList);
+
+        // Set the layout manager and adapter for the RecyclerView
+        recyclerViewCourses.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerViewCourses.setAdapter(courseAdapter);
+
+
 
 
 
