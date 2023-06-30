@@ -1,5 +1,7 @@
 package com.example.finalproject;
 
+import java.util.Arrays;
+
 public class Trainee {
     private String email;
     private String password;
@@ -22,6 +24,7 @@ public class Trainee {
         this.address = address;
         this.image = image;
     }
+
 
     public String getEmail() {
         return email;
