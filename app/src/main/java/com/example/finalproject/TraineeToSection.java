@@ -1,27 +1,27 @@
 package com.example.finalproject;
 
 public class TraineeToSection {
-    private String traineeToSectionID;
+    private int traineeToSectionID;
     private String sectionID;
     private String traineeEmail;
-    private Boolean status;
+    private int status;
 
     public TraineeToSection() {
 
     }
 
-    public TraineeToSection(String traineeToSectionID, String sectionID, String traineeEmail, Boolean status) {
+    public TraineeToSection(int traineeToSectionID, String sectionID, String traineeEmail, int status) {
         this.traineeToSectionID = traineeToSectionID;
         this.sectionID = sectionID;
         this.traineeEmail = traineeEmail;
         this.status = status;
     }
 
-    public String getTraineeToSectionID() {
+    public int getTraineeToSectionID() {
         return traineeToSectionID;
     }
 
-    public void setTraineeToSectionID(String traineeToSectionID) {
+    public void setTraineeToSectionID(int traineeToSectionID) {
         this.traineeToSectionID = traineeToSectionID;
     }
 
@@ -41,11 +41,11 @@ public class TraineeToSection {
         this.traineeEmail = traineeEmail;
     }
 
-    public Boolean getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 }

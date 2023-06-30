@@ -3,6 +3,7 @@ package com.example.finalproject;
 import java.util.ArrayList;
 
 public class Course {
+    private int ID;
     private String courseID;
     private String courseName;
     private String prerequisites;
@@ -18,8 +19,9 @@ public class Course {
 
     }
 
-    public Course(String courseID, String courseName, String prerequisites, String startDate,
+    public Course(int ID, String courseID, String courseName, String prerequisites, String startDate,
                   String endDate, String registrationStart, String registrationEnd, byte[] image) {
+        this.ID = ID;
         this.courseID = courseID;
         this.courseName = courseName;
         this.prerequisites = prerequisites;
@@ -28,6 +30,14 @@ public class Course {
         this.registrationStart = registrationStart;
         this.registrationEnd = registrationEnd;
         this.image = image;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public String getCourseID() {

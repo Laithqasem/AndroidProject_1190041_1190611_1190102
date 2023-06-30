@@ -27,10 +27,11 @@ public class DisplaySections extends AppCompatActivity {
             textView.setText(extras.getString("COURSE_NAME"));
             textView.setTextSize(30);
             textView.setTextColor(Color.BLACK);
-            COURSE_ID = extras.getString("COURSE_ID");
+            COURSE_ID = extras.getString("ID");
         }
         Button add = findViewById(R.id.button);
         String finalCOURSE_ID = COURSE_ID;
+        System.out.println(finalCOURSE_ID);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,12 +40,14 @@ public class DisplaySections extends AppCompatActivity {
 
                 Cursor cursor = dataBaseHelper.getAllCourses();
                 while(cursor.moveToNext()){
-                    if(cursor.getString(0).equals(finalCOURSE_ID)){
-                        Course course = new Course(cursor.getString(0), cursor.getString(1), cursor.getString(2),
-                                cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6),
-                                cursor.getBlob(7));
+                    if(cursor.getInt(0) == Integer.parseInt(finalCOURSE_ID)){
+                        Course course = new Course(Integer.parseInt(finalCOURSE_ID), cursor.getString(1), cursor.getString(2), cursor.getString(3),
+                                cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7),
+                                cursor.getBlob(8));
+
                         String START_DATE = course.getStartDate();
                         String END_DATE = course.getEndDate();
+
                         Intent intent = new Intent(DisplaySections.this, CreateNewSection.class);
                         intent.putExtra("COURSE_ID", finalCOURSE_ID);
                         intent.putExtra("START_DATE", START_DATE);
@@ -68,7 +71,7 @@ public class DisplaySections extends AppCompatActivity {
 
         while(cursor.moveToNext()){
             if(cursor.getString(2).equals(COURSE_ID)){
-                Section section = new Section(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3),
+                Section section = new Section(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3),
                         cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7),
                         cursor.getString(8), cursor.getString(9));
 
@@ -111,7 +114,7 @@ public class DisplaySections extends AppCompatActivity {
                         dataBaseHelper.deleteSection(delete.getText().toString().substring(15));
 
                         Intent intent = new Intent(DisplaySections.this, DisplaySections.class);
-                        intent.putExtra("COURSE_ID", finalCOURSE_ID);
+                        intent.putExtra("ID", finalCOURSE_ID);
                         intent.putExtra("COURSE_NAME", textView.getText().toString());
                         startActivity(intent);
                         finish();
