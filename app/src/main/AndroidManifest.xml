@@ -20,6 +20,7 @@
         <activity android:name=".EditSection" />
         <activity android:name=".ViewOfferingHistory" />
         <activity android:name=".CreateNewSection"/>
+        <activity android:name=".ViewProfiles"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

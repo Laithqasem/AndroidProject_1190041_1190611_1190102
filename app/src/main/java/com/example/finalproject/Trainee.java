@@ -9,7 +9,6 @@ public class Trainee {
     private String lastName;
     private String mobileNumber;
     private String address;
-
     private byte[] image;
 
     public Trainee() {
@@ -81,13 +80,11 @@ public class Trainee {
 
     @Override
     public String toString() {
-        return "Trainee{" +
-                "email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", mobileNumber='" + mobileNumber + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+        return "Email: " + email + "\n" +
+                "Password: " + password + "\n" +
+                "First Name: " + firstName + "\n" +
+                "Last Name: " + lastName + "\n" +
+                "Mobile Number: " + mobileNumber + "\n" +
+                "Address: " + address + "\n";
     }
 }
