@@ -32,23 +32,37 @@ public class MainActivity extends AppCompatActivity {
 //                        "Ramallah", "CSE", "Bachelor");
 //
 //                dataBaseHelper.insertInstructor(instructor);
-//////
-//                Cursor cursor = dataBaseHelper.getAllInstructor();
+//
+//                Trainee t1 = new Trainee("mezo@email.com","1234", "Mohammad",
+//                        "Batrawi", "0597999540", "Ramallah", new byte[1]);
+//
+//                Trainee t2 = new Trainee("big@email.com","1234", "Tamer",
+//                        "Batrawi", "0597969540", "Jerusalem", new byte[1]);
+//
+//                Trainee t3 = new Trainee("LAlawi@email.com","1234", "Laith",
+//                        "Alawi", "0597969340", "Ein Arik", new byte[1]);
+//
+//                dataBaseHelper.insertTrainee(t1);
+//                dataBaseHelper.insertTrainee(t2);
+//                dataBaseHelper.insertTrainee(t3);
+//
+//
+//
+//                Cursor cursor = dataBaseHelper.getAllTrainees();
 //
 //                while(cursor.moveToNext()){
-//                    Instructor instructor1 = new Instructor(
-//                        cursor.getString(0),
+//                    Trainee instructor1 = new Trainee(
+//                            cursor.getString(0),
 //                            cursor.getString(1),
 //                            cursor.getString(2),
 //                            cursor.getString(3),
 //                            cursor.getString(4),
 //                            cursor.getString(5),
-//                            cursor.getString(6),
-//                            cursor.getString(7)
+//                            cursor.getBlob(6)
 //                            );
 //                    System.out.println(instructor1.toString());
 //             }
-                Intent intent = new Intent(MainActivity.this, CreateNewCourse.class);
+                Intent intent = new Intent(MainActivity.this, TraineeActivites.class);
                 startActivity(intent);
                 finish();
             }
