@@ -1,10 +1,13 @@
 package com.example.finalproject;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,10 +17,12 @@ import java.util.ArrayList;
 //course adapter for course registration
 public class Trainee_Reg_withraw extends RecyclerView.Adapter<Trainee_Reg_withraw.ViewHolder>
 {
-    private Course courseList;
+    private ArrayList<Section> SectionList;
+    private String Temail;
 
-    public Trainee_Reg_withraw(Course courseList) {
-        this.courseList =courseList;
+    public Trainee_Reg_withraw(ArrayList<Section> SecList, String email) {
+        this.SectionList = SecList;
+        this.Temail = email;
     }
 
     @NonNull
@@ -29,8 +34,8 @@ public class Trainee_Reg_withraw extends RecyclerView.Adapter<Trainee_Reg_withra
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Course course = courseList;
-        holder.bind(courseList);
+        Section section = SectionList.get(position);
+        holder.bind(section);
     }
 
     @Override
@@ -51,25 +56,57 @@ public class Trainee_Reg_withraw extends RecyclerView.Adapter<Trainee_Reg_withra
              courseDescription = itemView.findViewById(R.id.textViewCourseTime);
              RegisterButton = itemView.findViewById(R.id.buttonRegisterCourse);
 
+//                public Section(int sectionID, String instructorEmail, int courseID, int maxTrainees,
+//              String startTime, String endTime, String days, String room, String startDate, String endDate) {
+//                this.sectionID = sectionID;
+//                this.instructorEmail = instructorEmail;
+//                this.courseID = courseID;
+//                this.maxTrainees = maxTrainees;
+//                this.startTime = startTime;
+//                this.endTime = endTime;
+//                this.days = days;
+//                this.room = room;
+//                this.startDate = startDate;
+//                this.endDate = endDate;
+//            }
+
+                //max size of class, already registered, already waitlisted
                 RegisterButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //courseList.remove(getAdapterPosition());
-                        //notifyItemRemoved(getAdapterPosition());
-                        //notifyItemRangeChanged(getAdapterPosition(), courseList.size());
+                        Section sec = SectionList.get(getAdapterPosition());
 
+                        DataBaseHelper dataBaseHelper = new DataBaseHelper(v.getContext(),
+                                "TRAINING_CENTER",null,1);
 
+                        Cursor cursor = dataBaseHelper.checkExistence(Temail, String.valueOf(sec.getSectionID()));
 
+                        int count = dataBaseHelper.getTraineeCount(String.valueOf(sec.getSectionID()));
 
+                        if(cursor.getCount() == 0) {
+                            if (count < sec.getMaxTrainees()){
+                                TraineeToSection t1 = new TraineeToSection(-1, sec.getSectionID() ,Temail, 0);
+                                dataBaseHelper.insertTraineeSection(t1);
+                                Toast.makeText(v.getContext(), "You have been registered for the course", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                        else {
+                            cursor.moveToFirst();
+                            dataBaseHelper.deleteTraineeFromSection(Temail, String.valueOf(sec.getSectionID()));
+                            Toast.makeText(v.getContext(), "You have been removed from the course", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 
 
         }
 
-        public void bind(Course course) {
-            CourseNameTextView.setText(course.getCourseName());
-            //courseDescriptionTextView.setText(course.getDescription());
+        public void bind(Section sections) {
+            CourseNameTextView.setText(sections.toString());
+            //courseDescription.setText(sections.toString());
+
         }
 
 
