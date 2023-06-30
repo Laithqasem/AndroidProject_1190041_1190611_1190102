@@ -1,8 +1,8 @@
 package com.example.finalproject;
 
 public class TraineeToSection {
-    private String traineeToSectionID;
-    private String sectionID;
+    private int traineeToSectionID;
+    private int sectionID;
     private String traineeEmail;
     private Boolean status;
 
@@ -10,26 +10,26 @@ public class TraineeToSection {
 
     }
 
-    public TraineeToSection(String traineeToSectionID, String sectionID, String traineeEmail, Boolean status) {
+    public TraineeToSection(int traineeToSectionID, int sectionID, String traineeEmail, Boolean status) {
         this.traineeToSectionID = traineeToSectionID;
         this.sectionID = sectionID;
         this.traineeEmail = traineeEmail;
         this.status = status;
     }
 
-    public String getTraineeToSectionID() {
+    public int getTraineeToSectionID() {
         return traineeToSectionID;
     }
 
-    public void setTraineeToSectionID(String traineeToSectionID) {
+    public void setTraineeToSectionID(int traineeToSectionID) {
         this.traineeToSectionID = traineeToSectionID;
     }
 
-    public String getSectionID() {
+    public int getSectionID() {
         return sectionID;
     }
 
-    public void setSectionID(String sectionID) {
+    public void setSectionID(int sectionID) {
         this.sectionID = sectionID;
     }
 
