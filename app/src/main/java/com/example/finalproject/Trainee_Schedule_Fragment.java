@@ -7,13 +7,22 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Trainee_Schedule_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Trainee_Schedule_Fragment extends Fragment {
+public class Trainee_Schedule_Fragment extends Fragment implements AdapterView.OnItemSelectedListener {
+
+    private TableLayout tableLayout;
+    private TextView txtSchedule;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +68,30 @@ public class Trainee_Schedule_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_trainee__schedule_, container, false);
+        View rootView =  inflater.inflate(R.layout.fragment_trainee__schedule_, container, false);
+
+        tableLayout = rootView.findViewById(R.id.tableLayout);
+        txtSchedule = rootView.findViewById(R.id.txtScheduleHeader);
+
+        Spinner spinnerDay = rootView.findViewById(R.id.spinnerDay);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.days, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerDay.setAdapter(adapter);
+        spinnerDay.setOnItemSelectedListener(this);
+
+    return rootView;
+    }
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        String daySelected = adapterView.getItemAtPosition(i).toString();
+        //query on the day for the specific trainee
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

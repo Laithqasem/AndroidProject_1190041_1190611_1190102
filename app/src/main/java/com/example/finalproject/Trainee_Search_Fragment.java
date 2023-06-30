@@ -108,6 +108,7 @@ public class Trainee_Search_Fragment extends Fragment {
                 "2023-09-01", "2023-09-30", "2023-08-01", "2023-08-31", new byte[1]));
 
 
+
         return rootView;
     }
 

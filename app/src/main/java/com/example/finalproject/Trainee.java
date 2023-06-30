@@ -5,9 +5,10 @@ public class Trainee {
     private String password;
     private String firstName;
     private String lastName;
-    // Todo: photo
     private String mobileNumber;
     private String address;
+
+    private byte[] image;
 
     public Trainee() {
 
@@ -65,6 +66,10 @@ public class Trainee {
     public String getAddress() {
         return address;
     }
+
+    public byte[] getImage() { return image;}
+
+    public void setImage(byte[] image) { this.image = image;}
 
     public void setAddress(String address) {
         this.address = address;

@@ -83,6 +83,37 @@ public class TraineeActivites extends AppCompatActivity {
 
     }
 
+    private void openSchedule(){
+        Fragment scheduleFragment = new Trainee_Schedule_Fragment();
+
+        FragmentTransaction fragmentTransaction = fragmentManagerTrainee.beginTransaction();
+
+        // Hide all other fragments
+        for (Fragment fragment : fragmentManagerTrainee.getFragments()) {
+            if (fragment != scheduleFragment) {
+                fragmentTransaction.hide(fragment);
+            }
+        }
+
+        // Show the search fragment if it is not already added
+        if (!scheduleFragment.isAdded()) {
+            fragmentTransaction.add(R.id.content_frame, scheduleFragment);
+        }
+
+        // Show the search fragment
+        fragmentTransaction.show(scheduleFragment);
+
+        // Add the transaction to the back stack
+        fragmentTransaction.addToBackStack(null);
+
+        // Commit the transaction
+        fragmentTransaction.commit();
+
+        // Update the current fragment
+        currentFragment = scheduleFragment;
+
+    }
+
     private void openSearch() {
         Fragment searchFragment = new Trainee_Search_Fragment();
 
@@ -120,8 +151,10 @@ public class TraineeActivites extends AppCompatActivity {
         if (currentFragment instanceof Trainee_Profile_Fragment) {
             // If it is, perform the default back button behavior
             super.onBackPressed();
-        } else if(currentFragment instanceof Trainee_Search_Fragment){
+        } else if(currentFragment instanceof Trainee_Search_Fragment) {
             openSearch();
+        } else if(currentFragment instanceof Trainee_Schedule_Fragment) {
+            openSchedule();
         }else {
             // If it's not, go back to the profile fragment
             openProfile();
