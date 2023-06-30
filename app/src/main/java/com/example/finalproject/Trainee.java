@@ -7,20 +7,20 @@ public class Trainee {
     private String lastName;
     private String mobileNumber;
     private String address;
-
     private byte[] image;
 
     public Trainee() {
 
     }
 
-    public Trainee(String email, String password, String firstName, String lastName, String mobileNumber, String address) {
+    public Trainee(String email, String password, String firstName, String lastName, String mobileNumber, String address, byte[] image) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mobileNumber = mobileNumber;
         this.address = address;
+        this.image = image;
     }
 
     public String getEmail() {
@@ -73,5 +73,15 @@ public class Trainee {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "Email: " + email + "\n" +
+                "Password: " + password + "\n" +
+                "First Name: " + firstName + "\n" +
+                "Last Name: " + lastName + "\n" +
+                "Mobile Number: " + mobileNumber + "\n" +
+                "Address: " + address + "\n";
     }
 }

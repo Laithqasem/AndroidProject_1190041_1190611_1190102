@@ -10,13 +10,15 @@ public class Instructor {
     private String address;
     private String specialization;
     private String degree;
+    private String canTeach;
+    private byte[] image;
 
     public Instructor() {
 
     }
 
     public Instructor(String email, String password, String firstName, String lastName, String mobileNumber,
-                      String address, String specialization, String degree) {
+                      String address, String specialization, String degree, String canTeach, byte[] image) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -25,6 +27,8 @@ public class Instructor {
         this.address = address;
         this.specialization = specialization;
         this.degree = degree;
+        this.canTeach = canTeach;
+        this.image = image;
     }
 
     public String getEmail() {
@@ -91,17 +95,32 @@ public class Instructor {
         this.degree = degree;
     }
 
+    public String getCanTeach() {
+        return canTeach;
+    }
+
+    public void setCanTeach(String canTeach) {
+        this.canTeach = canTeach;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
-        return "Instructor{" +
-                "email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", mobileNumber='" + mobileNumber + '\'' +
-                ", address='" + address + '\'' +
-                ", specialization='" + specialization + '\'' +
-                ", degree='" + degree + '\'' +
-                '}';
+        return "Email: " + email + "\n" +
+                "Password: " + password + "\n" +
+                "First Name: " + firstName + "\n" +
+                "Last Name: " + lastName + "\n" +
+                "Mobile Number: " + mobileNumber + "\n" +
+                "Address: " + address + "\n" +
+                "Specialization: " + specialization + "\n" +
+                "Degree: " + degree + "\n" +
+                "Can Teach: " + canTeach + "\n";
     }
 }
