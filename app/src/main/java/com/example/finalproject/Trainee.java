@@ -1,5 +1,7 @@
 package com.example.finalproject;
 
+import java.util.Arrays;
+
 public class Trainee {
     private String email;
     private String password;
@@ -14,14 +16,16 @@ public class Trainee {
 
     }
 
-    public Trainee(String email, String password, String firstName, String lastName, String mobileNumber, String address) {
+    public Trainee(String email, String password, String firstName, String lastName, String mobileNumber, String address, byte[] image) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mobileNumber = mobileNumber;
         this.address = address;
+        this.image = image;
     }
+
 
     public String getEmail() {
         return email;
@@ -73,5 +77,17 @@ public class Trainee {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "Trainee{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", mobileNumber='" + mobileNumber + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 }

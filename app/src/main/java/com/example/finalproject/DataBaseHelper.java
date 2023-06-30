@@ -104,6 +104,22 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         sqLiteDatabase.insert("INSTRUCTOR", null, contentValues);
     }
 
+
+    public void insertTrainee(Trainee trainee){
+
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("email", trainee.getEmail());
+        contentValues.put("password", trainee.getPassword());
+        contentValues.put("firstName", trainee.getFirstName());
+        contentValues.put("lastName", trainee.getLastName());
+        contentValues.put("mobileNumber", trainee.getMobileNumber());
+        contentValues.put("address", trainee.getAddress());
+        contentValues.put("image", trainee.getImage());
+        sqLiteDatabase.insert("Trainee", null, contentValues);
+
+    }
+
     public void insertCourses(Course course){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -145,6 +161,16 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
     public Cursor getAllCourses() {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         return sqLiteDatabase.rawQuery("SELECT * FROM COURSES", null);
+    }
+
+    public Cursor getAllTrainees() {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM Trainee", null);
+    }
+
+    public Cursor getOneTrainee(String Email) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM Trainee Where " + "email = \"" + Email + "\"", null);
     }
 
     public Cursor getAllInstructor() {
