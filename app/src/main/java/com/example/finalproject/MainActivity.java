@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
 //                DataBaseHelper dataBaseHelper = new DataBaseHelper(
 //                        MainActivity.this,"TRAINING_CENTER",null,1);
-//////////
+////////////
 //                Instructor instructor = new Instructor("basha@gmail.com", "1234", "Mazen", "Batrawi", "0597969540",
 //                        "Ramallah", "CSE", "Bachelor");
 //

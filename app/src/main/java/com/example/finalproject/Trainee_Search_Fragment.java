@@ -98,14 +98,15 @@ public class Trainee_Search_Fragment extends Fragment {
             }
         });
 
-//        courseList.add(new Course(-1, "PR001", "Prerequisite 1", "",
-//                "2023-08-01", "2023-08-30", "2023-07-01", "2023-07-31", new byte[1]));
-//
-//        courseList.add(new Course("PR002", "Prerequisite 2", "",
-//                "2023-08-01", "2023-08-30", "2023-07-01", "2023-07-31", new byte[1]));
-//
-//        courseList.add(new Course("C001", "Course 1", "",
-//                "2023-09-01", "2023-09-30", "2023-08-01", "2023-08-31", new byte[1]));
+        courseList.add(new Course(-1, "PR001", "Prerequisite 1", "",
+                "2023-08-01", "2023-08-30", "2023-07-01", "2023-07-31", new byte[1]));
+
+        courseList.add(new Course(-1, "PR002", "Prerequisite 2", "",
+                "2023-08-01", "2023-08-30", "2023-07-01", "2023-07-31", new byte[1]));
+
+        courseList.add(new Course(-1, "C001", "Course 1", "",
+                "2023-09-01", "2023-09-30", "2023-08-01", "2023-08-31", new byte[1]));
+
 
 
         return rootView;

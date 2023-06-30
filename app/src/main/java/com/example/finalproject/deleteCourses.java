@@ -83,25 +83,27 @@ public class deleteCourses extends Fragment {
             layout1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
 
-            byte[] array = cursor.getBlob(7);
+            byte[] array = cursor.getBlob(8);
             Bitmap bitmap = BitmapFactory.decodeByteArray(array, 0, array.length);
             ImageView imageView = new ImageView(getContext());
             imageView.setImageBitmap(bitmap);
             layout1.addView(imageView);
 
             Button button = new Button(getContext());
-            button.setText(cursor.getString(1));
+            button.setText(cursor.getString(2));
             button.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             button.setTextSize(30);
             layout1.addView(button);
 
             layout.addView(layout1);
-            String id = cursor.getString(0);
+            int id = cursor.getInt(0);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    dataBaseHelper.deleteCourse(id);
+                    dataBaseHelper.deleteCourse(String.valueOf(id));
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    startActivity(intent);
                 }
             });
         }
