@@ -11,6 +11,7 @@ import android.widget.Button;
 
 public class TraineeActivites extends AppCompatActivity {
 
+    public String email = "mezo@email.com";
     public static FragmentManager fragmentManagerTrainee;
     private Fragment currentFragment;
 
@@ -23,6 +24,12 @@ public class TraineeActivites extends AppCompatActivity {
 
         Button profileButton = findViewById(R.id.btnProfile);
         Button searchButton = findViewById(R.id.btnSearch);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("edttext", "From Activity");
+        // set Fragmentclass Arguments
+        Trainee_Profile_Fragment fragobj = new Trainee_Profile_Fragment();
+        fragobj.setArguments(bundle);
 
         currentFragment = fragmentManagerTrainee.findFragmentById(R.id.FirstFragment);
         profileButton.setOnClickListener(new View.OnClickListener() {
@@ -168,6 +175,10 @@ public class TraineeActivites extends AppCompatActivity {
 
     public int getCurrentFragmentId() {
         return currentFragment != null ? currentFragment.getId() : 0;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
 }

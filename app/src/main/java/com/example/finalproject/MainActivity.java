@@ -68,18 +68,18 @@ public class MainActivity extends AppCompatActivity {
 //                Cursor cursor = dataBaseHelper.getAllTrainees();
 //
 //                while(cursor.moveToNext()){
-//                    Trainee instructor1 = new Trainee(
-//                            cursor.getString(0),
-//                            cursor.getString(1),
-//                            cursor.getString(2),
-//                            cursor.getString(3),
-//                            cursor.getString(4),
-//                            cursor.getString(5),
-//                            cursor.getBlob(6)
-//                            );
-//                    System.out.println(instructor1.toString());
-//             }
-                Intent intent = new Intent(MainActivity.this, TraineeActivites.class);
+////                    Trainee instructor1 = new Trainee(
+////                            cursor.getString(0),
+////                            cursor.getString(1),
+////                            cursor.getString(2),
+////                            cursor.getString(3),
+////                            cursor.getString(4),
+////                            cursor.getString(5),
+////                            cursor.getBlob(6)
+////                            );
+////                    System.out.println(instructor1.toString());
+////                 }
+                Intent intent = new Intent(MainActivity.this, CreateNewCourse.class);
                 startActivity(intent);
                 finish();
             }
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         view_offering_history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ViewOfferingHistory.class);
+                Intent intent = new Intent(MainActivity.this, TraineeActivites.class);
                 startActivity(intent);
                 finish();
             }
