@@ -338,4 +338,9 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         contentValues.put("traineeEmail", notification.getTraineeEmail());
         sqLiteDatabase.insert("Notifications", null, contentValues);
     }
+
+    public Cursor getAllNotifications() {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM Notifications", null);
+    }
 }
