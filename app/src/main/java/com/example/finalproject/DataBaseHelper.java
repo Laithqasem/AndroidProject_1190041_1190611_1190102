@@ -329,4 +329,13 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         return sqLiteDatabase.rawQuery("SELECT * FROM COURSES WHERE " +
                 "ID = " + valueOf, null);
     }
+
+    public void insertNotifications(Notification notification) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("notText", notification.getNotText());
+        contentValues.put("status", notification.getStatus());
+        contentValues.put("traineeEmail", notification.getTraineeEmail());
+        sqLiteDatabase.insert("Notifications", null, contentValues);
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,7 +68,7 @@ public class ApproveStudentsInSections extends AppCompatActivity {
             CheckBox checkBox = new CheckBox(ApproveStudentsInSections.this);
             checkBox.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT));
-            System.out.println("Status = " + status);
+
             if(status == 1){
                 checkBox.setChecked(true);
                 checkBox.setEnabled(false);
@@ -96,11 +98,25 @@ public class ApproveStudentsInSections extends AppCompatActivity {
             public void onClick(View view) {
                 for(int i = 0; i < arrayList.size() && canApproveCount[0] > 0; i++){
                     if(arrayList.get(i).getStatus() == 0){
+                        String email = arrayList.get(i).getTraineeEmail();
                         dataBaseHelper.updateTraineeInSection(arrayList.get(i).getSectionID(),
                                 arrayList.get(i).getTraineeEmail());
                         canApproveCount[0]--;
+
+                        Notification notification = new Notification();
+                        notification.setNotText("You have been approved in section " + arrayList.get(i).getSectionID());
+                        notification.setStatus(0);
+                        notification.setTraineeEmail(email);
+                        dataBaseHelper.insertNotifications(notification);
+
                     }
                 }
+
+                Toast.makeText(ApproveStudentsInSections.this, "Approved Students", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(ApproveStudentsInSections.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         layout.addView(button);
