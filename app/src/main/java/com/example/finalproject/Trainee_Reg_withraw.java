@@ -61,7 +61,7 @@ public class Trainee_Reg_withraw extends RecyclerView.Adapter<Trainee_Reg_withra
 
     @Override
     public int getItemCount() {
-        return 1;
+        return SectionList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -69,8 +69,6 @@ public class Trainee_Reg_withraw extends RecyclerView.Adapter<Trainee_Reg_withra
         private TextView CourseNameTextView = itemView.findViewById(R.id.textViewCourseName);
         private TextView courseDescription = itemView.findViewById(R.id.textViewCourseTime);
         private Button RegisterButton = itemView.findViewById(R.id.buttonRegisterCourse);
-
-        ArrayList<Course> courseList = new ArrayList<Course>();
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -90,6 +88,7 @@ public class Trainee_Reg_withraw extends RecyclerView.Adapter<Trainee_Reg_withra
 
                         if(cursor.getCount() == 0) {
                             if (count < sec.getMaxTrainees()){
+
                                 TraineeToSection t1 = new TraineeToSection(-1, sec.getSectionID() ,Temail, 0);
                                 dataBaseHelper.insertTraineeSection(t1);
                                 Toast.makeText(v.getContext(), "You have been registered for the course", Toast.LENGTH_SHORT).show();
