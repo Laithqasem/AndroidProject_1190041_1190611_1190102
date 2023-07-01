@@ -5,26 +5,35 @@ public class Instructor {
     private String password;
     private String firstName;
     private String lastName;
-    // Todo: photo
+    private String personal_photo;
     private String mobileNumber;
     private String address;
     private String specialization;
-    private String degree;
+    private String canTeach;
 
     public Instructor() {
 
     }
 
-    public Instructor(String email, String password, String firstName, String lastName, String mobileNumber,
-                      String address, String specialization, String degree) {
+    public Instructor(String email, String password, String firstName, String lastName, String personal_photo, String mobileNumber,
+                      String address, String specialization, String canTeach) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mobileNumber = mobileNumber;
+        this.personal_photo = personal_photo;
         this.address = address;
         this.specialization = specialization;
-        this.degree = degree;
+        this.canTeach = canTeach;
+    }
+
+    public String getPersonal_photo() {
+        return personal_photo;
+    }
+
+    public void setPersonal_photo(String personal_photo) {
+        this.personal_photo = personal_photo;
     }
 
     public String getEmail() {
@@ -83,12 +92,12 @@ public class Instructor {
         this.specialization = specialization;
     }
 
-    public String getDegree() {
-        return degree;
+    public String getCanTeach() {
+        return canTeach;
     }
 
-    public void setDegree(String degree) {
-        this.degree = degree;
+    public void setCanTeach(String canTeach) {
+        this.canTeach = canTeach;
     }
 
     @Override
@@ -101,7 +110,7 @@ public class Instructor {
                 ", mobileNumber='" + mobileNumber + '\'' +
                 ", address='" + address + '\'' +
                 ", specialization='" + specialization + '\'' +
-                ", degree='" + degree + '\'' +
+                ", degree='" + canTeach + '\'' +
                 '}';
     }
 }

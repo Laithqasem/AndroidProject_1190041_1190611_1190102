@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalProject">
+        <activity android:name=".InstructorActivity"></activity>
+        <activity android:name=".InstructorCoursesActivity" />
+        <activity android:name=".InstructorStudentsActivity" />
+        <activity android:name=".InstructorScheduleActivity" />
+        <activity android:name=".Instructor_Activity" />
         <activity
             android:name=".TraineeActivites"
             android:exported="false" />
@@ -19,7 +24,7 @@
         <activity android:name=".DisplaySections" />
         <activity android:name=".EditSection" />
         <activity android:name=".ViewOfferingHistory" />
-        <activity android:name=".CreateNewSection"/>
+        <activity android:name=".CreateNewSection" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
