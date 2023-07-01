@@ -1,5 +1,7 @@
 package com.example.finalproject;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 public class Course {
@@ -104,16 +106,16 @@ public class Course {
         this.image = image;
     }
 
+    @NonNull
     @Override
     public String toString() {
-        // This will return them with new lines between each one
-        return "Course ID: " + courseID + "\n" +
+        return  "ID: " + ID + "\n" +
+                "Course ID: " + courseID + "\n" +
                 "Course Name: " + courseName + "\n" +
                 "Prerequisites: " + prerequisites + "\n" +
                 "Start Date: " + startDate + "\n" +
                 "End Date: " + endDate + "\n" +
                 "Registration Start: " + registrationStart + "\n" +
                 "Registration End: " + registrationEnd + "\n\n";
-
     }
 }

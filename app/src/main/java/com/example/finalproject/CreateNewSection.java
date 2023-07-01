@@ -51,7 +51,9 @@ public class CreateNewSection   extends AppCompatActivity {
             START_DATE = extras.getString("START_DATE");
             END_DATE = extras.getString("END_DATE");
         }
-
+        System.out.println("THIS IS " + COURSE_ID);
+        System.out.println("THIS IS " + START_DATE);
+        System.out.println("THIS IS " + END_DATE);
         start_time = findViewById(R.id.start_time);
         end_time = findViewById(R.id.end_time);
 
@@ -82,6 +84,9 @@ public class CreateNewSection   extends AppCompatActivity {
         String finalCOURSE_ID = COURSE_ID;
         String finalSTART_DATE = START_DATE;
         String finalEND_DATE = END_DATE;
+        System.out.println("THIS IS " + finalCOURSE_ID);
+        System.out.println("THIS IS " + finalSTART_DATE);
+        System.out.println("THIS IS " + finalEND_DATE);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -291,6 +296,20 @@ public class CreateNewSection   extends AppCompatActivity {
                             cursor.getString(5),
                             cursor.getString(6),
                             cursor.getString(7), cursor.getString(8), cursor.getString(9));
+
+                    System.out.println(section.toString());
+                    // print everything in the if statement
+                    System.out.println("start time: " + start_time.getText().toString());
+                    System.out.println("end time: " + end_time.getText().toString());
+                    System.out.println("days: " + days.getText().toString());
+                    System.out.println("section start time: " + section.getStartTime());
+                    System.out.println("section end time: " + section.getEndTime());
+                    System.out.println("section days: " + section.getDays());
+                    System.out.println("final start date: " + finalSTART_DATE);
+                    System.out.println("final end date: " + finalEND_DATE);
+                    System.out.println("section start date: " + section.getStartDate());
+                    System.out.println("section end date: " + section.getEndDate());
+                    System.out.println("room: " + section.getRoom());
 
                     if(conflict(start_time.getText().toString(), end_time.getText().toString(), days.getText().toString(),
                                     section.getStartTime(), section.getEndTime(), section.getDays(),

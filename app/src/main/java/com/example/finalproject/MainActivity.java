@@ -48,14 +48,15 @@ public class MainActivity extends AppCompatActivity {
 //                Instructor instructor = new Instructor("rami@gmail.com", "1234", "Mazen", "Batrawi", "0597969540",
 //                        "Ramallah", "CSE", "Bachelor", "", new byte[1]);
 ////////////////
-//                Instructor instructor = new Instructor("rami@gmail.com", "1234", "Mazen", "Batrawi", "0597969540",
-//                        "Ramallah", "CSE", "Bachelor", "", new byte[1]);
-////
-//                dataBaseHelper.insertInstructor(instructor);
 //                Instructor instructor2 = new Instructor("mazen@gmail.com", "1234", "Mazen", "Batrawi", "0597969540",
 //                        "Ramallah", "CSE", "Bachelor", "", new byte[1]);
 ////
-//dataBaseHelper.insertInstructor(instructor2);
+//                dataBaseHelper.insertInstructor(instructor);
+//                dataBaseHelper.insertInstructor(instructor2);
+////                Instructor instructor2 = new Instructor("mazen@gmail.com", "1234", "Mazen", "Batrawi", "0597969540",
+////                        "Ramallah", "CSE", "Bachelor", "", new byte[1]);
+////
+////                dataBaseHelper.insertInstructor(instructor2);
 //                Trainee t1 = new Trainee("mezo@email.com","1234", "Mohammad",
 //                        "Batrawi", "0597999540", "Ramallah", new byte[1]);
 //
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 //
 //                Trainee t3 = new Trainee("LAlawi@email.com","1234", "Laith",
 //                        "Alawi", "0597969340", "Ein Arik", new byte[1]);
-////
+//////
 //                dataBaseHelper.insertTrainee(t1);
 //                dataBaseHelper.insertTrainee(t2);
 //                dataBaseHelper.insertTrainee(t3);
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         view_offering_history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ViewOfferingHistory.class);
+                Intent intent = new Intent(MainActivity.this, TraineeActivites.class);
                 startActivity(intent);
                 finish();
             }

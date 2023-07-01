@@ -61,7 +61,7 @@ public class Trainee_Reg_withraw extends RecyclerView.Adapter<Trainee_Reg_withra
 
     @Override
     public int getItemCount() {
-        return 1;
+        return SectionList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

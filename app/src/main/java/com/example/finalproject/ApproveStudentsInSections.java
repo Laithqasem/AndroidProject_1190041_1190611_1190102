@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -35,14 +36,16 @@ public class ApproveStudentsInSections extends AppCompatActivity {
         ArrayList<TraineeToSection> arrayList = new ArrayList<>();
         while(cursor.moveToNext()){
             LinearLayout horizontalLayout = new LinearLayout(ApproveStudentsInSections.this);
-            horizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
+            horizontalLayout.setOrientation(LinearLayout.VERTICAL);
+
+            horizontalLayout.setBackgroundColor(Color.DKGRAY);
 
             String email = cursor.getString(2);
             String name = dataBaseHelper.getTrainee(email);
             int status = cursor.getInt(3);
 
             TextView textView = new TextView(ApproveStudentsInSections.this);
-            textView.setText(name);
+            textView.setText("Trainee's Name: " + name);
             textView.setTextSize(20);
             textView.setGravity(Gravity.CENTER);
             textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -53,23 +56,17 @@ public class ApproveStudentsInSections extends AppCompatActivity {
 
             // now for the email
             TextView textView1 = new TextView(ApproveStudentsInSections.this);
-            textView1.setText(email);
+            textView1.setText("Trainee's Email: " + email);
             textView1.setTextSize(20);
             textView1.setGravity(Gravity.CENTER);
             textView1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT));
-            LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) textView1.getLayoutParams();
-            params1.setMargins(20, 0, 0, 0);
             horizontalLayout.addView(textView1);
 
-            /*
-            Now we will add a check box
-             */
             CheckBox checkBox = new CheckBox(ApproveStudentsInSections.this);
             checkBox.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT));
-            LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) checkBox.getLayoutParams();
-            params2.setMargins(20, 0, 0, 0);
+            System.out.println("Status = " + status);
             if(status == 1){
                 checkBox.setChecked(true);
                 checkBox.setEnabled(false);
@@ -79,6 +76,7 @@ public class ApproveStudentsInSections extends AppCompatActivity {
                 checkBox.setEnabled(true);
             }
             horizontalLayout.addView(checkBox);
+            layout.addView(horizontalLayout);
 
             TraineeToSection traineeToSection = new TraineeToSection();
             traineeToSection.setSectionID(sectionID);
@@ -105,5 +103,6 @@ public class ApproveStudentsInSections extends AppCompatActivity {
                 }
             }
         });
+        layout.addView(button);
     }
 }
