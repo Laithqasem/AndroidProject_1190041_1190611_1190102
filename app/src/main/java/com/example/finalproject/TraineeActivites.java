@@ -11,7 +11,7 @@ import android.widget.Button;
 
 public class TraineeActivites extends AppCompatActivity {
 
-    public String email = "mezo@email.com";
+    public static String email = "mezo@email.com";//fix to send from login.
     public static FragmentManager fragmentManagerTrainee;
     private Fragment currentFragment;
 
@@ -186,6 +186,6 @@ public class TraineeActivites extends AppCompatActivity {
         return currentFragment != null ? currentFragment.getId() : 0;
     }
 
-    public String getEmail() { return email;}
+    public static String getEmail() { return email;}
 
 }

@@ -188,9 +188,20 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         return sqLiteDatabase.rawQuery("SELECT * FROM COURSES Where " + "ID = \"" + id + "\"", null);
     }
 
+    //function to get all sections for a specific course
     public Cursor getSectionsForTrainee(int id){
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        return sqLiteDatabase.rawQuery("SELECT * FROM SECTION Where " + "COURSE_ID = \"" + id + "\"", null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection Where " + "COURSE_ID = " + id, null);
+
+        if (cursor.moveToNext()){
+
+
+
+
+        }
+
+        Cursor cursor1 = sqLiteDatabase.rawQuery("SELECT * FROM SECTION Where " + "COURSE_ID = " + id, null);
+        return cursor1;
     }
     //function to delete trainee from trainee2section table based on section id and trainee email
     public void deleteTraineeFromSection(String email, String sectionId){
@@ -236,6 +247,12 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         return sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
                 "sectionID = " + sectionId, null);
+    }
+
+    public Cursor getTraineeSections(String email){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
+                "traineeEmail = \"" + email + "\"", null);
     }
   
     public Cursor getSecId(String email){

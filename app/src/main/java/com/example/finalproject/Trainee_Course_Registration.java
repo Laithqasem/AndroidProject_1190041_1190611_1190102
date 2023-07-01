@@ -86,26 +86,31 @@ public class Trainee_Course_Registration extends Fragment {
         DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(),"TRAINING_CENTER",null,1);
 
         //query about the (from the arg) section and the trainee and send to trainee_Reg_withraw
-        Cursor cursor = dataBaseHelper.getSectionsForTrainee(courseId);
+        Cursor cursor = dataBaseHelper.getSections();
         System.out.println(courseId);
 
 //        }
         while(cursor.moveToNext()){
-                    Section instructor1 = new Section(
-                            cursor.getInt(0),
-                            cursor.getString(1),
-                            cursor.getInt(2),
-                            cursor.getInt(3),
-                            cursor.getString(4),
-                            cursor.getString(5),
-                            cursor.getString(6),
-                            cursor.getString(7),
-                            cursor.getString(8),
-                            cursor.getString(9)
-                            );
-                    System.out.println(instructor1.toString());
-                    courseList.add(instructor1);
-             }
+            if(courseId == cursor.getInt(2)) {
+                Section instructor1 = new Section(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getInt(2),
+                        cursor.getInt(3),
+                        cursor.getString(4),
+                        cursor.getString(5),
+                        cursor.getString(6),
+                        cursor.getString(7),
+                        cursor.getString(8),
+                        cursor.getString(9)
+                );
+                System.out.println(instructor1.toString() + "here the sections");
+                courseList.add(instructor1);
+            }
+        }
+
+        for(Section sec : courseList)
+            System.out.println(sec.toString() + "here the sections");
 
         //go to the courseAdapter Trainee_Reg_withraw
         reg_withdraw = new Trainee_Reg_withraw(courseList, Temail);

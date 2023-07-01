@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,12 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -44,6 +51,11 @@ public class Trainee_Schedule_Fragment extends Fragment implements AdapterView.O
     private TextView txtTime7;
     private TextView txtTime8;
     private TextView txtTime9;
+
+    int sz = 0;
+
+    ArrayList<TextView> txtTimeList = new ArrayList<TextView>();
+    ArrayList<TextView> txtCourseList = new ArrayList<TextView>();
 
     String Email;
 
@@ -93,6 +105,7 @@ public class Trainee_Schedule_Fragment extends Fragment implements AdapterView.O
         // Inflate the layout for this fragment
         View rootView =  inflater.inflate(R.layout.fragment_trainee__schedule_, container, false);
 
+
         tableLayout = rootView.findViewById(R.id.tableLayout);
         txtCourse1 = rootView.findViewById(R.id.txtCourseName1);
         txtCourse2 = rootView.findViewById(R.id.txtCourseName2);
@@ -104,6 +117,17 @@ public class Trainee_Schedule_Fragment extends Fragment implements AdapterView.O
         txtCourse8 = rootView.findViewById(R.id.txtCourseName8);
         txtCourse9 = rootView.findViewById(R.id.txtCourseName9);
 
+        txtCourseList.add(txtCourse1);
+        txtCourseList.add(txtCourse2);
+        txtCourseList.add(txtCourse3);
+        txtCourseList.add(txtCourse4);
+        txtCourseList.add(txtCourse5);
+        txtCourseList.add(txtCourse6);
+        txtCourseList.add(txtCourse7);
+        txtCourseList.add(txtCourse8);
+        txtCourseList.add(txtCourse9);
+
+
         txtTime1 = rootView.findViewById(R.id.txtTime1);
         txtTime2 = rootView.findViewById(R.id.txtTime2);
         txtTime3 = rootView.findViewById(R.id.txtTime3);
@@ -114,9 +138,21 @@ public class Trainee_Schedule_Fragment extends Fragment implements AdapterView.O
         txtTime8 = rootView.findViewById(R.id.txtTime8);
         txtTime9 = rootView.findViewById(R.id.txtTime9);
 
+        txtTimeList.add(txtTime1);
+        txtTimeList.add(txtTime2);
+        txtTimeList.add(txtTime3);
+        txtTimeList.add(txtTime4);
+        txtTimeList.add(txtTime5);
+        txtTimeList.add(txtTime6);
+        txtTimeList.add(txtTime7);
+        txtTimeList.add(txtTime8);
+        txtTimeList.add(txtTime9);
 
-        Bundle bundle = getArguments();
-        Email = bundle.getString("email");
+
+        Email = TraineeActivites.getEmail();
+//        Bundle bundle = getArguments();
+//        if(bundle != null)
+//            Email = bundle.getString("email");
 
 
         Spinner spinnerDay = rootView.findViewById(R.id.spinnerDay);
@@ -132,45 +168,108 @@ public class Trainee_Schedule_Fragment extends Fragment implements AdapterView.O
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String daySelected = adapterView.getItemAtPosition(i).toString();
-        //query on the day for the specific trainee
 
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(
-                       getContext(),"TRAINING_CENTER",null,1);
+        //also clear the color of the table
+        for (int j = 0; j < sz; j++) {
+            txtTimeList.get(j).setText("");
+            txtCourseList.get(j).setText("");
+            txtTimeList.get(j).setBackgroundColor(Color.GRAY);
+        }
+
+        //query on the day for the specific trainee
+        Bundle bundle = getArguments();
+        if (bundle != null) Email = bundle.getString("email");
+
+
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(), "TRAINING_CENTER", null, 1);
+        System.out.println("I'm in Schedule " + Email);
 
         Cursor cursor = dataBaseHelper.getSecId(Email);// search for email in T2S table
-        cursor.moveToFirst();
-        TreeMap<Section,Integer> map=new TreeMap<Section,Integer>();// Save each section with the status of the student
 
-        while(cursor.moveToNext()){
-            cursor.getString(1);
+        System.out.println(cursor.getCount() + "COUNT OF SECTION OBJECTS");
+        // Save each section with the status of the student
+        Map<Section, Integer> map = new HashMap<Section, Integer>();
+
+        while (cursor.moveToNext()) {
+            System.out.println(cursor.getString(1) + "This is the section id");
             int status = cursor.getInt(3);
 
             //with the section id get the section info
             Cursor cursor2 = dataBaseHelper.getSecInfo(Integer.parseInt(cursor.getString(1)));
-            cursor2.moveToFirst();
-            if (cursor2.moveToNext()){
-                Section sec1 = new Section(cursor2.getInt(0),cursor2.getString(1),cursor2.getInt(2),cursor2.getInt(3),
-                        cursor2.getString(4),cursor2.getString(5),cursor2.getString(6),cursor2.getString(7),cursor2.getString(8),cursor2.getString(9));
+            if (cursor2.moveToNext()) {
+                Section sec1 = new Section(cursor2.getInt(0), cursor2.getString(1), cursor2.getInt(2), cursor2.getInt(3),
+                        cursor2.getString(4), cursor2.getString(5), cursor2.getString(6), cursor2.getString(7), cursor2.getString(8), cursor2.getString(9));
 //                cursor2.getString(4);//start time
 //                cursor2.getString(5);//end time
 //                cursor2.getString(6);//days
 //                cursor2.getString(7);//course room
-
+                System.out.println(sec1.toString() + "This is the section info");
                 map.put(sec1, status);//the section and its status for the student
-
             }
 
         }
 
+        List<Section> sortedSections = new ArrayList<>(map.keySet());
+        Collections.sort(sortedSections, new Comparator<Section>() {
+            @Override
+            public int compare(Section s1, Section s2) {
 
-        System.out.println(map.size());
+                String[] start = s1.getStartTime().split(":");
+                String[] end = s2.getStartTime().split(":");
 
-        //get the sections of the specific day and the status of the student in each section and put them in the table layout of the schedule
-        //if the student is not in the section the status is 0 and the section is not in the table layout of the schedule of the student for this day
-        //if the student is in the section the status is 1 and the section is in the table layout of the schedule of the student for this day with the status of the student in this section (1 or 2)  1:present 2:absent
+                int startHour = Integer.parseInt(start[0]);
+                int endHour = Integer.parseInt(end[0]);
+                int min = Integer.parseInt(start[1]);
+                int min2 = Integer.parseInt(end[1]);
 
+                int val1 = startHour * 60 + min;
+                int val2 = endHour * 60 + min2;
 
+                //compare val1 and val2 and return the result
+                if (val1 > val2) return 1;
+                else if (val1 < val2) return -1;
+                else return 0;
 
+            }
+        });
+
+        int startIndex = 0;
+        // Iterate through the sorted sections
+        for (Section section : sortedSections) {
+            String days = section.getDays(); // Assuming 'getDays()' returns a comma-separated string
+            String[] dayArray = days.split(", ");
+
+            for (String day : dayArray) {
+                if (day.equals(daySelected)) {
+                    String startTime = section.getStartTime();
+                    String endTime = section.getEndTime();
+                    //String courseName = section.get
+                    //String courseRoom = section.getCourseRoom();
+
+                    // Set the course name and room
+                    txtCourseList.get(startIndex).setText( " Cc");
+
+                    // Set the time
+                    txtTimeList.get(startIndex).setText(startTime + " " + endTime);
+
+                    // Set the background color based on the status
+                    int status = map.get(section); // Assuming 'map' is your HashMap
+                    if (status == 1) {
+                        txtCourseList.get(startIndex).setBackgroundColor(Color.GREEN);
+                    } else {
+                        txtCourseList.get(startIndex).setBackgroundColor(Color.RED);
+                    }
+
+                    // Increment the index
+                    startIndex++;
+                    if (startIndex >= txtTimeList.size()) {
+                        // Handle the case when all TextViews are populated
+                        break;
+                    }
+                }
+            }
+        }
+        sz = startIndex;
     }
 
     @Override
