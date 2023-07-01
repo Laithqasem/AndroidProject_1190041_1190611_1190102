@@ -83,11 +83,11 @@ public class ViewTrainees extends Fragment {
             layout1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
 
-            byte[] array = trainee.getImage();
-            Bitmap bitmap = BitmapFactory.decodeByteArray(array, 0, array.length);
-            ImageView imageView = new ImageView(getContext());
-            imageView.setImageBitmap(bitmap);
-            layout1.addView(imageView);
+//            byte[] array = trainee.getImage();
+//            Bitmap bitmap = BitmapFactory.decodeByteArray(array, 0, array.length);
+//            ImageView imageView = new ImageView(getContext());
+//            imageView.setImageBitmap(bitmap);
+//            layout1.addView(imageView);
 
             String s = trainee.toString();
             TextView textView1 = new TextView(getContext());

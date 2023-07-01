@@ -21,6 +21,8 @@
         <activity android:name=".ViewOfferingHistory" />
         <activity android:name=".CreateNewSection"/>
         <activity android:name=".ViewProfiles"/>
+        <activity android:name=".ApproveStudents"/>
+        <activity android:name=".ApproveStudentsInSections"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

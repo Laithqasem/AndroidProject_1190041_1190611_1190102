@@ -78,7 +78,7 @@ public class ViewInstructors extends Fragment {
         while (cursor.moveToNext()) {
             Instructor instructor = new Instructor(cursor.getString(0), cursor.getString(1), cursor.getString(2),
                     cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6),
-                    cursor.getString(7), "Programming", new byte[1]);
+                    cursor.getString(7), "Programming and some other stuff", new byte[1]);
 
             LinearLayout linearLayout = new LinearLayout(getContext());
             linearLayout.setOrientation(LinearLayout.VERTICAL);

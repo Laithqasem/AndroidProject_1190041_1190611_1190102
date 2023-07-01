@@ -223,6 +223,20 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         return cursor.getCount();
     }
 
+    public int countStudentsInSection(String sectionId){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
+                "sectionID = " + sectionId, null);
+
+        return cursor.getCount();
+    }
+
+    // This function will return a cursor to show the trainees in a specific section
+    public Cursor getTraineesInSection(String sectionId){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
+                "sectionID = " + sectionId, null);
+    }
 
     public boolean checkInstructor(String email) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
@@ -241,4 +255,21 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         sqLiteDatabase.delete("SECTION", "SECTION_ID = ?", new String[]{valueOf});
     }
 
+    public String getTrainee(String email) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM Trainee WHERE " +
+                "email = \"" + email + "\"", null);
+        String name = "";
+        while(cursor.moveToNext()){
+            name = cursor.getString(2) + " " + cursor.getString(3);
+        }
+        return name;
+    }
+
+    public void updateTraineeInSection(int sectionID, String traineeEmail) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("status", "1");
+        sqLiteDatabase.update("TraineeToSection", contentValues, "sectionID = ? AND traineeEmail = ?", new String[]{String.valueOf(sectionID), traineeEmail});
+    }
 }
