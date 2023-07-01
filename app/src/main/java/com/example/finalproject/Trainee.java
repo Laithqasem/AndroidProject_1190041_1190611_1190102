@@ -1,25 +1,19 @@
 package com.example.finalproject;
 
-import java.util.Arrays;
-
 public class Trainee {
     private String email;
     private String password;
     private String firstName;
     private String lastName;
-
     private String personal_photo;
-
     private String mobileNumber;
     private String address;
-    private byte[] image;
 
     public Trainee() {
 
     }
 
     public Trainee(String email, String password, String firstName, String lastName,String personal_photo, String mobileNumber, String address) {
-
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -27,9 +21,7 @@ public class Trainee {
         this.personal_photo=personal_photo;
         this.mobileNumber = mobileNumber;
         this.address = address;
-        this.image = image;
     }
-
 
     public String getEmail() {
         return email;
@@ -83,21 +75,7 @@ public class Trainee {
         return address;
     }
 
-    public byte[] getImage() { return image;}
-
-    public void setImage(byte[] image) { this.image = image;}
-
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return "Email: " + email + "\n" +
-                "Password: " + password + "\n" +
-                "First Name: " + firstName + "\n" +
-                "Last Name: " + lastName + "\n" +
-                "Mobile Number: " + mobileNumber + "\n" +
-                "Address: " + address + "\n";
     }
 }

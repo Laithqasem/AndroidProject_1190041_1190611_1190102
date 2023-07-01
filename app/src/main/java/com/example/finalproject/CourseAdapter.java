@@ -25,11 +25,9 @@ import java.util.List;
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder>
 {
     private List<Course> courseList;
-    private String email;
 
-    public CourseAdapter(List<Course> courseList, String Temail) {
+    public CourseAdapter(List<Course> courseList) {
         this.courseList = courseList;
-        this.email = Temail;
     }
 
     @NonNull
@@ -80,8 +78,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                         Ccourse_desc_Frag_Trainee fragment = new Ccourse_desc_Frag_Trainee();
 
                         Bundle args = new Bundle();
-                        args.putInt("courseId", course.getID());//send to fragment_Course_Registration
-                        args.putString("email", email);
+                        args.putString("courseName", course.getCourseName());
+                        args.putString("courseDescription", "course.getDescription()"); //topics
                         fragment.setArguments(args);
 
                         FragmentManager fragmentManager = ((FragmentActivity) itemView.getContext()).getSupportFragmentManager();
@@ -107,7 +105,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        Course course = courseList.get(position);//fix to get id
+                        Course course = courseList.get(position);
 
                         Trainee_Course_Registration fragment = new Trainee_Course_Registration();
 
@@ -115,11 +113,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                         Bundle args = new Bundle();
-                        args.putInt("courseId", course.getID());//send to fragment_Course_Registration
-                        args.putString("email", email);
+                        args.putString("courseName", course.getCourseName());
+                        args.putString("courseDescription", "course.getDescription()"); //topics
                         fragment.setArguments(args);
 
-                        //display the fragment
                         Fragment currentFragment = fragmentManager.findFragmentById(R.id.FirstFragment);
                         if (currentFragment != null) {
                             fragmentTransaction.replace(R.id.content_frame, fragment);

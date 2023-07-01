@@ -91,26 +91,26 @@ public class EditCourses extends Fragment {
             layout1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
 
-            byte[] array = cursor.getBlob(8);
+            byte[] array = cursor.getBlob(7);
             Bitmap bitmap = BitmapFactory.decodeByteArray(array, 0, array.length);
             ImageView imageView = new ImageView(getContext());
             imageView.setImageBitmap(bitmap);
             layout1.addView(imageView);
 
             Button button = new Button(getContext());
-            button.setText(cursor.getString(2));
+            button.setText(cursor.getString(1));
             button.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             button.setTextSize(30);
             layout1.addView(button);
 
             layout.addView(layout1);
-            int id = cursor.getInt(0);
+            String id = cursor.getString(0);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getContext(), DisplaySections.class);
-                    intent.putExtra("ID", String.valueOf(id));
+                    intent.putExtra("COURSE_ID", id);
                     intent.putExtra("COURSE_NAME", button.getText().toString());
                     startActivity(intent);
                 }

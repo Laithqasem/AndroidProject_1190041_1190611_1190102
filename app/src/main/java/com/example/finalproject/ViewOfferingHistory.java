@@ -40,11 +40,11 @@ public class ViewOfferingHistory extends AppCompatActivity {
                 Cursor cursor = dataBaseHelper.getAllCourses();
                 int sz = cursor.getCount();
                 String[] items = new String[sz];
-                int[] id = new int[sz];
+                String[] id = new String[sz];
                 int i = 0;
                 while(cursor.moveToNext()){
-                    items[i] = cursor.getString(2);
-                    id[i] = cursor.getInt(0);
+                    items[i] = cursor.getString(1);
+                    id[i] = cursor.getString(0);
                     i++;
                 }
 
@@ -57,19 +57,20 @@ public class ViewOfferingHistory extends AppCompatActivity {
                         linearLayout.removeAllViews();
 
                         String courseName = items[i];
-                        Cursor cursor1 = dataBaseHelper.getAllCourses();
+                        DataBaseHelper dataBaseHelper = new DataBaseHelper(
+                                ViewOfferingHistory.this,"TRAINING_CENTER",null,1);
+                        Cursor cursor = dataBaseHelper.getAllCourses();
                         Course course = new Course();
-                        while(cursor1.moveToNext()){
-                            if(cursor1.getInt(0) == id[i]){
-                                course.setID(cursor1.getInt(0));
-                                course.setCourseID(cursor1.getString(1));
-                                course.setCourseName(cursor1.getString(2));
-                                course.setPrerequisites(cursor1.getString(3));
-                                course.setStartDate(cursor1.getString(4));
-                                course.setEndDate(cursor1.getString(5));
-                                course.setRegistrationStart(cursor1.getString(6));
-                                course.setRegistrationEnd(cursor1.getString(7));
-                                course.setImage(cursor1.getBlob(8));
+                        while(cursor.moveToNext()){
+                            if(cursor.getString(1).equals(courseName)){
+                                course.setCourseID(cursor.getString(0));
+                                course.setCourseName(cursor.getString(1));
+                                course.setPrerequisites(cursor.getString(2));
+                                course.setStartDate(cursor.getString(3));
+                                course.setEndDate(cursor.getString(4));
+                                course.setRegistrationStart(cursor.getString(5));
+                                course.setRegistrationEnd(cursor.getString(6));
+                                course.setImage(cursor.getBlob(7));
                                 break;
                             }
                         }
@@ -96,21 +97,23 @@ public class ViewOfferingHistory extends AppCompatActivity {
                         textView1.setGravity(Gravity.CENTER_HORIZONTAL);
                         linearLayout.addView(textView1);
 
-                        Cursor cursor2 = dataBaseHelper.getAllOfferings(String.valueOf(id[i]));
+                        System.out.println(id[i]);
+
+                        Cursor cursor1 = dataBaseHelper.getAllOfferings(id[i]);
                         int j = 0;
-                        while (cursor2.moveToNext()){
+                        while (cursor1.moveToNext()){
                             Section section = new Section();
 
-                            section.setSectionID(cursor2.getInt(0));
-                            section.setInstructorEmail(cursor2.getString(1));
-                            section.setCourseID(cursor2.getInt(2));
-                            section.setMaxTrainees(cursor2.getInt(3));
-                            section.setStartTime(cursor2.getString(4));
-                            section.setEndTime(cursor2.getString(5));
-                            section.setDays(cursor2.getString(6));
-                            section.setRoom(cursor2.getString(7));
-                            section.setStartDate(cursor2.getString(8));
-                            section.setEndDate(cursor2.getString(9));
+                            section.setSectionID(cursor1.getInt(0));
+                            section.setInstructorEmail(cursor1.getString(1));
+                            section.setCourseID(cursor1.getString(2));
+                            section.setMaxTrainees(cursor1.getInt(3));
+                            section.setStartTime(cursor1.getString(4));
+                            section.setEndTime(cursor1.getString(5));
+                            section.setDays(cursor1.getString(6));
+                            section.setRoom(cursor1.getString(7));
+                            section.setStartDate(cursor1.getString(8));
+                            section.setEndDate(cursor1.getString(9));
 
                             String s1 = section.toString();
                             if(j != 0){

@@ -1,5 +1,8 @@
 package com.example.finalproject;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,13 +10,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Trainee_Schedule_Fragment#newInstance} factory method to
+ * Use the {@link ViewCourses#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Trainee_Schedule_Fragment extends Fragment {
+public class ViewCourses extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +29,7 @@ public class Trainee_Schedule_Fragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Trainee_Schedule_Fragment() {
+    public ViewCourses() {
         // Required empty public constructor
     }
 
@@ -34,11 +39,11 @@ public class Trainee_Schedule_Fragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Trainee_Schedule_Fragment.
+     * @return A new instance of fragment ViewCourses.
      */
     // TODO: Rename and change types and number of parameters
-    public static Trainee_Schedule_Fragment newInstance(String param1, String param2) {
-        Trainee_Schedule_Fragment fragment = new Trainee_Schedule_Fragment();
+    public static ViewCourses newInstance(String param1, String param2) {
+        ViewCourses fragment = new ViewCourses();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -58,7 +63,31 @@ public class Trainee_Schedule_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_trainee__schedule_, container, false);
+        View view = inflater.inflate(R.layout.fragment_view_courses, container, false);
+        Button button = (Button) view.findViewById(R.id.button2);
+        LinearLayout layout = view.findViewById(R.id.layout);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(
+                        getContext(),"TRAINING_CENTER",null,1);
+
+                Cursor cursor = dataBaseHelper.getAllCourses();
+                int sz = cursor.getCount();
+                String[] items = new String[sz];
+                String[] id = new String[sz];
+                int i = 0;
+                while(cursor.moveToNext()){
+                    items[i] = cursor.getString(1);
+                    id[i] = String.valueOf(cursor.getInt(0));
+                    i++;
+                }
+
+
+            }
+        });
+
+        return view;
     }
 }

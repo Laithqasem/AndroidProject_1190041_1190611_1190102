@@ -3,17 +3,18 @@ package com.example.finalproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class Login extends AppCompatActivity {
@@ -41,7 +42,7 @@ public class Login extends AppCompatActivity {
 
             }
         });
-        email = findViewById(R.id.email_login);
+        email = findViewById(R.id.edit_first_name_text);
         password = findViewById(R.id.login_password);
         rememberMe = findViewById(R.id.remember_user);
         Button login = findViewById(R.id.login_page_button);
@@ -90,10 +91,25 @@ public class Login extends AppCompatActivity {
             DataBaseHelper dataBaseHelper = new DataBaseHelper(
                     Login.this,"TRAINING_CENTER",null,1);
 
-                Boolean isValid = dataBaseHelper.getLoginPassword(entered_email,entered_password);
-                if(isValid){
 
+
+
+                String isValid = dataBaseHelper.getLoginPassword(entered_email,entered_password);
+                if(isValid.equals("ADMIN")){
+                    Intent intent = new Intent(Login.this, Admin_Activity.class);
+                    startActivity(intent);
+                    finish();
+                }else if(isValid.equals("INSTRUCTOR")){
+                    Intent intent = new Intent(Login.this, Instructor_Activity.class);
+                    startActivity(intent);
+                    finish();
+                }else if(isValid.equals("TRAINEE")){
+                    Intent intent = new Intent(Login.this, Trainee_Activity.class);
+                    startActivity(intent);
+                    finish();
                 }else{
+                    System.out.println("Wrong email or password");
+                    Toast.makeText(Login.this,"Wrong email or password" , Toast.LENGTH_LONG).show();
 
                 }
 

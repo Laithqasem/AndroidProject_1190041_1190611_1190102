@@ -1,6 +1,5 @@
 package com.example.finalproject;
 
-import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -69,40 +68,18 @@ public class Ccourse_desc_Frag_Trainee extends Fragment {
         TextView textViewCourseName = rootView.findViewById(R.id.textViewCourseName);
         TextView textViewCourseDescription = rootView.findViewById(R.id.textViewCourseDescription);
         Button buttonBack = rootView.findViewById(R.id.buttonBack);
-        int courseId = 0;
-        String courseName = null;
 
-        //got from course adapter
+        // Get the course data (replace with your actual course data retrieval)
+
         Bundle args = getArguments();
         if (args != null) {
             // Get the course name from the arguments
-            courseId = args.getInt("courseId");
-            //courseName = args.getString("courseDescription");
+            String courseName = args.getString("courseName");
+            String courseDescription = args.getString("courseDescription");
 
-            DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(),"TRAINING_CENTER",null,1);
-
-            Cursor cursor = dataBaseHelper.getCourseId(courseId);
-
-
-            if(cursor.moveToNext()){
-                Course course = new Course(
-                cursor.getInt(0),
-                cursor.getString(1),
-                cursor.getString(2),
-                cursor.getString(3),
-                cursor.getString(4),
-                cursor.getString(5),
-                cursor.getString(6),
-                cursor.getString(7),
-                cursor.getBlob(8));
-
-                textViewCourseName.setText(course.getCourseName());
-                textViewCourseDescription.setText(course.toString());
-
-            }
-
-
-
+            // Set the course name to the TextView
+            textViewCourseName.setText(courseName);
+            textViewCourseDescription.setText(courseDescription);
 
         }
 

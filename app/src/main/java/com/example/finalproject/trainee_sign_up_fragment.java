@@ -48,12 +48,12 @@ public class trainee_sign_up_fragment extends Fragment {
         });
 
         email = view.findViewById(R.id.email);
-        first_name = view.findViewById(R.id.email_login);
-        last_name = view.findViewById(R.id.last_name);
-        password = view.findViewById(R.id.password);
+        first_name = view.findViewById(R.id.edit_first_name_text);
+        last_name = view.findViewById(R.id.edit_last_name_text);
+        password = view.findViewById(R.id.edit_password_text);
         confirm_password =view.findViewById(R.id.confirm_password);
-        mobileNo = view.findViewById(R.id.mobileNo);
-        address = view.findViewById(R.id.address);
+        mobileNo = view.findViewById(R.id.edit_mobile_text);
+        address = view.findViewById(R.id.edit_address_text);
 
 
         email.setShowSoftInputOnFocus(false);
@@ -269,9 +269,27 @@ public class trainee_sign_up_fragment extends Fragment {
                     DataBaseHelper dataBaseHelper = new DataBaseHelper(
                             getContext(),"TRAINING_CENTER",null,1);
 
-                    dataBaseHelper.insertTrainee(trainee);
-                    Cursor res = dataBaseHelper.getAllTrainee();
-                    System.out.println(res);
+
+                    boolean validSignUp = dataBaseHelper.vaildSignUp(email_string);
+                    if(validSignUp){
+                        dataBaseHelper.insertTrainee(trainee);
+                    }else{
+                        Toast.makeText(getContext(),"the email is used" , Toast.LENGTH_SHORT).show();
+                    }
+                    Cursor res2 = dataBaseHelper.getAllTrainee();
+                    System.out.println("TRAINEES:");
+                    while (res2.moveToNext()){
+
+                        System.out.println(
+                                "Email= "+res2.getString(0)
+                                        +"\nPassword= "+res2.getString(1)
+                                        +"\nFirstName= "+res2.getString(2)
+                                        +"\nLastName= "+res2.getString(3)
+                                        +"\nPersonalPhoto= "+res2.getString(4)
+                                        +"\n\n"
+                        );
+                    }
+
 
 
 

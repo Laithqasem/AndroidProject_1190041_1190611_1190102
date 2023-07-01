@@ -42,6 +42,9 @@ public class admin_sign_up_fragment extends Fragment {
         view = inflater.inflate(R.layout.admin_sign_up_fragment, container, false);
 //        editTextData = view.findViewById(R.id.email);
 
+//                            String databaseName = "TRAINING_CENTER"; // Replace with the actual database name
+//                    getContext().deleteDatabase(databaseName);
+
         imageView = view.findViewById(R.id.imageView);
         chooseImageButton = view.findViewById(R.id.chooseImageButton);
 
@@ -53,9 +56,9 @@ public class admin_sign_up_fragment extends Fragment {
         });
 
         email = view.findViewById(R.id.email);
-        first_name = view.findViewById(R.id.email_login);
-        last_name = view.findViewById(R.id.last_name);
-        password = view.findViewById(R.id.password);
+        first_name = view.findViewById(R.id.edit_first_name_text);
+        last_name = view.findViewById(R.id.edit_last_name_text);
+        password = view.findViewById(R.id.edit_password_text);
         confirm_password =view.findViewById(R.id.confirm_password);
         email.setShowSoftInputOnFocus(false);
         first_name.setShowSoftInputOnFocus(false);
@@ -242,9 +245,26 @@ public class admin_sign_up_fragment extends Fragment {
                     DataBaseHelper dataBaseHelper = new DataBaseHelper(
                             getContext(),"TRAINING_CENTER",null,1);
 
-//                    dataBaseHelper.insertAdmin(admin);
+
+                    boolean validSignUp = dataBaseHelper.vaildSignUp(email_string);
+                    if(validSignUp){
+                        dataBaseHelper.insertAdmin(admin);
+                    }else{
+                        Toast.makeText(getContext(),"the email is used" , Toast.LENGTH_SHORT).show();
+                    }
                     Cursor res = dataBaseHelper.getAllAdmin();
-                    System.out.println(res);
+                    System.out.println("ADMIN");
+                    while (res.moveToNext()){
+
+                        System.out.println(
+                                "Email= "+res.getString(0)
+                                        +"\nPassword= "+res.getString(1)
+                                        +"\nFirstName= "+res.getString(2)
+                                        +"\nLastName= "+res.getString(3)
+                                        +"\nPersonalPhoto= "+res.getString(4)
+                                        +"\n\n"
+                        );
+                    }
 
 
 

@@ -27,7 +27,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Objects;
-import java.util.TreeSet;
 
 public class CreateNewCourse  extends AppCompatActivity {
 
@@ -166,40 +165,21 @@ public class CreateNewCourse  extends AppCompatActivity {
         pre_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(name.getText().toString().isEmpty()){
-                    Toast toast = Toast.makeText(CreateNewCourse.this, "Please enter course name first", Toast.LENGTH_SHORT);
-                    toast.show();
-                    return;
-                }
-
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(
                         CreateNewCourse.this,"TRAINING_CENTER",null,1);
                 Cursor cursor = dataBaseHelper.getAllCourses();
                 int sz = 0;
                 while(cursor.moveToNext()) sz++;
+
                 if(sz > 0){
-                    TreeSet<String> set = new TreeSet<>();
-
-                    cursor = dataBaseHelper.getAllCourses();
-
-                    while(cursor.moveToNext()){
-                        if(cursor.getString(2).equals(name.getText().toString())) continue;
-                        set.add(cursor.getString(2));
-                    }
-                    sz = set.size();
-                    if(sz == 0){
-                        Toast toast = Toast.makeText(CreateNewCourse.this, "No courses available", Toast.LENGTH_SHORT);
-                        toast.show();
-                        return;
-                    }
-
                     String[] pre = new String[sz];
-                    select_pre = new boolean[sz];
+                    cursor = dataBaseHelper.getAllCourses();
                     int k = 0;
-                    for(String s : set){
-                        pre[k++] = s;
+                    while(cursor.moveToNext()){
+                        pre[k] = cursor.getString(1);
+                        k++;
                     }
-
+                    select_pre = new boolean[sz];
                     AlertDialog.Builder builder = new AlertDialog.Builder(
                             CreateNewCourse.this
                     );
@@ -376,18 +356,10 @@ public class CreateNewCourse  extends AppCompatActivity {
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(
                         CreateNewCourse.this,"TRAINING_CENTER",null,1);
 
-                Cursor cursor = dataBaseHelper.getAllCourses();
-                while(cursor.moveToNext()){
-                    String courseID = cursor.getString(1);
-                    String startDate = cursor.getString(4);
-                    String endDate = cursor.getString(5);
-                    if(courseID.equals(ID)){
-                        if(checkIntersectionOfDates(STARTDATE, ENDDATE, startDate, endDate)){
-                            Toast toast = Toast.makeText(CreateNewCourse.this, "The course is offered in the period provided", Toast.LENGTH_SHORT);
-                            toast.show();
-                            return;
-                        }
-                    }
+                if(!dataBaseHelper.checkCourseId(ID)){
+                    Toast toast =Toast.makeText(CreateNewCourse.this, "The Course ID exists", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
                 }
 
                 String[] topics = TOPICS.split(", ");
@@ -407,15 +379,16 @@ public class CreateNewCourse  extends AppCompatActivity {
                 course.setImage(new ImageHandler().getByteArray(imageView));
                 dataBaseHelper.insertCourses(course);
 
-                Intent intent = new Intent(CreateNewCourse.this, MainActivity.class);
+                Intent intent = new Intent(CreateNewCourse.this, CreateNewSection.class);
+                intent.putExtra("COURSE_ID", ID);
+                intent.putExtra("START_DATE", STARTDATE);
+                intent.putExtra("END_DATE", ENDDATE);
                 startActivity(intent);
                 finish();
             }
         });
-    }
 
-    private boolean checkIntersectionOfDates(String l1, String r1, String l2, String r2){
-        return !checkDates(r1, l2, false) && !checkDates(r2, l1, false);
+
     }
 
     private boolean checkDates(String s1, String s2, boolean equal){

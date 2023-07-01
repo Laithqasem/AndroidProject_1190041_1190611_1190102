@@ -1,6 +1,5 @@
 package com.example.finalproject;
 
-import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 /**
@@ -22,8 +20,10 @@ import java.util.ArrayList;
 //fragment for trainee course registration
 public class Trainee_Course_Registration extends Fragment {
 
+
+    private Course courseList;
     private ArrayList<Course> filteredCourseList;
-    Trainee_Reg_withraw reg_withdraw;
+    Trainee_Reg_withraw courseAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,47 +72,27 @@ public class Trainee_Course_Registration extends Fragment {
         View rootView =  inflater.inflate(R.layout.fragment_trainee__course__registration, container, false);
 
         RecyclerView recyclerViewCourses = rootView.findViewById(R.id.recyclerViewCourses);
-        ArrayList<Section> courseList = new ArrayList<>();
-        Bundle args = getArguments();
-        int courseId = 0;
-        String Temail = "";
+        // Initialize the course list and adapter
 
+        Bundle args = getArguments();
+        String courseName = "ds";
         if (args != null) {
             // Get the course name from the arguments
-            courseId = args.getInt("courseId"); //sent from course adapter
-            Temail = args.getString("email"); //sent from course adapter
+            courseName = args.getString("courseName"); //sent from course adapter
         }
 
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(),"TRAINING_CENTER",null,1);
-
-        //query about the (from the arg) section and the trainee and send to trainee_Reg_withraw
-        Cursor cursor = dataBaseHelper.getSectionsForTrainee(courseId);
-        System.out.println(courseId);
-
-//        }
-        while(cursor.moveToNext()){
-                    Section instructor1 = new Section(
-                            cursor.getInt(0),
-                            cursor.getString(1),
-                            cursor.getInt(2),
-                            cursor.getInt(3),
-                            cursor.getString(4),
-                            cursor.getString(5),
-                            cursor.getString(6),
-                            cursor.getString(7),
-                            cursor.getString(8),
-                            cursor.getString(9)
-                            );
-                    System.out.println(instructor1.toString());
-                    courseList.add(instructor1);
-             }
-
-        //go to the courseAdapter Trainee_Reg_withraw
-        reg_withdraw = new Trainee_Reg_withraw(courseList, Temail);
+        //query about the (from the arg) course section and the trainee and send to trainee_Reg_withraw
+        
+        courseList = new Course();
+        courseList.setCourseName(courseName);
+        courseAdapter = new Trainee_Reg_withraw(courseList);
 
         // Set the layout manager and adapter for the RecyclerView
         recyclerViewCourses.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerViewCourses.setAdapter(reg_withdraw);
+        recyclerViewCourses.setAdapter(courseAdapter);
+
+
+
 
 
     return rootView;

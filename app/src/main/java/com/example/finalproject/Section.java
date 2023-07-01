@@ -3,7 +3,7 @@ package com.example.finalproject;
 public class Section {
     private int sectionID;
     private String instructorEmail;
-    private int courseID;
+    private String courseID;
     private int maxTrainees;
     private String startTime, endTime;
     private String days;
@@ -14,7 +14,7 @@ public class Section {
 
     }
 
-    public Section(int sectionID, String instructorEmail, int courseID, int maxTrainees,
+    public Section(int sectionID, String instructorEmail, String courseID, int maxTrainees,
                    String startTime, String endTime, String days, String room, String startDate, String endDate) {
         this.sectionID = sectionID;
         this.instructorEmail = instructorEmail;
@@ -44,11 +44,11 @@ public class Section {
         this.instructorEmail = instructorEmail;
     }
 
-    public int getCourseID() {
+    public String getCourseID() {
         return courseID;
     }
 
-    public void setCourseID(int courseID) {
+    public void setCourseID(String courseID) {
         this.courseID = courseID;
     }
 

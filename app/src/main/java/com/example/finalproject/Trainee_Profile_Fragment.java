@@ -2,7 +2,6 @@ package com.example.finalproject;
 
 import static com.example.finalproject.TraineeActivites.fragmentManagerTrainee;
 
-import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -73,7 +72,6 @@ public class Trainee_Profile_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(),"TRAINING_CENTER",null,1);
         View rootView =  inflater.inflate(R.layout.fragment_trainee__profile_, container, false);
         textViewFirstName = rootView.findViewById(R.id.textViewFirstName);
         textViewLastName = rootView.findViewById(R.id.textViewLastName);
@@ -81,32 +79,6 @@ public class Trainee_Profile_Fragment extends Fragment {
         textViewMobileNumber = rootView.findViewById(R.id.textViewMobileNumber);
         textViewAddress =  rootView.findViewById(R.id.textViewAddress);
         buttonEdit = rootView.findViewById(R.id.buttonEdit);
-        String email = null, firstName = null, lastName = null, mobileNumber = null, address = null;
-        byte[] image;
-        
-        Cursor cursor = dataBaseHelper.getOneTrainee("mezo@email.com");
-
-        while (cursor.moveToNext()){
-                    email = cursor.getString(0);
-            System.out.println(email);
-                    //cursor.getString(1);
-                    firstName = cursor.getString(2);
-            System.out.println(firstName);
-                    lastName = cursor.getString(3);
-                    mobileNumber = cursor.getString(4);
-                    address = cursor.getString(5);
-                    image = cursor.getBlob(6);
-
-            //System.out.println(t1.toString());
-        }
-
-        textViewEmail.setText(email);
-        textViewFirstName.setText(firstName);
-        textViewLastName.setText(lastName);
-        textViewMobileNumber.setText(mobileNumber);
-        textViewAddress.setText(address);
-
-
 
 
         buttonEdit.setOnClickListener(new View.OnClickListener() {
