@@ -305,4 +305,28 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         contentValues.put("status", "1");
         sqLiteDatabase.update("TraineeToSection", contentValues, "sectionID = ? AND traineeEmail = ?", new String[]{String.valueOf(sectionID), traineeEmail});
     }
+
+    public Cursor getSection(String sectionID) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM SECTION WHERE " +
+                "SECTION_ID = " + sectionID, null);
+    }
+
+    public Cursor getAllSectionsOfCourse(String valueOf) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM SECTION WHERE " +
+                "COURSE_ID = " + valueOf, null);
+    }
+
+    public Cursor getAllSectionsOfTrainee(String email) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
+                "traineeEmail = \"" + email + "\"", null);
+    }
+
+    public Cursor getCourse(String valueOf) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM COURSES WHERE " +
+                "ID = " + valueOf, null);
+    }
 }
