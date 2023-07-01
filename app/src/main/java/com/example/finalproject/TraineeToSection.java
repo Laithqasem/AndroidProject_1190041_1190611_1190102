@@ -2,7 +2,6 @@ package com.example.finalproject;
 
 public class TraineeToSection {
     private int traineeToSectionID;
-
     private int sectionID;
     private String traineeEmail;
     private int status;
