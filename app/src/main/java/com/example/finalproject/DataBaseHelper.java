@@ -223,6 +223,21 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         return cursor.getCount();
     }
 
+    public Cursor getSecId(String email){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
+                "traineeEmail = \"" + email + "\" ", null);
+
+        return cursor;
+    }
+
+    public Cursor getSecInfo(int SecID){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM SECTION WHERE " +
+                "SECTION_ID = " + SecID, null);
+
+        return cursor;
+    }
 
     public boolean checkInstructor(String email) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();

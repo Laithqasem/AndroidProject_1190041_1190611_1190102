@@ -24,12 +24,14 @@ public class TraineeActivites extends AppCompatActivity {
 
         Button profileButton = findViewById(R.id.btnProfile);
         Button searchButton = findViewById(R.id.btnSearch);
+        Button homeButton = findViewById(R.id.btnHome);
 
         Bundle bundle = new Bundle();
-        bundle.putString("edttext", "From Activity");
-        // set Fragmentclass Arguments
+        bundle.putString("email", getEmail());
         Trainee_Profile_Fragment fragobj = new Trainee_Profile_Fragment();
+        Trainee_Schedule_Fragment fragobj2 = new Trainee_Schedule_Fragment();
         fragobj.setArguments(bundle);
+        fragobj2.setArguments(bundle);
 
         currentFragment = fragmentManagerTrainee.findFragmentById(R.id.FirstFragment);
         profileButton.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +45,13 @@ public class TraineeActivites extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openSearch();
+            }
+        });
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openSchedule();
             }
         });
 
@@ -177,8 +186,6 @@ public class TraineeActivites extends AppCompatActivity {
         return currentFragment != null ? currentFragment.getId() : 0;
     }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getEmail() { return email;}
 
 }
