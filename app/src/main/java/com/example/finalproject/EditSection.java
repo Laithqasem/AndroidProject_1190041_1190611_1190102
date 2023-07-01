@@ -85,7 +85,7 @@ public class EditSection extends AppCompatActivity {
             Cursor cursor = dataBaseHelper.getSections();
             while(cursor.moveToNext()){
                 if(cursor.getInt(0) == ID){
-                    Section section = new Section(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3),
+                    Section section = new Section(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3),
                             cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7),
                             cursor.getString(8), cursor.getString(9));
 
@@ -177,7 +177,7 @@ public class EditSection extends AppCompatActivity {
                         Section section = new Section(
                                 cursor.getInt(0),
                                 cursor.getString(1),
-                                cursor.getString(2),
+                                cursor.getInt(2),
                                 cursor.getInt(3),
                                 cursor.getString(4),
                                 cursor.getString(5),
@@ -208,7 +208,7 @@ public class EditSection extends AppCompatActivity {
                     start_time_text.setTextColor(Color.WHITE);
                     end_time_text.setTextColor(Color.WHITE);
 
-                    Section section = new Section(ID, EMAIL, finalCourse_ID[0], Integer.parseInt(MAX), START,
+                    Section section = new Section(ID, EMAIL, Integer.parseInt(finalCourse_ID[0]), Integer.parseInt(MAX), START,
                             END, DAYS, ROOM, finalSTART_DATE[0], finalEND_DATE[0]);
 
                     dataBaseHelper.updateSection(section);
@@ -299,7 +299,7 @@ public class EditSection extends AppCompatActivity {
                         Section section = new Section(
                                 cursor.getInt(0),
                                 cursor.getString(1),
-                                cursor.getString(2),
+                                cursor.getInt(2),
                                 cursor.getInt(3),
                                 cursor.getString(4),
                                 cursor.getString(5),

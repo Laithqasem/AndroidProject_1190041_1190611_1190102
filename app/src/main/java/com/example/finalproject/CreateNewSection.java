@@ -157,7 +157,7 @@ public class CreateNewSection   extends AppCompatActivity {
                     Section section = new Section(
                             cursor.getInt(0),
                             cursor.getString(1),
-                            cursor.getString(2),
+                            cursor.getInt(2),
                             cursor.getInt(3),
                             cursor.getString(4),
                             cursor.getString(5),
@@ -188,7 +188,7 @@ public class CreateNewSection   extends AppCompatActivity {
                 starttimetv.setTextColor(Color.WHITE);
                 endtimetv.setTextColor(Color.WHITE);
 
-                Section section = new Section(-1, EMAIL, finalCOURSE_ID, Integer.parseInt(MAX), START_TIME,
+                Section section = new Section(-1, EMAIL, Integer.parseInt(finalCOURSE_ID), Integer.parseInt(MAX), START_TIME,
                         END_TIME, DAYS, ROOM, finalSTART_DATE, finalEND_DATE);
 
                 dataBaseHelper.insertSection(section);
@@ -285,7 +285,7 @@ public class CreateNewSection   extends AppCompatActivity {
                     Section section = new Section(
                             cursor.getInt(0),
                             cursor.getString(1),
-                            cursor.getString(2),
+                            cursor.getInt(2),
                             cursor.getInt(3),
                             cursor.getString(4),
                             cursor.getString(5),
@@ -349,40 +349,27 @@ public class CreateNewSection   extends AppCompatActivity {
         return endTime1 >= startTime2 && endTime2 >= startTime1;
     }
 
-    public boolean date_intersect(String l1, String r1, String l2, String r2) {
-        String[] l1_split = l1.split("\\s+");
-        String[] l2_split = l2.split("\\s+");
-        String[] r1_split = r1.split("\\s+");
-        String[] r2_split = r2.split("\\s+");
+    private boolean checkIntersectionOfDates(String l1, String r1, String l2, String r2){
+        return !checkDates(r1, l2, false) && !checkDates(r2, l1, false);
+    }
+    private boolean checkDates(String s1, String s2, boolean equal){
+        String[] s1_split = s1.split("\\s+");
+        String[] s2_split = s2.split("\\s+");
+        int month1 = getInvMonthFormat(s1_split[0]);
+        int day1 = Integer.parseInt(s1_split[1]);
+        int year1 = Integer.parseInt(s1_split[2]);
 
-        int startMonth1 = getInvMonthFormat(l1_split[0]);
-        int startDay1 = Integer.parseInt(l1_split[1]);
-        int startYear1 = Integer.parseInt(l1_split[2]);
+        int month2 = getInvMonthFormat(s2_split[0]);
+        int day2 = Integer.parseInt(s2_split[1]);
+        int year2 = Integer.parseInt(s2_split[2]);
 
-        int endMonth1 = getInvMonthFormat(r1_split[0]);
-        int endDay1 = Integer.parseInt(r1_split[1]);
-        int endYear1 = Integer.parseInt(r1_split[2]);
-
-        int startMonth2 = getInvMonthFormat(l2_split[0]);
-        int startDay2 = Integer.parseInt(l2_split[1]);
-        int startYear2 = Integer.parseInt(l2_split[2]);
-
-        int endMonth2 = getInvMonthFormat(r2_split[0]);
-        int endDay2 = Integer.parseInt(r2_split[1]);
-        int endYear2 = Integer.parseInt(r2_split[2]);
-
-        if (endYear1 < startYear2 || endYear2 < startYear1) {
-            return false;
-        } else if (endYear1 == startYear2 && endMonth1 < startMonth2) {
-            return false;
-        } else if (endYear2 == startYear1 && endMonth2 < startMonth1) {
-            return false;
-        } else if (endYear1 == startYear2 && endMonth1 == startMonth2 && endDay1 < startDay2) {
-            return false;
-        } else if (endYear2 == startYear1 && endMonth2 == startMonth1 && endDay2 < startDay1) {
-            return false;
+        if(year1 == year2){
+            if(month1 == month2){
+                return equal ? day1 <= day2 : day1 < day2;
+            }
+            return month1 < month2;
         }
-        return true;
+        return year1 < year2;
     }
 
     private int getInvMonthFormat(String month){
@@ -403,7 +390,7 @@ public class CreateNewSection   extends AppCompatActivity {
 
     public boolean conflict(String s1, String s2, String days1, String s3, String s4, String days2,
                             String start_date1, String end_date1, String start_date2, String end_date2){
-        if(!date_intersect(start_date1, end_date1, start_date2, end_date2)){
+        if(!checkIntersectionOfDates(start_date1, end_date1, start_date2, end_date2)){
             return false;
         }
         String[] days1_split = days1.split(", ");

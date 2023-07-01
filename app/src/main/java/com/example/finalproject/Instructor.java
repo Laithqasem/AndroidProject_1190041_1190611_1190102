@@ -9,14 +9,18 @@ public class Instructor {
     private String mobileNumber;
     private String address;
     private String specialization;
+
     private String canTeach;
+
 
     public Instructor() {
 
     }
 
+
     public Instructor(String email, String password, String firstName, String lastName, String personal_photo, String mobileNumber,
                       String address, String specialization, String canTeach) {
+
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -25,6 +29,7 @@ public class Instructor {
         this.personal_photo = personal_photo;
         this.address = address;
         this.specialization = specialization;
+
         this.canTeach = canTeach;
     }
 
@@ -34,6 +39,7 @@ public class Instructor {
 
     public void setPersonal_photo(String personal_photo) {
         this.personal_photo = personal_photo;
+
     }
 
     public String getEmail() {
@@ -100,6 +106,22 @@ public class Instructor {
         this.canTeach = canTeach;
     }
 
+    public String getCanTeach() {
+        return canTeach;
+    }
+
+    public void setCanTeach(String canTeach) {
+        this.canTeach = canTeach;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "Instructor{" +
@@ -110,7 +132,8 @@ public class Instructor {
                 ", mobileNumber='" + mobileNumber + '\'' +
                 ", address='" + address + '\'' +
                 ", specialization='" + specialization + '\'' +
-                ", degree='" + canTeach + '\'' +
+                ", canTeach='" + canTeach + '\'' +
                 '}';
+
     }
 }

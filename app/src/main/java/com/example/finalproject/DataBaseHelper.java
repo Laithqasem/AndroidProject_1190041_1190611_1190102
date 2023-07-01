@@ -19,8 +19,8 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         sqLiteDatabase.execSQL("CREATE TABLE ADMIN(EMAIL TEXT PRIMARY KEY, PASSWORD TEXT, " +
                 "FIRST_NAME TEXT, LAST_NAME TEXT, PERSONAL_PHOTO TEXT)");
 
-        sqLiteDatabase.execSQL("CREATE TABLE COURSES(COURSE_ID TEXT PRIMARY KEY, COURSE_NAME TEXT, PREREQUISITES TEXT, " +
-                                    "START_DATE TEXT, END_DATE TEXT, START_REG TEXT, END_REG TEXT, IMAGE BLOB)");
+        sqLiteDatabase.execSQL("CREATE TABLE COURSES(ID INTEGER PRIMARY KEY AUTOINCREMENT, COURSE_ID TEXT, COURSE_NAME TEXT, PREREQUISITES TEXT, " +
+                "START_DATE TEXT, END_DATE TEXT, START_REG TEXT, END_REG TEXT, IMAGE BLOB)");
 
         sqLiteDatabase.execSQL("CREATE TABLE TRAINEE(EMAIL TEXT PRIMARY KEY, PASSWORD TEXT, " +
                 "FIRST_NAME TEXT, LAST_NAME TEXT, PERSONAL_PHOTO TEXT, ADDRESS TEXT,MOBILE_NUMBER TEXT)");
@@ -29,14 +29,24 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
 //        sqLiteDatabase.execSQL("CREATE TABLE COURSES(COURSE_ID TEXT PRIMARY KEY, COURSE_NAME TEXT, PREREQUISITES TEXT, " +
 //                "START_DATE TEXT, END_DATE TEXT, START_REG TEXT, END_REG TEXT)");
 
-        sqLiteDatabase.execSQL("CREATE TABLE TOPICS(TOPIC_ID INTEGER PRIMARY KEY AUTOINCREMENT, COURSE_ID TEXT, TOPIC_NAME TEXT)");
+        sqLiteDatabase.execSQL("CREATE TABLE Trainee(email TEXT PRIMARY KEY, password TEXT, firstName TEXT, " +
+                "lastName TEXT, mobileNumber TEXT, address TEXT, image BLOB)");
+
+        sqLiteDatabase.execSQL("CREATE TABLE TraineeToSection(traineeToSectionID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "sectionID INTEGER, traineeEmail TEXT, status INTEGER)");
+
+        sqLiteDatabase.execSQL("CREATE TABLE Notifications(notID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                " notText TEXT, status INTEGER, traineeEmail TEXT)");
+
+        sqLiteDatabase.execSQL("CREATE TABLE TOPICS(TOPIC_ID INTEGER PRIMARY KEY AUTOINCREMENT, COURSE_ID INTEGER, TOPIC_NAME TEXT)");
 
         sqLiteDatabase.execSQL("CREATE TABLE INSTRUCTOR(" +
                 "EMAIL TEXT PRIMARY KEY, PASSWORD TEXT, FIRST_NAME TEXT, LAST_NAME TEXT, PERSONAL_PHOTO TEXT, MOBILE_NUMBER TEXT," +
                 "ADDRESS TEXT, SPECIALIZATION TEXT, canTeach TEXT)");
 
+
         sqLiteDatabase.execSQL("CREATE TABLE SECTION(" +
-                "SECTION_ID INTEGER PRIMARY KEY AUTOINCREMENT, INSTRUCTOR_EMAIL TEXT, COURSE_ID TEXT, MAX_TRAINEES INTEGER, " +
+                "SECTION_ID INTEGER PRIMARY KEY AUTOINCREMENT, INSTRUCTOR_EMAIL TEXT, COURSE_ID int, MAX_TRAINEES INTEGER, " +
                 "START_TIME TEXT, END_TIME TEXT, DAYS TEXT, ROOM TEXT, START_DATE TEXT, END_DATE TEXT)");
     }
 
@@ -102,7 +112,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
 
     public void deleteCourse(String courseID){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-        sqLiteDatabase.delete("COURSES", "COURSE_ID = ?", new String[]{courseID});
+        sqLiteDatabase.delete("COURSES", "ID = ?", new String[]{courseID});
         sqLiteDatabase.delete("SECTION", "COURSE_ID = ?", new String[]{courseID});
     }
 
@@ -151,6 +161,22 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         sqLiteDatabase.insert("INSTRUCTOR", null, contentValues);
     }
 
+
+    public void insertTrainee(Trainee trainee){
+
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("email", trainee.getEmail());
+        contentValues.put("password", trainee.getPassword());
+        contentValues.put("firstName", trainee.getFirstName());
+        contentValues.put("lastName", trainee.getLastName());
+        contentValues.put("mobileNumber", trainee.getMobileNumber());
+        contentValues.put("address", trainee.getAddress());
+        contentValues.put("image", trainee.getImage());
+        sqLiteDatabase.insert("Trainee", null, contentValues);
+
+    }
+
     public void insertCourses(Course course){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -194,6 +220,16 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         return sqLiteDatabase.rawQuery("SELECT * FROM COURSES", null);
     }
 
+    public Cursor getAllTrainees() {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM Trainee", null);
+    }
+
+    public Cursor getOneTrainee(String Email) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM Trainee Where " + "email = \"" + Email + "\"", null);
+    }
+
     public Cursor getAllInstructor() {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         return sqLiteDatabase.rawQuery("SELECT * FROM INSTRUCTOR", null);
@@ -211,6 +247,76 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         return sqLiteDatabase.rawQuery("SELECT * FROM TOPICS", null);
     }
 
+    public Cursor getCourseId(int id){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM COURSES Where " + "ID = \"" + id + "\"", null);
+    }
+
+    public Cursor getSectionsForTrainee(int id){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM SECTION Where " + "COURSE_ID = \"" + id + "\"", null);
+    }
+    //function to delete trainee from trainee2section table based on section id and trainee email
+    public void deleteTraineeFromSection(String email, String sectionId){
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        sqLiteDatabase.delete("TraineeToSection", "traineeEmail = ? AND sectionID = ?", new String[]{email, sectionId});
+    }
+    public Cursor checkExistence(String email, String sectionId){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
+                "traineeEmail = \"" + email + "\" " +
+                "AND sectionID = " + sectionId, null);
+
+        return cursor;
+    }
+
+    public void insertTraineeSection(TraineeToSection traineeToSection){
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("traineeEmail", traineeToSection.getTraineeEmail());
+        contentValues.put("sectionID", traineeToSection.getSectionID());
+        contentValues.put("status", traineeToSection.getStatus());
+        sqLiteDatabase.insert("TraineeToSection", null, contentValues);
+    }
+
+    public int getTraineeCount(String sectionId){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
+                "sectionID = " + sectionId, null);
+
+        return cursor.getCount();
+    }
+
+    public int countStudentsInSection(String sectionId){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
+                "sectionID = " + sectionId, null);
+
+        return cursor.getCount();
+    }
+
+    // This function will return a cursor to show the trainees in a specific section
+    public Cursor getTraineesInSection(String sectionId){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
+                "sectionID = " + sectionId, null);
+    }
+  
+    public Cursor getSecId(String email){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
+                "traineeEmail = \"" + email + "\" ", null);
+
+        return cursor;
+    }
+
+    public Cursor getSecInfo(int SecID){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM SECTION WHERE " +
+                "SECTION_ID = " + SecID, null);
+
+        return cursor;
+    }
 
     public boolean checkInstructor(String email) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
@@ -223,8 +329,27 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         return cnt == 1;
     }
 
+
     public void deleteSection(String valueOf) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         sqLiteDatabase.delete("SECTION", "SECTION_ID = ?", new String[]{valueOf});
+    }
+
+    public String getTrainee(String email) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM Trainee WHERE " +
+                "email = \"" + email + "\"", null);
+        String name = "";
+        while(cursor.moveToNext()){
+            name = cursor.getString(2) + " " + cursor.getString(3);
+        }
+        return name;
+    }
+
+    public void updateTraineeInSection(int sectionID, String traineeEmail) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("status", "1");
+        sqLiteDatabase.update("TraineeToSection", contentValues, "sectionID = ? AND traineeEmail = ?", new String[]{String.valueOf(sectionID), traineeEmail});
     }
 }

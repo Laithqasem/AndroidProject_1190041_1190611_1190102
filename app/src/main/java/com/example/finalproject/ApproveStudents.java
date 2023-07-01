@@ -2,12 +2,12 @@ package com.example.finalproject;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -15,18 +15,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.w3c.dom.Text;
-
-public class ViewOfferingHistory extends AppCompatActivity {
+public class ApproveStudents extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_offering_history);
+        setContentView(R.layout.approve_students);
 
         Button button = findViewById(R.id.button);
         LinearLayout linearLayout = findViewById(R.id.layout);
@@ -35,7 +32,7 @@ public class ViewOfferingHistory extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(
-                        ViewOfferingHistory.this,"TRAINING_CENTER",null,1);
+                        ApproveStudents.this,"TRAINING_CENTER",null,1);
 
                 Cursor cursor = dataBaseHelper.getAllCourses();
                 int sz = cursor.getCount();
@@ -48,7 +45,7 @@ public class ViewOfferingHistory extends AppCompatActivity {
                     i++;
                 }
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(ViewOfferingHistory.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ApproveStudents.this);
                 builder.setTitle("Select Course");
                 builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
                     @Override
@@ -56,7 +53,6 @@ public class ViewOfferingHistory extends AppCompatActivity {
                         button.setText(items[i]);
                         linearLayout.removeAllViews();
 
-                        String courseName = items[i];
                         Cursor cursor1 = dataBaseHelper.getAllCourses();
                         Course course = new Course();
                         while(cursor1.moveToNext()){
@@ -75,21 +71,21 @@ public class ViewOfferingHistory extends AppCompatActivity {
                         }
 
                         String s = course.toString();
-                        TextView textView = new TextView(ViewOfferingHistory.this);
+                        TextView textView = new TextView(ApproveStudents.this);
                         textView.setText(s);
                         textView.setTextSize(20);
                         textView.setTextColor(Color.BLACK);
                         textView.setGravity(Gravity.CENTER_HORIZONTAL);
 
-                        ImageView imageView = new ImageView(ViewOfferingHistory.this);
+                        ImageView imageView = new ImageView(ApproveStudents.this);
                         Bitmap bitmap = BitmapFactory.decodeByteArray(course.getImage(), 0, course.getImage().length);
                         imageView.setImageBitmap(bitmap);
 
                         linearLayout.addView(imageView);
                         linearLayout.addView(textView);
 
-                        TextView textView1 = new TextView(ViewOfferingHistory.this);
-                        textView1.setText("Offering History");
+                        TextView textView1 = new TextView(ApproveStudents.this);
+                        textView1.setText("Sections");
                         textView1.setTextSize(30);
                         textView1.setTypeface(null, Typeface.BOLD);
                         textView1.setTextColor(Color.BLACK);
@@ -113,17 +109,36 @@ public class ViewOfferingHistory extends AppCompatActivity {
                             section.setEndDate(cursor2.getString(9));
 
                             String s1 = section.toString();
+                            int has = dataBaseHelper.countStudentsInSection(String.valueOf(section.getSectionID()));
+                            s1 = s1 + "Number of students: " + has + " / " + section.getMaxTrainees() + "\n";
                             if(j != 0){
                                 s1 = "\n\n" + s1;
                             }
                             j++;
-                            TextView textView2 = new TextView(ViewOfferingHistory.this);
+                            TextView textView2 = new TextView(ApproveStudents.this);
                             textView2.setText(s1);
                             textView2.setTextSize(20);
                             textView2.setTextColor(Color.BLACK);
                             textView2.setGravity(Gravity.CENTER_HORIZONTAL);
-                            linearLayout.addView(textView2);
 
+                            Button button1 = new Button(ApproveStudents.this);
+                            button1.setText("Approve Students");
+                            button1.setGravity(Gravity.CENTER_HORIZONTAL);
+                            button1.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                            button1.setTextSize(20);
+
+                            button1.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = new Intent(ApproveStudents.this, ApproveStudentsInSections.class);
+                                    intent.putExtra("sectionID", String.valueOf(section.getSectionID()));
+                                    intent.putExtra("canApproveCount", String.valueOf(section.getMaxTrainees() - has));
+                                    startActivity(intent);
+                                }
+                            });
+
+                            linearLayout.addView(textView2);
+                            linearLayout.addView(button1);
                         }
                         dialogInterface.dismiss();
                     }
@@ -131,13 +146,12 @@ public class ViewOfferingHistory extends AppCompatActivity {
                 builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        dialogInterface.dismiss();
                     }
                 });
                 AlertDialog dialog = builder.create();
                 builder.show();
             }
         });
-
     }
 }

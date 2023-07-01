@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -76,17 +77,48 @@ public class Trainee_Search_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_trainee__search_, container, false);
 
+        TraineeActivites activity = (TraineeActivites) getActivity();
+        String TEmail = activity.getEmail();
+        System.out.println(TEmail);
+
         searchEditText = rootView.findViewById(R.id.editTextSearch);
         searchButton = rootView.findViewById(R.id.buttonSearch);
         coursesRecyclerView = rootView.findViewById(R.id.recyclerViewCourses);
 
         // Initialize the course list and adapter
         courseList = new ArrayList<>();
-        courseAdapter = new CourseAdapter(courseList);
+        courseAdapter = new CourseAdapter(courseList, TEmail);
+
 
         // Set the layout manager and adapter for the RecyclerView
         coursesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         coursesRecyclerView.setAdapter(courseAdapter);
+
+
+
+
+        DataBaseHelper dataBaseHelper = new DataBaseHelper (getContext(),"TRAINING_CENTER",null,1);;
+
+        Cursor cursor = dataBaseHelper.getAllCourses();
+
+
+        while (cursor.moveToNext()) {
+            int ID = cursor.getInt(0);
+            String courseID = cursor.getString(1);
+            String courseName = cursor.getString(2);
+            String prerequisites = cursor.getString(3);
+            String startDate = cursor.getString(4);
+            String endDate = cursor.getString(5);
+            String registrationStart = cursor.getString(6);
+            String registrationEnd = cursor.getString(7);
+            byte[] image = cursor.getBlob(8);
+
+            courseList.add(new Course(ID, courseID, courseName, prerequisites, startDate, endDate, registrationStart, registrationEnd, image));
+        }
+
+        System.out.println(courseList.size());
+
+
 
         // Set a click listener for the search button
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -98,14 +130,15 @@ public class Trainee_Search_Fragment extends Fragment {
             }
         });
 
-        courseList.add(new Course("PR001", "Prerequisite 1", "",
-                "2023-08-01", "2023-08-30", "2023-07-01", "2023-07-31", new byte[1]));
+//        courseList.add(new Course(-1, "PR001", "Prerequisite 1", "",
+//                "2023-08-01", "2023-08-30", "2023-07-01", "2023-07-31", new byte[1]));
+//
+//        courseList.add(new Course(-1, "PR002", "Prerequisite 2", "",
+//                "2023-08-01", "2023-08-30", "2023-07-01", "2023-07-31", new byte[1]));
+//
+//        courseList.add(new Course(-1, "C001", "Course 1", "",
+//                "2023-09-01", "2023-09-30", "2023-08-01", "2023-08-31", new byte[1]));
 
-        courseList.add(new Course("PR002", "Prerequisite 2", "",
-                "2023-08-01", "2023-08-30", "2023-07-01", "2023-07-31", new byte[1]));
-
-        courseList.add(new Course("C001", "Course 1", "",
-                "2023-09-01", "2023-09-30", "2023-08-01", "2023-08-31", new byte[1]));
 
 
         return rootView;

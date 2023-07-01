@@ -7,8 +7,8 @@
     <Spinner
         android:id="@+id/spinnerDay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-         />
+        android:layout_height="50dp"
+        android:textAlignment="center" />
 
     <!-- Schedule Table -->
     <TableLayout
@@ -19,35 +19,257 @@
         <!-- Table Header -->
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#EDEDED">
 
-            <!-- Schedule Column -->
+            <!-- Time Column -->
             <TextView
-                android:id="@+id/txtScheduleHeader"
+                android:id="@+id/txtTimeHeader"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Schedule"
+                android:text="Time"
                 android:textStyle="bold"
+                android:textColor="#000000"
+                android:padding="8dp" />
+
+            <!-- Course Name Column -->
+            <TextView
+                android:id="@+id/txtCourseNameHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Course Name"
+                android:textStyle="bold"
+                android:textColor="#000000"
                 android:padding="8dp" />
         </TableRow>
 
-        <!-- Table Rows -->
+        <!-- Row 1 -->
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Schedule Cell -->
+            <!-- Time Cell -->
             <TextView
-                android:id="@+id/txtSchedule1"
+                android:id="@+id/txtTime1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="10:00 AM - 12:00 PM"
+                android:textColor="#000000"
+                android:padding="8dp" />
+
+            <!-- Course Name Cell -->
+            <TextView
+                android:id="@+id/txtCourseName1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Course 1"
+                android:textColor="#000000"
                 android:padding="8dp" />
         </TableRow>
 
-        <!-- Add more rows for other schedules -->
+        <!-- Row 2 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Time Cell -->
+            <TextView
+                android:id="@+id/txtTime2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#000000"
+                android:padding="8dp" />
+
+            <!-- Course Name Cell -->
+            <TextView
+                android:id="@+id/txtCourseName2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Course 2"
+                android:textColor="#000000"
+                android:padding="8dp" />
+        </TableRow>
+
+        <!-- Add 6 more rows -->
+        <!-- Row 3 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Time Cell -->
+            <TextView
+                android:id="@+id/txtTime3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#000000"
+                android:padding="8dp" />
+
+            <!-- Course Name Cell -->
+            <TextView
+                android:id="@+id/txtCourseName3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Course 3"
+                android:textColor="#000000"
+                android:padding="8dp" />
+        </TableRow>
+
+        <!-- Row 4 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Time Cell -->
+            <TextView
+                android:id="@+id/txtTime4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#000000"
+                android:padding="8dp" />
+
+            <!-- Course Name Cell -->
+            <TextView
+                android:id="@+id/txtCourseName4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Course 4"
+                android:textColor="#000000"
+                android:padding="8dp" />
+        </TableRow>
+
+        <!-- Row 5 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Time Cell -->
+            <TextView
+                android:id="@+id/txtTime5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#000000"
+                android:padding="8dp" />
+
+            <!-- Course Name Cell -->
+            <TextView
+                android:id="@+id/txtCourseName5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Course 5"
+                android:textColor="#000000"
+                android:padding="8dp" />
+        </TableRow>
+
+        <!-- Row 6 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Time Cell -->
+            <TextView
+                android:id="@+id/txtTime6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#000000"
+                android:padding="8dp" />
+
+            <!-- Course Name Cell -->
+            <TextView
+                android:id="@+id/txtCourseName6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Course 6"
+                android:textColor="#000000"
+                android:padding="8dp" />
+        </TableRow>
+
+        <!-- Row 7 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Time Cell -->
+            <TextView
+                android:id="@+id/txtTime7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#000000"
+                android:padding="8dp" />
+
+            <!-- Course Name Cell -->
+            <TextView
+                android:id="@+id/txtCourseName7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Course 7"
+                android:textColor="#000000"
+                android:padding="8dp" />
+        </TableRow>
+
+        <!-- Row 8 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Time Cell -->
+            <TextView
+                android:id="@+id/txtTime8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#000000"
+                android:padding="8dp" />
+
+            <!-- Course Name Cell -->
+            <TextView
+                android:id="@+id/txtCourseName8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Course 8"
+                android:textColor="#000000"
+                android:padding="8dp" />
+        </TableRow>
+
+        <!-- Row 9 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Time Cell -->
+            <TextView
+                android:id="@+id/txtTime9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#000000"
+                android:padding="8dp" />
+
+            <!-- Course Name Cell -->
+            <TextView
+                android:id="@+id/txtCourseName9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Course 9"
+                android:textColor="#000000"
+                android:padding="8dp" />
+        </TableRow>
 
     </TableLayout>
 
