@@ -86,7 +86,7 @@ public class DisplaySections extends AppCompatActivity {
                 textView1.setText(s);
                 textView1.setTextColor(Color.BLACK);
                 textView1.setTextSize(20);
-                layout.addView(textView1);
+//                layout.addView(textView1);
                 Button button = new Button(this);
                 button.setText("Edit Section " + String.valueOf(cursor.getInt(0)));
                 button.setTextColor(Color.BLACK);
@@ -102,6 +102,7 @@ public class DisplaySections extends AppCompatActivity {
                 vertical.setGravity(Gravity.CENTER_HORIZONTAL);
                 vertical.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT));
+                vertical.addView(textView1);
                 vertical.addView(button);
                 vertical.addView(delete);
                 layout.addView(vertical);

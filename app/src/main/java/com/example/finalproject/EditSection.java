@@ -36,11 +36,13 @@ public class EditSection extends AppCompatActivity {
 
         Button start_time;
         Button end_time;
+        TextView days, room;
+        final String[] finalSTART_DATE = {"-1"};
+        final String[] finalEND_DATE = { "-1" };
+        final String[] finalCourse_ID = {"-1"};
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
-            // Dont forget to check time conflict for students
-
             super.onCreate(savedInstanceState);
             setContentView(R.layout.edit_section);
             start_time = findViewById(R.id.start_time);
@@ -58,8 +60,8 @@ public class EditSection extends AppCompatActivity {
             EditText instructor = findViewById(R.id.instructor_email);
             EditText max_students = findViewById(R.id.max_trainees);
 
-            TextView days = findViewById(R.id.days_list);
-            TextView room = findViewById(R.id.room_list);
+            days = findViewById(R.id.days_list);
+            room = findViewById(R.id.room_list);
 
             TextView instructor_text = findViewById(R.id.instructortv);
             TextView max_students_text = findViewById(R.id.maxtv);
@@ -85,6 +87,8 @@ public class EditSection extends AppCompatActivity {
 
             Cursor cursor = dataBaseHelper.getSections();
             int course = 0;
+            String initialStartTime = "";
+            String initialEndTime = "";
             while(cursor.moveToNext()){
                 if(cursor.getInt(0) == ID){
                     Section section = new Section(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3),
@@ -100,12 +104,11 @@ public class EditSection extends AppCompatActivity {
                     days.setText(section.getDays());
                     room.setText(section.getRoom());
                     course = section.getCourseID();
+                    initialStartTime = section.getStartTime();
+                    initialEndTime = section.getEndTime();
+                    break;
                 }
             }
-
-            final String[] finalSTART_DATE = {"-1"};
-            final String[] finalEND_DATE = { "-1" };
-            final String[] finalCourse_ID = {"-1"};
 
             Cursor cursor1 = dataBaseHelper.getAllCourses();
             while(cursor1.moveToNext()){
@@ -119,6 +122,8 @@ public class EditSection extends AppCompatActivity {
             assert !finalSTART_DATE[0].equals("-1");
             assert !finalEND_DATE[0].equals("-1");
             assert !finalCourse_ID[0].equals("-1");
+            String finalInitialStartTime = initialStartTime;
+            String finalInitialEndTime = initialEndTime;
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -226,6 +231,12 @@ public class EditSection extends AppCompatActivity {
                     }
                     start_time_text.setTextColor(Color.WHITE);
                     end_time_text.setTextColor(Color.WHITE);
+
+                    if(checkConflictForTrainee(finalInitialStartTime, finalInitialEndTime, START, END, ID)){
+                        Toast toast = Toast.makeText(EditSection.this, "There Is A Conflict For Trainees", Toast.LENGTH_SHORT);
+                        toast.show();
+                        return;
+                    }
 
                     Section section = new Section(ID, EMAIL, Integer.parseInt(finalCourse_ID[0]), Integer.parseInt(MAX), START,
                             END, DAYS, ROOM, finalSTART_DATE[0], finalEND_DATE[0]);
@@ -376,6 +387,68 @@ public class EditSection extends AppCompatActivity {
                 }
             });
 
+        }
+
+        public boolean checkConflictForTrainee(String finalInitialStartTime, String finalInitialEndTime,
+                                               String START, String END, int ID){
+            DataBaseHelper dataBaseHelper = new DataBaseHelper(
+                    EditSection.this,"TRAINING_CENTER",null,1);
+
+            if(!(finalInitialStartTime.equals(START) && finalInitialEndTime.equals(END))){
+
+                // Get all students in this section from Trainee_Section table
+                Cursor cursor2 = dataBaseHelper.getSectionsForTrainee(ID);
+                while(cursor2.moveToNext()){
+                    TraineeToSection traineeToSection = new TraineeToSection(
+                            cursor2.getInt(0),
+                            cursor2.getInt(1),
+                            cursor2.getString(2),
+                            cursor2.getInt(3)
+                    );
+
+
+                    // get the course ID for this section
+                    int courseID = dataBaseHelper.getCourseIDForSection(ID);
+                    // get all data from traineeToSection table
+                    Cursor cursor3 = dataBaseHelper.getTraineeToSection();
+                    while(cursor3.moveToNext()){
+                        String email = cursor3.getString(2);
+                        if(!email.equals(traineeToSection.getTraineeEmail())){
+                            continue;
+                        }
+                        int otherSectionID = cursor3.getInt(1);
+                        if(otherSectionID == ID){
+                            continue;
+                        }
+                        // get the course ID for this section
+                        int otherCourseID = dataBaseHelper.getCourseIDForSection(otherSectionID);
+                        // get the start date  of the 2 courses
+                        String startDate1 = dataBaseHelper.getStartDate(courseID);
+                        String startDate2 = dataBaseHelper.getStartDate(otherCourseID);
+                        // get the end date  of the 2 courses
+                        String endDate1 = dataBaseHelper.getEndDate(courseID);
+                        String endDate2 = dataBaseHelper.getEndDate(otherCourseID);
+
+                        if(date_intersect(startDate1, endDate1, startDate2, endDate2)){
+                            // get the start time of the 2 sections
+                            String startTime1 = start_time.getText().toString();
+                            String startTime2 = dataBaseHelper.getStartTime(otherSectionID);
+                            // get the end time of the 2 sections
+                            String endTime1 = end_time.getText().toString();
+                            String endTime2 = dataBaseHelper.getEndTime(otherSectionID);
+                            // get the days of the 2 sections
+                            String days1 = days.getText().toString();
+                            String days2 = dataBaseHelper.getDays(otherSectionID);
+                            // check if there is a conflict
+                            if(conflict(startTime1, endTime1, days1, startTime2, endTime2, days2,
+                                    finalSTART_DATE[0], finalEND_DATE[0], startDate1, endDate1)){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
         }
 
     public boolean conflict(String s1, String s2, String days1, String s3, String s4, String days2,
