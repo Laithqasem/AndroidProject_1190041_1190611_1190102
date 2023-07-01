@@ -113,7 +113,7 @@ public class Section {
         return
                 "Section ID = " + sectionID +
                 "\nInstructor Email = '" + instructorEmail + '\'' +
-                "\nCourse ID = '" + courseID + '\'' +
+                "\nCourse ID = " + courseID +
                 "\nMax Trainees = " + maxTrainees +
                 "\nStart Time = '" + startTime + '\'' +
                 "\nEnd Time = '" + endTime + '\'' +

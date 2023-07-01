@@ -22,6 +22,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 
 public class EditSection extends AppCompatActivity {
 
@@ -83,6 +84,7 @@ public class EditSection extends AppCompatActivity {
                     EditSection.this,"TRAINING_CENTER",null,1);
 
             Cursor cursor = dataBaseHelper.getSections();
+            int course = 0;
             while(cursor.moveToNext()){
                 if(cursor.getInt(0) == ID){
                     Section section = new Section(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3),
@@ -97,6 +99,7 @@ public class EditSection extends AppCompatActivity {
                     end_time.setTextColor(Color.BLACK);
                     days.setText(section.getDays());
                     room.setText(section.getRoom());
+                    course = section.getCourseID();
                 }
             }
 
@@ -104,6 +107,18 @@ public class EditSection extends AppCompatActivity {
             final String[] finalEND_DATE = { "-1" };
             final String[] finalCourse_ID = {"-1"};
 
+            Cursor cursor1 = dataBaseHelper.getAllCourses();
+            while(cursor1.moveToNext()){
+                if(course == cursor1.getInt(0)){
+                    finalSTART_DATE[0] = cursor1.getString(4);
+                    finalEND_DATE[0] = cursor1.getString(5);
+                    finalCourse_ID[0] = String.valueOf(cursor1.getInt(0));
+                    break;
+                }
+            }
+            assert !finalSTART_DATE[0].equals("-1");
+            assert !finalEND_DATE[0].equals("-1");
+            assert !finalCourse_ID[0].equals("-1");
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -184,10 +199,14 @@ public class EditSection extends AppCompatActivity {
                                 cursor.getString(6),
                                 cursor.getString(7), cursor.getString(8), cursor.getString(9)
                         );
+                        if(section.getSectionID() == ID){
+                            continue;
+                        }
                         if(section.getInstructorEmail().equals(EMAIL)){
                             String s1 = section.getStartTime();
                             String s2 = section.getEndTime();
 
+                            assert !finalSTART_DATE[0].equals("-1");
                             if(conflict(s1, s2, section.getDays(), START, END, DAYS,
                                     finalSTART_DATE[0], finalEND_DATE[0], section.getStartDate(), section.getEndDate())){
                                 can = false;
@@ -212,7 +231,8 @@ public class EditSection extends AppCompatActivity {
                             END, DAYS, ROOM, finalSTART_DATE[0], finalEND_DATE[0]);
 
                     dataBaseHelper.updateSection(section);
-
+                    Intent intent = new Intent(EditSection.this, EditDeleteCourses.class);
+                    startActivity(intent);
                 }
             });
 
@@ -305,17 +325,8 @@ public class EditSection extends AppCompatActivity {
                                 cursor.getString(5),
                                 cursor.getString(6),
                                 cursor.getString(7), cursor.getString(8), cursor.getString(9));
-
-                        Cursor cursor1 = dataBaseHelper.getAllCourses();
-                        finalSTART_DATE[0] = "-1";
-                        finalEND_DATE[0] = "-1";
-                        while(cursor1.moveToNext()){
-                            if(cursor1.getString(0).equals(section.getCourseID())){
-                                finalSTART_DATE[0] = cursor1.getString(3);
-                                finalEND_DATE[0] = cursor1.getString(4);
-                                finalCourse_ID[0] = cursor1.getString(0);
-                                break;
-                            }
+                        if(section.getSectionID() == ID){
+                            continue;
                         }
 
                         if(conflict(start_time.getText().toString(), end_time.getText().toString(), days.getText().toString(),
