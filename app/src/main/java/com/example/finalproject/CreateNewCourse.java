@@ -407,6 +407,20 @@ public class CreateNewCourse  extends AppCompatActivity {
                 course.setImage(new ImageHandler().getByteArray(imageView));
                 dataBaseHelper.insertCourses(course);
 
+                Cursor cursor1 = dataBaseHelper.getAllTrainees();
+                while(cursor1.moveToNext()){
+                    String email = cursor1.getString(0);
+
+                    Notification notification = new Notification();
+                    notification.setTraineeEmail(email);
+                    notification.setNotText("A new course (" + ID + ", " + NAME + ") has been added");
+                    notification.setStatus(0);
+                    dataBaseHelper.insertNotifications(notification);
+                }
+
+                Toast toast = Toast.makeText(CreateNewCourse.this, "Course added successfully", Toast.LENGTH_SHORT);
+                toast.show();
+
                 Intent intent = new Intent(CreateNewCourse.this, MainActivity.class);
                 startActivity(intent);
                 finish();

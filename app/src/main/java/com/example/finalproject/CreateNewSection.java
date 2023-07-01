@@ -198,12 +198,28 @@ public class CreateNewSection   extends AppCompatActivity {
 
                 dataBaseHelper.insertSection(section);
 
-                email.setText("");
-                max.setText("");
-                start_time.setText("");
-                end_time.setText("");
-                days.setText("");
-                room.setText("");
+                Cursor cursor2 = dataBaseHelper.getCourse(finalCOURSE_ID);
+                cursor2.moveToNext();
+                String courseName = "(" + cursor2.getString(1) + ", " + cursor2.getString(2) + ")";
+
+                Cursor cursor1 = dataBaseHelper.getAllTrainees();
+                while(cursor1.moveToNext()){
+                    String email = cursor1.getString(0);
+
+                    Notification notification = new Notification();
+                    notification.setTraineeEmail(email);
+                    notification.setNotText("A new section has been added to the course " + courseName);
+                    notification.setStatus(0);
+                    dataBaseHelper.insertNotifications(notification);
+                }
+
+                Toast toast = Toast.makeText(CreateNewSection.this, "Section Added Successfully", Toast.LENGTH_SHORT);
+                toast.show();
+
+
+                Intent intent = new Intent(CreateNewSection.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -296,20 +312,6 @@ public class CreateNewSection   extends AppCompatActivity {
                             cursor.getString(5),
                             cursor.getString(6),
                             cursor.getString(7), cursor.getString(8), cursor.getString(9));
-
-                    System.out.println(section.toString());
-                    // print everything in the if statement
-                    System.out.println("start time: " + start_time.getText().toString());
-                    System.out.println("end time: " + end_time.getText().toString());
-                    System.out.println("days: " + days.getText().toString());
-                    System.out.println("section start time: " + section.getStartTime());
-                    System.out.println("section end time: " + section.getEndTime());
-                    System.out.println("section days: " + section.getDays());
-                    System.out.println("final start date: " + finalSTART_DATE);
-                    System.out.println("final end date: " + finalEND_DATE);
-                    System.out.println("section start date: " + section.getStartDate());
-                    System.out.println("section end date: " + section.getEndDate());
-                    System.out.println("room: " + section.getRoom());
 
                     if(conflict(start_time.getText().toString(), end_time.getText().toString(), days.getText().toString(),
                                     section.getStartTime(), section.getEndTime(), section.getDays(),
