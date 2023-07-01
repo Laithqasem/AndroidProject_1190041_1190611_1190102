@@ -7,6 +7,9 @@ public class Trainee {
     private String password;
     private String firstName;
     private String lastName;
+
+    private String personal_photo;
+
     private String mobileNumber;
     private String address;
     private byte[] image;
@@ -15,11 +18,13 @@ public class Trainee {
 
     }
 
-    public Trainee(String email, String password, String firstName, String lastName, String mobileNumber, String address, byte[] image) {
+    public Trainee(String email, String password, String firstName, String lastName,String personal_photo, String mobileNumber, String address) {
+
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.personal_photo=personal_photo;
         this.mobileNumber = mobileNumber;
         this.address = address;
         this.image = image;
@@ -32,6 +37,14 @@ public class Trainee {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPersonal_photo() {
+        return personal_photo;
+    }
+
+    public void setPersonal_photo(String personal_photo) {
+        this.personal_photo = personal_photo;
     }
 
     public String getPassword() {

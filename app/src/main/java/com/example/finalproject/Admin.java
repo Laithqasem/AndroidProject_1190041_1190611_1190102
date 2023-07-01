@@ -5,17 +5,19 @@ public class Admin {
     private String password;
     private String firstName;
     private String lastName;
+    private String personal_photo;
     // ToDo: Photo
 
     public Admin() {
 
     }
 
-    public Admin(String email, String password, String firstName, String lastName) {
+    public Admin(String email, String password, String firstName, String lastName,String personal_photo) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.personal_photo=personal_photo;
     }
 
     public String getEmail() {
@@ -24,6 +26,14 @@ public class Admin {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPersonal_photo() {
+        return personal_photo;
+    }
+
+    public void setPersonal_photo(String personal_photo) {
+        this.personal_photo = personal_photo;
     }
 
     public String getPassword() {

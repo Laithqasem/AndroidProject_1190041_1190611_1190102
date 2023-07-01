@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalProject">
+        <activity android:name=".InstructorActivity"></activity>
+        <activity android:name=".InstructorCoursesActivity" />
+        <activity android:name=".InstructorStudentsActivity" />
+        <activity android:name=".InstructorScheduleActivity" />
+        <activity android:name=".Instructor_Activity" />
         <activity
             android:name=".TraineeActivites"
             android:exported="false" />
@@ -23,6 +28,7 @@
         <activity android:name=".ViewProfiles"/>
         <activity android:name=".ApproveStudents"/>
         <activity android:name=".ApproveStudentsInSections"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

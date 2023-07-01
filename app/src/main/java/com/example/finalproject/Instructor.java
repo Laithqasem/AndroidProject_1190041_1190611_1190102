@@ -5,30 +5,41 @@ public class Instructor {
     private String password;
     private String firstName;
     private String lastName;
-    // Todo: photo
+    private String personal_photo;
     private String mobileNumber;
     private String address;
     private String specialization;
-    private String degree;
+
     private String canTeach;
-    private byte[] image;
+
 
     public Instructor() {
 
     }
 
-    public Instructor(String email, String password, String firstName, String lastName, String mobileNumber,
-                      String address, String specialization, String degree, String canTeach, byte[] image) {
+
+    public Instructor(String email, String password, String firstName, String lastName, String personal_photo, String mobileNumber,
+                      String address, String specialization, String canTeach) {
+
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mobileNumber = mobileNumber;
+        this.personal_photo = personal_photo;
         this.address = address;
         this.specialization = specialization;
-        this.degree = degree;
+
         this.canTeach = canTeach;
-        this.image = image;
+    }
+
+    public String getPersonal_photo() {
+        return personal_photo;
+    }
+
+    public void setPersonal_photo(String personal_photo) {
+        this.personal_photo = personal_photo;
+
     }
 
     public String getEmail() {
@@ -87,12 +98,12 @@ public class Instructor {
         this.specialization = specialization;
     }
 
-    public String getDegree() {
-        return degree;
+    public String getCanTeach() {
+        return canTeach;
     }
 
-    public void setDegree(String degree) {
-        this.degree = degree;
+    public void setCanTeach(String canTeach) {
+        this.canTeach = canTeach;
     }
 
     public String getCanTeach() {
@@ -113,14 +124,16 @@ public class Instructor {
 
     @Override
     public String toString() {
-        return "Email: " + email + "\n" +
-                "Password: " + password + "\n" +
-                "First Name: " + firstName + "\n" +
-                "Last Name: " + lastName + "\n" +
-                "Mobile Number: " + mobileNumber + "\n" +
-                "Address: " + address + "\n" +
-                "Specialization: " + specialization + "\n" +
-                "Degree: " + degree + "\n" +
-                "Can Teach: " + canTeach + "\n";
+        return "Instructor{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", mobileNumber='" + mobileNumber + '\'' +
+                ", address='" + address + '\'' +
+                ", specialization='" + specialization + '\'' +
+                ", canTeach='" + canTeach + '\'' +
+                '}';
+
     }
 }

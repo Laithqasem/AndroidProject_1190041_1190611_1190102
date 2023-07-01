@@ -74,7 +74,7 @@
                     android:translationY="10dp" />
 
                 <EditText
-                    android:id="@+id/login_email"
+                    android:id="@+id/email_login"
                     android:layout_width="311dp"
                     android:layout_height="53dp"
                     android:layout_marginHorizontal="40dp"
@@ -177,16 +177,34 @@
                     android:textStyle="bold"
                     android:translationY="10dp" />
 
-                <EditText
-                    android:id="@+id/editTextTextPersonName6"
-                    android:layout_width="311dp"
-                    android:layout_height="53dp"
-                    android:layout_marginHorizontal="40dp"
-                    android:background="@drawable/edittext"
-                    android:ems="10"
-                    android:textColor="@color/black"
-                    android:inputType="textPersonName"
-                    android:text="Name" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/chooseImageButton"
+                        android:layout_width="100dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginHorizontal="40dp"
+                        android:background="@drawable/round_buttons2"
+                        android:text="Choose Profile Image"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:textColor="@color/mainColor"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="97dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:scaleType="centerCrop" />
+                </LinearLayout>
+
 
             </LinearLayout>
 
@@ -248,6 +266,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/SpecializationGroup"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginHorizontal="40dp"
@@ -301,54 +320,148 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginHorizontal="40dp"
-                    android:text=" List Of Teachable Courses"
+                    android:text=" List Of Teachable Fields"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:translationY="10dp" />
 
-                <CheckBox
-                    android:id="@+id/checkBox"
-                    android:layout_width="106dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="40dp"
-                    android:text="Java"
-                    android:textSize="16dp"
-                    android:textStyle="bold"
-                    android:buttonTint="@color/whiteColor"
-                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                <CheckBox
-                    android:id="@+id/checkBox2"
-                    android:layout_width="106dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="40dp"
-                    android:text="C++"
-                    android:textSize="16dp"
-                    android:textStyle="bold"
-                    android:buttonTint="@color/whiteColor"
-                    />
+                    <LinearLayout
+                        android:layout_width="162dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                <CheckBox
-                    android:id="@+id/checkBox3"
-                    android:layout_width="106dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="40dp"
-                    android:text="Buisness"
-                    android:textSize="16dp"
-                    android:textStyle="bold"
-                    android:buttonTint="@color/whiteColor"
-                    />
+                        <CheckBox
+                            android:id="@+id/techCheckBox"
+                            android:layout_width="125dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="40dp"
+                            android:buttonTint="@color/whiteColor"
+                            android:text="Technology"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
 
-                <CheckBox
-                    android:id="@+id/checkBox4"
-                    android:layout_width="106dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="40dp"
-                    android:text="OOP"
-                    android:textSize="16dp"
-                    android:textStyle="bold"
-                    android:buttonTint="@color/whiteColor"
-                    />
+                        <CheckBox
+                            android:id="@+id/BuisnessCheckBox"
+                            android:layout_width="125dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="40dp"
+                            android:buttonTint="@color/whiteColor"
+                            android:text="Buisness"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <CheckBox
+                            android:id="@+id/MarketingCheckBox"
+                            android:layout_width="125dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="40dp"
+                            android:buttonTint="@color/whiteColor"
+                            android:text="Marketing "
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <CheckBox
+                            android:id="@+id/LiteratureCheckBox"
+                            android:layout_width="125dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="40dp"
+                            android:buttonTint="@color/whiteColor"
+                            android:text="Literature"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <CheckBox
+                            android:id="@+id/EngineeringCheckBox"
+                            android:layout_width="125dp"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/whiteColor"
+                            android:text="Engineering"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <CheckBox
+                            android:id="@+id/PhysicsCheckBox"
+                            android:layout_width="125dp"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/whiteColor"
+                            android:text="Physics "
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <CheckBox
+                            android:id="@+id/MathCheckBox"
+                            android:layout_width="125dp"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/whiteColor"
+                            android:text="Math "
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <CheckBox
+                            android:id="@+id/BiologyCheckBox"
+                            android:layout_width="125dp"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/whiteColor"
+                            android:text="Biology "
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <CheckBox
+                            android:id="@+id/PharmacyCheckBox"
+                            android:layout_width="125dp"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/whiteColor"
+                            android:text="Pharmacy  "
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <CheckBox
+                            android:id="@+id/MedicineCheckBox"
+                            android:layout_width="125dp"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/whiteColor"
+                            android:text="Medicine "
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <CheckBox
+                            android:id="@+id/LawCheckBox"
+                            android:layout_width="125dp"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/whiteColor"
+                            android:text="Law"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <CheckBox
+                            android:id="@+id/AccountingCheckBox"
+                            android:layout_width="125dp"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/whiteColor"
+                            android:text="Accounting"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
             <Button
