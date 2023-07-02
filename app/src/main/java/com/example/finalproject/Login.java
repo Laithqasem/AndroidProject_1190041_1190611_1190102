@@ -2,7 +2,9 @@ package com.example.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -23,16 +25,27 @@ public class Login extends AppCompatActivity {
     private EditText email,password;
     CheckBox rememberMe;
     boolean valid_email,valid_password;
+    SharedPreferences sharedPreferences ;
+//    String email_Shared_value = sharedPreferences.getString("email", "");
+//    String password_Shared_value = sharedPreferences.getString("password", "");
+//        email.setText(email_Shared_value);
+//        password.setText(password_Shared_value);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         Button back_button = findViewById(R.id.back_button);
         Drawable icon = getResources().getDrawable(R.drawable.ic_baseline_arrow_back_24);
         back_button.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null);
         back_button.setPaddingRelative(20,0,0,0);
+        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+
+        String email_Shared_value = sharedPreferences.getString("email", "");
+        String password_Shared_value = sharedPreferences.getString("password", "");
+
 
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +63,8 @@ public class Login extends AppCompatActivity {
         email.setShowSoftInputOnFocus(false);
         password.setShowSoftInputOnFocus(false);
         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        email.setText(email_Shared_value);
+        password.setText(password_Shared_value);
 
 
         email.addTextChangedListener(new TextWatcher() {
@@ -89,7 +104,10 @@ public class Login extends AppCompatActivity {
             System.out.println(entered_password);
             System.out.println(remember_me_check_box);
 
-            DataBaseHelper dataBaseHelper = new DataBaseHelper(
+
+
+
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(
                     Login.this,"TRAINING_CENTER",null,1);
 
 
@@ -97,6 +115,15 @@ public class Login extends AppCompatActivity {
 
                 String isValid = dataBaseHelper.getLoginPassword(entered_email,entered_password);
                 if(isValid.equals("ADMIN")){
+
+                    if(remember_me_check_box){
+
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("email", entered_email);
+                        editor.putString("password", entered_password);
+                        editor.apply();
+
+                    }
                     Intent intent = new Intent(Login.this, Admin_Activity.class);
                     startActivity(intent);
                     finish();
@@ -144,10 +171,27 @@ public class Login extends AppCompatActivity {
                     intent.putExtra("DEGREE",user_degree);
                     intent.putExtra("canTeach",user_canTeach);
 
+                    if(remember_me_check_box){
+
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("email", entered_email);
+                        editor.putString("password", entered_password);
+                        editor.apply();
+
+                    }
+
                     // Start the activity with the Intent
                     startActivity(intent);
 
                 }else if(isValid.equals("TRAINEE")){
+                    if(remember_me_check_box){
+
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("email", entered_email);
+                        editor.putString("password", entered_password);
+                        editor.apply();
+
+                    }
                     Intent intent = new Intent(Login.this, Trainee_Activity.class);
                     startActivity(intent);
                     finish();
