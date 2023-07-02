@@ -18,6 +18,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/headerbkg" />
 
+    <Button
+        android:id="@+id/back_button_edit"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/back_button2"
+
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.067" />
+
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="409dp"
@@ -304,11 +317,58 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginHorizontal="40dp"
+                    android:text="Specialization"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:translationY="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <EditText
+                        android:id="@+id/edit_specialization_edit_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="53dp"
+                        android:layout_marginHorizontal="40dp"
+                        android:background="@drawable/edittext"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/black" />
+
+                    <Button
+                        android:id="@+id/edit_specialization"
+                        android:layout_width="100dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/round_buttons2"
+                        android:text="change Specialization"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:textColor="@color/mainColor"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
                     android:id="@+id/SpecializationGroup"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginHorizontal="40dp"
-                    android:text=" Specialization"
+                    android:text="Degree"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:translationY="10dp" />
@@ -358,7 +418,7 @@
                         android:layout_height="35dp"
                         android:layout_gravity="center_horizontal"
                         android:background="@drawable/round_buttons2"
-                        android:text="Change Specialization"
+                        android:text="Change Degree"
                         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                         android:textColor="@color/mainColor"
                         android:textSize="12sp"

@@ -3,8 +3,11 @@ package com.example.finalproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -24,10 +27,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 public class InstructorEditProfile extends AppCompatActivity {
 
-    EditText mobileNo,address,email,first_name,last_name,password,confirm_password;
-    boolean valid_email,valid_last_name,valid_first_name,valid_confirm_password,valid_password,valid_address,valid_Specialization=false,valid_can_teach_list,valid_mobile_no;
+    EditText mobileNo,address,email,first_name,last_name,password,specialization;
+    boolean valid_email,valid_last_name,valid_first_name,valid_password,valid_address,valid_Specialization=false,valid_can_teach_list,valid_mobile_no;
     static final String TOAST_TEXT = "check the wrong fields";
     Uri selectedImageUri;
     RadioGroup specialization_group;
@@ -38,6 +45,10 @@ public class InstructorEditProfile extends AppCompatActivity {
     CheckBox tech_option, business_option,marketing_option,biology_option,physics_option,math_option, literature_option,pharmacy_option,engineering_option,accountant_option,medicine_option,law_option;
     String canTeach="";
     private Button chooseImageButton;
+    String emailString;
+    DataBaseHelper dataBaseHelper = new DataBaseHelper(
+            InstructorEditProfile.this,"TRAINING_CENTER",null,1);
+
     View view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +71,7 @@ public class InstructorEditProfile extends AppCompatActivity {
         password = findViewById(R.id.edit_password_text);
         mobileNo = findViewById(R.id.edit_mobile_text);
         address = findViewById(R.id.edit_address_text);
+        specialization= findViewById(R.id.edit_specialization_edit_text);
         specialization_group =  findViewById(R.id.specialization);
         bsc_option =  findViewById(R.id.BSc);
         msc_option =  findViewById(R.id.MSc);
@@ -336,11 +348,13 @@ public class InstructorEditProfile extends AppCompatActivity {
         Button last_name_button = findViewById(R.id.edit_last_name_button);
         Button address_button = findViewById(R.id.edit_address_button);
         Button password_button = findViewById(R.id.edit_password_button);
-        Button specialization_button = findViewById(R.id.editSpecialization_button);
+        Button Degree_button = findViewById(R.id.editSpecialization_button);
         Button mobileNo_button = findViewById(R.id.edit_mobile_number_button);
         Button canTeach_button = findViewById(R.id.changeFields_button);
+        Button specialization_button = findViewById(R.id.edit_specialization);
 
-
+        String user_email = getIntent().getStringExtra("EMAIL");
+        emailString=user_email;
         first_name_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -350,8 +364,25 @@ public class InstructorEditProfile extends AppCompatActivity {
                     Toast.makeText(InstructorEditProfile.this,"There is an Empty First Name" , Toast.LENGTH_SHORT).show();
                 }else if(valid_first_name ){
 
+                    boolean done = dataBaseHelper.updateInstructor("FIRST_NAME",first_name_string,user_email);
                     System.out.println(first_name_string);
+                    System.out.println(done);
 
+                }
+
+            }
+        });
+        specialization_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String specialization_string = specialization.getText().toString();
+
+                if(specialization_string.equals("")){
+                    Toast.makeText(InstructorEditProfile.this,"There is an Empty specialization" , Toast.LENGTH_SHORT).show();
+                }else {
+                    boolean done = dataBaseHelper.updateInstructor("SPECIALIZATION",specialization_string,user_email);
+                    System.out.println(specialization_string);
+                    System.out.println(done);
 
                 }
 
@@ -365,7 +396,10 @@ public class InstructorEditProfile extends AppCompatActivity {
                 if(last_name_string.equals("")){
                     Toast.makeText(InstructorEditProfile.this,"There is an Empty Last Name" , Toast.LENGTH_SHORT).show();
                 }else if(valid_last_name ){
+                    boolean done = dataBaseHelper.updateInstructor("LAST_NAME",last_name_string,user_email);
                     System.out.println(last_name_string);
+                    System.out.println(done);
+
                 }
 
             }
@@ -378,7 +412,10 @@ public class InstructorEditProfile extends AppCompatActivity {
                 if(password_string.equals("")){
                     Toast.makeText(InstructorEditProfile.this,"There is an Empty Password" , Toast.LENGTH_SHORT).show();
                 }else if(valid_password ){
+                    boolean done = dataBaseHelper.updateInstructor("PASSWORD",password_string,user_email);
                     System.out.println(password_string);
+                    System.out.println(done);
+
                 }
 
             }
@@ -391,7 +428,10 @@ public class InstructorEditProfile extends AppCompatActivity {
                 if(mobile_string.equals("")){
                     Toast.makeText(InstructorEditProfile.this,"There is an Empty Mobile No" , Toast.LENGTH_SHORT).show();
                 }else if(valid_mobile_no ){
+                    boolean done = dataBaseHelper.updateInstructor("MOBILE_NUMBER",mobile_string,user_email);
                     System.out.println(mobile_string);
+                    System.out.println(done);
+
                 }
 
             }
@@ -404,12 +444,15 @@ public class InstructorEditProfile extends AppCompatActivity {
                 if(address_string.equals("")){
                     Toast.makeText(InstructorEditProfile.this,"There is an Empty Address" , Toast.LENGTH_SHORT).show();
                 }else {
+                    boolean done = dataBaseHelper.updateInstructor("ADDRESS",address_string,user_email);
                     System.out.println(address_string);
+                    System.out.println(done);
+//
                 }
 
             }
         });
-        specialization_button.setOnClickListener(new View.OnClickListener() {
+        Degree_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -417,6 +460,8 @@ public class InstructorEditProfile extends AppCompatActivity {
                     Toast.makeText(InstructorEditProfile.this,"There is an Empty Specialization" , Toast.LENGTH_SHORT).show();
                 }else if(valid_Specialization ){
                     System.out.println(chosen_specialization);
+                    boolean done = dataBaseHelper.updateInstructor("DEGREE",chosen_specialization,user_email);
+                    System.out.println(done);
                 }
 
             }
@@ -430,10 +475,29 @@ public class InstructorEditProfile extends AppCompatActivity {
                     Toast.makeText(InstructorEditProfile.this,"There is an Empty Address" , Toast.LENGTH_SHORT).show();
                 }else {
                     System.out.println(canTeach);
+                    boolean done = dataBaseHelper.updateInstructor("canTeach",canTeach,user_email);
+                    System.out.println(done);
+
                 }
 
             }
         });
+
+        Button back_button = findViewById(R.id.back_button_edit);
+        Drawable icon = getResources().getDrawable(R.drawable.ic_baseline_arrow_back_24_2);
+        back_button.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null);
+        back_button.setPaddingRelative(20,0,0,0);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(InstructorEditProfile.this, Instructor_Activity.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+
+
 
 
 
@@ -458,6 +522,20 @@ public class InstructorEditProfile extends AppCompatActivity {
         if (requestCode == REQUEST_CODE_IMAGE_PICKER && resultCode == Activity.RESULT_OK && data != null) {
             selectedImageUri = data.getData();
             imageView.setImageURI(selectedImageUri);
+
+            byte[] image_in_bytes= new byte[1024];
+            try {
+                uriToByteArray(InstructorEditProfile.this,selectedImageUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            boolean done = dataBaseHelper.updateInstructor("PERSONAL_PHOTO",image_in_bytes.toString(),emailString);
+            System.out.println(done);
+
+
+
+
         }
     }
 
@@ -490,7 +568,25 @@ public class InstructorEditProfile extends AppCompatActivity {
         return mobile_No.matches(regex);
     }
 
+    public byte[] uriToByteArray(Context context, Uri uri) throws IOException {
+        ContentResolver contentResolver = context.getContentResolver();
+        InputStream inputStream = contentResolver.openInputStream(uri);
 
+        // Read the input stream and convert it to a byte array
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            byteArrayOutputStream.write(buffer, 0, bytesRead);
+        }
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+
+        // Close the input stream and the output stream
+        inputStream.close();
+        byteArrayOutputStream.close();
+
+        return byteArray;
+    }
 
 
 

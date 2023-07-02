@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalProject">
-        <activity android:name=".Trainee_Activity"></activity>
+        <activity android:name=".Instructor_profile_Activity"></activity>
+        <activity android:name=".Trainee_Activity" />
         <activity android:name=".Admin_Activity" />
         <activity android:name=".InstructorEditProfile" />
         <activity android:name=".InstructorCoursesActivity" />

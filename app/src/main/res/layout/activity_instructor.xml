@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Instructor_Activity">
+
     <Button
         android:id="@+id/button3"
-        android:layout_width="191dp"
-        android:layout_height="277dp"
-        android:text="Button" />
+        android:layout_width="184dp"
+        android:layout_height="110dp"
+        android:text="Edit Profile" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

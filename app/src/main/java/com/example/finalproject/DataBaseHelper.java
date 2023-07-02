@@ -111,16 +111,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
                 "EMAIL = \"" + email + "\"", null);
 
         return cursor;
-//        while (cursor.moveToNext()){
-//
-//            if(cursor.getString(0).equals(email)){
-//                return cursor.getString(0);
-//            }else{
-//                continue;
-//            }
-//
-//        }
-//        return "NULL";
+
     }
     public String getLoginPassword(String email, String password) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
@@ -289,7 +280,11 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         return sqLiteDatabase.rawQuery("SELECT * FROM COURSES", null);
     }
-
+    public boolean updateInstructor(String column,String value, String Email) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        sqLiteDatabase.rawQuery("UPDATE INSTRUCTOR SET " +column+" = '"+ value + "' WHERE EMAIL = '" + Email + "'", null);
+        return true;
+    }
     public Cursor getAllInstructor() {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         return sqLiteDatabase.rawQuery("SELECT * FROM INSTRUCTOR", null);
