@@ -5,19 +5,19 @@ public class Admin {
     private String password;
     private String firstName;
     private String lastName;
-    private String personal_photo;
+    private byte[] image;
     // ToDo: Photo
 
     public Admin() {
 
     }
 
-    public Admin(String email, String password, String firstName, String lastName,String personal_photo) {
+    public Admin(String email, String password, String firstName, String lastName,byte[] image) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.personal_photo=personal_photo;
+        this.image=image;
     }
 
     public String getEmail() {
@@ -28,14 +28,6 @@ public class Admin {
         this.email = email;
     }
 
-    public String getPersonal_photo() {
-        return personal_photo;
-    }
-
-    public void setPersonal_photo(String personal_photo) {
-        this.personal_photo = personal_photo;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -43,7 +35,13 @@ public class Admin {
     public void setPassword(String password) {
         this.password = password;
     }
+    public byte[] getImage() {
+        return image;
+    }
 
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
     public String getFirstName() {
         return firstName;
     }

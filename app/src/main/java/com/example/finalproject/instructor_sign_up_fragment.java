@@ -1,6 +1,8 @@
 package com.example.finalproject;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -16,6 +18,8 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -23,13 +27,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 
 public class instructor_sign_up_fragment extends Fragment {
 
     private EditText mobileNo,address,email,first_name,last_name,password,confirm_password;
-    boolean valid_email,valid_last_name,valid_first_name,valid_confirm_password,valid_password,valid_address,valid_Specialization=false,valid_can_teach_list,valid_mobile_no;
+    boolean validSpecialization,valid_email,valid_last_name,valid_first_name,valid_confirm_password,valid_password,valid_address,valid_Specialization=false,valid_can_teach_list,valid_mobile_no;
     private static final String TOAST_TEXT = "check the wrong fields";
     Uri selectedImageUri;
     RadioGroup specialization_group;
@@ -39,6 +48,9 @@ public class instructor_sign_up_fragment extends Fragment {
     private ImageView imageView;
     CheckBox tech_option, business_option,marketing_option,biology_option,physics_option,math_option, literature_option,pharmacy_option,engineering_option,accountant_option,medicine_option,law_option;
     String canTeach="";
+    Spinner Specialization;
+    String selected_specialization;
+
     private Button chooseImageButton;
     View view;
     @Override
@@ -79,6 +91,15 @@ public class instructor_sign_up_fragment extends Fragment {
         medicine_option = view.findViewById(R.id.MedicineCheckBox);
         law_option= view.findViewById(R.id.LawCheckBox);
         accountant_option = view.findViewById(R.id.AccountingCheckBox);
+
+
+        Specialization =(Spinner)
+                view.findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.spinner_items, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Specialization.setAdapter(adapter);
+
 
 
         email.setShowSoftInputOnFocus(false);
@@ -386,7 +407,24 @@ public class instructor_sign_up_fragment extends Fragment {
                 }
             }
         });
+        Specialization.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Retrieve the selected item
+                selected_specialization = parent.getItemAtPosition(position).toString();
+                if (selected_specialization.equals("")) {
+                    validSpecialization = false;
+                } else {
+                    validSpecialization = true;
+                    mobileNo.setError(null);
+                }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         Button sign_up_button = view.findViewById(R.id.sign_up2);
 
         sign_up_button.setOnClickListener(new View.OnClickListener() {
@@ -410,7 +448,7 @@ public class instructor_sign_up_fragment extends Fragment {
                         && !pharmacy_option.isChecked() && !law_option.isChecked() && !accountant_option.isChecked()
                 ){
                     Toast.makeText(getContext(),"check some of Teachable Fields" , Toast.LENGTH_SHORT).show();
-                }else if(valid_Specialization &&valid_mobile_no && valid_email && valid_confirm_password && valid_first_name && valid_last_name && valid_password){
+                }else if(validSpecialization &&valid_Specialization &&valid_mobile_no && valid_email && valid_confirm_password && valid_first_name && valid_last_name && valid_password){
                     System.out.println(email_string);
                     System.out.println(first_name_string);
                     System.out.println(last_name_string);
@@ -425,16 +463,24 @@ public class instructor_sign_up_fragment extends Fragment {
 
                     Instructor instructor = new Instructor();
                     instructor.setEmail(email_string);
+                    instructor.setPassword(password_string);
                     instructor.setFirstName(first_name_string);
                     instructor.setLastName(last_name_string);
-                    instructor.setPassword(password_string);
-                    instructor.setPersonal_photo(selectedImageUri.toString());
+
+                    byte[] image_in_bytes= new byte[1024];
+                    try {
+                        uriToByteArray(getContext(),selectedImageUri);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    instructor.setImage(image_in_bytes);
                     instructor.setMobileNumber(mobile_string);
                     instructor.setAddress(address_string);
-                    instructor.setSpecialization(chosen_specialization);
+                    instructor.setSpecialization(selected_specialization);
+                    instructor.setDegree(chosen_specialization);
                     instructor.setCanTeach(canTeach);
 
-//                    String databaseName = "TRAINING_CENTER"; // Replace with the actual database name
+//                    String databaseName = "TRAINING_CENTER";
 //                    getContext().deleteDatabase(databaseName);
 
                     DataBaseHelper dataBaseHelper = new DataBaseHelper(
@@ -456,7 +502,7 @@ public class instructor_sign_up_fragment extends Fragment {
                                         +"\nPassword= "+res3.getString(1)
                                         +"\nFirstName= "+res3.getString(2)
                                         +"\nLastName= "+res3.getString(3)
-                                        +"\nPersonalPhoto= "+res3.getString(4)
+                                        +"\nPersonalPhoto= "+res3.getBlob(4)
                                         +"\n\n"
                         );
                     }
@@ -515,4 +561,24 @@ public class instructor_sign_up_fragment extends Fragment {
         String regex = "^[+]?[0-9]{10,13}$";
         return mobile_No.matches(regex);
     }
+    public byte[] uriToByteArray(Context context, Uri uri) throws IOException {
+        ContentResolver contentResolver = context.getContentResolver();
+        InputStream inputStream = contentResolver.openInputStream(uri);
+
+        // Read the input stream and convert it to a byte array
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            byteArrayOutputStream.write(buffer, 0, bytesRead);
+        }
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+
+        // Close the input stream and the output stream
+        inputStream.close();
+        byteArrayOutputStream.close();
+
+        return byteArray;
+    }
+
 }

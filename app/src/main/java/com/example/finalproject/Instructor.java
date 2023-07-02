@@ -5,35 +5,29 @@ public class Instructor {
     private String password;
     private String firstName;
     private String lastName;
-    private String personal_photo;
     private String mobileNumber;
     private String address;
     private String specialization;
+    private String degree;
     private String canTeach;
+    private byte[] image;
 
     public Instructor() {
 
     }
 
-    public Instructor(String email, String password, String firstName, String lastName, String personal_photo, String mobileNumber,
-                      String address, String specialization, String canTeach) {
+    public Instructor(String email, String password, String firstName, String lastName, String mobileNumber,
+                      String address, String specialization, String degree, String canTeach, byte[] image) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mobileNumber = mobileNumber;
-        this.personal_photo = personal_photo;
         this.address = address;
         this.specialization = specialization;
+        this.degree = degree;
         this.canTeach = canTeach;
-    }
-
-    public String getPersonal_photo() {
-        return personal_photo;
-    }
-
-    public void setPersonal_photo(String personal_photo) {
-        this.personal_photo = personal_photo;
+        this.image = image;
     }
 
     public String getEmail() {
@@ -92,6 +86,14 @@ public class Instructor {
         this.specialization = specialization;
     }
 
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+
     public String getCanTeach() {
         return canTeach;
     }
@@ -100,17 +102,24 @@ public class Instructor {
         this.canTeach = canTeach;
     }
 
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
-        return "Instructor{" +
-                "email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", mobileNumber='" + mobileNumber + '\'' +
-                ", address='" + address + '\'' +
-                ", specialization='" + specialization + '\'' +
-                ", degree='" + canTeach + '\'' +
-                '}';
+        return "Email: " + email + "\n" +
+                "Password: " + password + "\n" +
+                "First Name: " + firstName + "\n" +
+                "Last Name: " + lastName + "\n" +
+                "Mobile Number: " + mobileNumber + "\n" +
+                "Address: " + address + "\n" +
+                "Specialization: " + specialization + "\n" +
+                "Degree: " + degree + "\n" +
+                "Can Teach: " + canTeach + "\n";
     }
 }

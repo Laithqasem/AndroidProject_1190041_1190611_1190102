@@ -1,6 +1,8 @@
 package com.example.finalproject;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -20,6 +22,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 
 public class trainee_sign_up_fragment extends Fragment {
@@ -237,6 +243,10 @@ public class trainee_sign_up_fragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+
+//                                    String databaseName = "TRAINING_CENTER";
+//                    getContext().deleteDatabase(databaseName);
+
                 String email_string = email.getText().toString();
                 String first_name_string = first_name.getText().toString();
                 String last_name_string = last_name.getText().toString();
@@ -263,7 +273,13 @@ public class trainee_sign_up_fragment extends Fragment {
                     trainee.setFirstName(first_name_string);
                     trainee.setLastName(last_name_string);
                     trainee.setPassword(password_string);
-                    trainee.setPersonal_photo(selectedImageUri.toString());
+                    byte[] image_in_bytes= new byte[1024];
+                    try {
+                       uriToByteArray(getContext(),selectedImageUri);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    trainee.setImage(image_in_bytes);
                     trainee.setMobileNumber(mobile_string);
                     trainee.setAddress(address_string);
                     DataBaseHelper dataBaseHelper = new DataBaseHelper(
@@ -285,7 +301,7 @@ public class trainee_sign_up_fragment extends Fragment {
                                         +"\nPassword= "+res2.getString(1)
                                         +"\nFirstName= "+res2.getString(2)
                                         +"\nLastName= "+res2.getString(3)
-                                        +"\nPersonalPhoto= "+res2.getString(4)
+                                        +"\nPersonalPhoto= "+res2.getBlob(4)
                                         +"\n\n"
                         );
                     }
@@ -346,6 +362,25 @@ public class trainee_sign_up_fragment extends Fragment {
     public boolean isValidMobileNO(String mobile_No) {
         String regex = "^[+]?[0-9]{10,13}$";
         return mobile_No.matches(regex);
+    }
+    public byte[] uriToByteArray(Context context, Uri uri) throws IOException {
+        ContentResolver contentResolver = context.getContentResolver();
+        InputStream inputStream = contentResolver.openInputStream(uri);
+
+        // Read the input stream and convert it to a byte array
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            byteArrayOutputStream.write(buffer, 0, bytesRead);
+        }
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+
+        // Close the input stream and the output stream
+        inputStream.close();
+        byteArrayOutputStream.close();
+
+        return byteArray;
     }
 }
 

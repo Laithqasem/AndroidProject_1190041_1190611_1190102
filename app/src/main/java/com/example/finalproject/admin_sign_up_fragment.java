@@ -1,6 +1,8 @@
 package com.example.finalproject;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -19,6 +21,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 
 public class admin_sign_up_fragment extends Fragment {
@@ -241,7 +247,14 @@ public class admin_sign_up_fragment extends Fragment {
                     admin.setFirstName(first_name_string);
                     admin.setLastName(last_name_string);
                     admin.setPassword(password_string);
-                    admin.setPersonal_photo(selectedImageUri.toString());
+                    byte[] image_in_bytes= new byte[1024];
+                    try {
+                        uriToByteArray(getContext(),selectedImageUri);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    admin.setImage(image_in_bytes);
+
                     DataBaseHelper dataBaseHelper = new DataBaseHelper(
                             getContext(),"TRAINING_CENTER",null,1);
 
@@ -261,7 +274,7 @@ public class admin_sign_up_fragment extends Fragment {
                                         +"\nPassword= "+res.getString(1)
                                         +"\nFirstName= "+res.getString(2)
                                         +"\nLastName= "+res.getString(3)
-                                        +"\nPersonalPhoto= "+res.getString(4)
+                                        +"\nPersonalPhoto= "+res.getBlob(4)
                                         +"\n\n"
                         );
                     }
@@ -318,5 +331,24 @@ public class admin_sign_up_fragment extends Fragment {
             }
         }
         return false;
+    }
+    public byte[] uriToByteArray(Context context, Uri uri) throws IOException {
+        ContentResolver contentResolver = context.getContentResolver();
+        InputStream inputStream = contentResolver.openInputStream(uri);
+
+        // Read the input stream and convert it to a byte array
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            byteArrayOutputStream.write(buffer, 0, bytesRead);
+        }
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+
+        // Close the input stream and the output stream
+        inputStream.close();
+        byteArrayOutputStream.close();
+
+        return byteArray;
     }
 }

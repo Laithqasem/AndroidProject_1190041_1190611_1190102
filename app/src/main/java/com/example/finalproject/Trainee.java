@@ -5,7 +5,7 @@ public class Trainee {
     private String password;
     private String firstName;
     private String lastName;
-    private String personal_photo;
+    private byte[] image;
     private String mobileNumber;
     private String address;
 
@@ -13,12 +13,12 @@ public class Trainee {
 
     }
 
-    public Trainee(String email, String password, String firstName, String lastName,String personal_photo, String mobileNumber, String address) {
+    public Trainee(String email, String password, String firstName, String lastName,byte[] personal_photo, String mobileNumber, String address) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.personal_photo=personal_photo;
+        this.image=personal_photo;
         this.mobileNumber = mobileNumber;
         this.address = address;
     }
@@ -31,14 +31,13 @@ public class Trainee {
         this.email = email;
     }
 
-    public String getPersonal_photo() {
-        return personal_photo;
+    public byte[] getImage() {
+        return image;
     }
 
-    public void setPersonal_photo(String personal_photo) {
-        this.personal_photo = personal_photo;
+    public void setImage(byte[] image) {
+        this.image = image;
     }
-
     public String getPassword() {
         return password;
     }

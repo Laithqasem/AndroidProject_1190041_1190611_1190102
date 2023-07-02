@@ -33,7 +33,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
 
         sqLiteDatabase.execSQL("CREATE TABLE INSTRUCTOR(" +
                 "EMAIL TEXT PRIMARY KEY, PASSWORD TEXT, FIRST_NAME TEXT, LAST_NAME TEXT, PERSONAL_PHOTO TEXT, MOBILE_NUMBER TEXT," +
-                "ADDRESS TEXT, SPECIALIZATION TEXT, canTeach TEXT)");
+                "ADDRESS TEXT, SPECIALIZATION TEXT, DEGREE TEXT, canTeach TEXT)");
 
         sqLiteDatabase.execSQL("CREATE TABLE SECTION(" +
                 "SECTION_ID INTEGER PRIMARY KEY AUTOINCREMENT, INSTRUCTOR_EMAIL TEXT, COURSE_ID TEXT, MAX_TRAINEES INTEGER, " +
@@ -152,7 +152,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         contentValues.put("PASSWORD", admin.getPassword());
         contentValues.put("LAST_NAME", admin.getLastName());
         contentValues.put("FIRST_NAME", admin.getFirstName());
-        contentValues.put("PERSONAL_PHOTO", admin.getPersonal_photo());
+        contentValues.put("PERSONAL_PHOTO", admin.getImage());
         sqLiteDatabase.insert("ADMIN", null, contentValues);
     }
 
@@ -163,7 +163,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         contentValues.put("PASSWORD", trainee.getPassword());
         contentValues.put("FIRST_NAME", trainee.getFirstName());
         contentValues.put("LAST_NAME", trainee.getLastName());
-        contentValues.put("PERSONAL_PHOTO", trainee.getPersonal_photo());
+        contentValues.put("PERSONAL_PHOTO", trainee.getImage());
         contentValues.put("ADDRESS", trainee.getAddress());
         contentValues.put("MOBILE_NUMBER", trainee.getMobileNumber());
         sqLiteDatabase.insert("TRAINEE", null, contentValues);
@@ -196,36 +196,37 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         contentValues.put("END_DATE", section.getEndDate());
         sqLiteDatabase.update("SECTION", contentValues, "SECTION_ID = ?", new String[]{String.valueOf(section.getSectionID())});
     }
-//
-//    public void insertInstructor(Instructor instructor){
-//        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put("EMAIL", instructor.getEmail());
-//        contentValues.put("PASSWORD", instructor.getPassword());
-//        contentValues.put("FIRST_NAME", instructor.getFirstName());
-//        contentValues.put("LAST_NAME", instructor.getLastName());
-//        contentValues.put("PERSONAL_PHOTO", instructor.getPersonal_photo());
-//        contentValues.put("MOBILE_NUMBER", instructor.getMobileNumber());
-//        contentValues.put("ADDRESS", instructor.getAddress());
-//        contentValues.put("SPECIALIZATION", instructor.getSpecialization());
-//        contentValues.put("canTeach", instructor.getCanTeach());
-//        sqLiteDatabase.insert("INSTRUCTOR", null, contentValues);
-//    }
+
     public void insertInstructor(Instructor instructor){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("canTeach", instructor.getCanTeach());
+        contentValues.put("EMAIL", instructor.getEmail());
         contentValues.put("PASSWORD", instructor.getPassword());
+        contentValues.put("FIRST_NAME", instructor.getFirstName());
+        contentValues.put("LAST_NAME", instructor.getLastName());
+        contentValues.put("PERSONAL_PHOTO", instructor.getImage());
         contentValues.put("MOBILE_NUMBER", instructor.getMobileNumber());
         contentValues.put("ADDRESS", instructor.getAddress());
-        contentValues.put("EMAIL", instructor.getEmail());
-        contentValues.put("LAST_NAME", instructor.getLastName());
         contentValues.put("SPECIALIZATION", instructor.getSpecialization());
-
-        contentValues.put("FIRST_NAME", instructor.getFirstName());
-        contentValues.put("PERSONAL_PHOTO", instructor.getPersonal_photo());
+        contentValues.put("DEGREE", instructor.getDegree());
+        contentValues.put("canTeach", instructor.getCanTeach());
         sqLiteDatabase.insert("INSTRUCTOR", null, contentValues);
     }
+//    public void insertInstructor(Instructor instructor){
+//        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put("canTeach", instructor.getCanTeach());
+//        contentValues.put("PASSWORD", instructor.getPassword());
+//        contentValues.put("MOBILE_NUMBER", instructor.getMobileNumber());
+//        contentValues.put("ADDRESS", instructor.getAddress());
+//        contentValues.put("EMAIL", instructor.getEmail());
+//        contentValues.put("LAST_NAME", instructor.getLastName());
+//        contentValues.put("SPECIALIZATION", instructor.getSpecialization());
+//        contentValues.put("DEGREE", instructor.getDegree());
+//        contentValues.put("FIRST_NAME", instructor.getFirstName());
+//        contentValues.put("PERSONAL_PHOTO", instructor.getImage());
+//        sqLiteDatabase.insert("INSTRUCTOR", null, contentValues);
+//    }
 
     public void insertCourses(Course course){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
