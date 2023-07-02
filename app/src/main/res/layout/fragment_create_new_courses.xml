@@ -4,31 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <View
-        android:id="@+id/view5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#B9D2EE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+    tools:context=".CreateNewCourses">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_border_layout"
-            app:srcCompat="@drawable/icons8_back_48" />
 
         <ScrollView
             android:id="@+id/scrollView3"
@@ -60,7 +41,6 @@
                         android:layout_width="333dp"
                         android:layout_height="53dp"
                         android:layout_marginHorizontal="40dp"
-                        android:background="@drawable/edittext"
                         android:ems="10"
                         android:inputType="textPersonName"
                         android:textColor="@color/black"
@@ -88,7 +68,6 @@
                         android:layout_width="329dp"
                         android:layout_height="53dp"
                         android:layout_marginHorizontal="40dp"
-                        android:background="@drawable/edittext"
                         android:ems="10"
                         android:inputType="textPersonName"
                         android:textColor="@color/black"
@@ -111,10 +90,8 @@
                     android:layout_width="329dp"
                     android:layout_height="57dp"
                     android:layout_marginHorizontal="40dp"
-                    android:background="@drawable/edittext"
                     android:drawableEnd="@drawable/icons8_down_button_32"
                     android:drawablePadding="12dp"
-                    android:hint="Select Topics"
                     android:padding="12dp" />
 
                 <TextView
@@ -131,10 +108,8 @@
                     android:layout_width="329dp"
                     android:layout_height="57dp"
                     android:layout_marginHorizontal="40dp"
-                    android:background="@drawable/edittext"
                     android:drawableEnd="@drawable/icons8_down_button_32"
                     android:drawablePadding="12dp"
-                    android:hint="Select Prerequisites"
                     android:padding="12dp" />
 
                 <TextView
@@ -154,9 +129,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="40dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/edittext"
-                    android:onClick="openDatePicker"
-                    android:text="JAN 01 2020"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -180,9 +152,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="40dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/edittext"
-                    android:onClick="openDatePicker2"
-                    android:text="JAN 01 2020"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -206,9 +175,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="40dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/edittext"
-                    android:onClick="openDatePicker3"
-                    android:text="JAN 01 2020"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -232,9 +198,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="40dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/edittext"
-                    android:onClick="openDatePicker4"
-                    android:text="JAN 01 2020"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -254,18 +217,11 @@
 
                 <Button
                     android:id="@+id/add_photo"
-                    android:layout_width="329dp"
-
-                    android:layout_height="70dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="40dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="40dp"
-                    android:background="@drawable/round_buttons2"
-                    android:text="Upload Photo"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                    android:textColor="@color/mainColor"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+                    android:text="Uplaod Photo"
+                    android:layout_marginVertical="20dp" />
 
                 <ImageView
                     android:id="@+id/uploaded_image"
@@ -276,18 +232,11 @@
 
                 <Button
                     android:id="@+id/add_the_course"
-                    android:layout_width="329dp"
-
-                    android:layout_height="70dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add Course"
                     android:layout_marginHorizontal="40dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="40dp"
-                    android:background="@drawable/round_buttons2"
-                    android:text="Add"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                    android:textColor="@color/mainColor"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+                    android:layout_marginVertical="20dp" />
 
 
 

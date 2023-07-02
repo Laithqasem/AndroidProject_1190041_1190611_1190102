@@ -9,8 +9,11 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.Layout;
 import android.view.Gravity;
@@ -73,51 +76,70 @@ public class EditCourses extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_courses, container, false);
         LinearLayout layout = view.findViewById(R.id.layout);
 
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.setGravity(Gravity.CENTER_HORIZONTAL);
 
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(), "TRAINING_CENTER", null,1);
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(), "TRAINING_CENTER", null, 1);
 
         Cursor cursor = dataBaseHelper.getAllCourses();
-        while(cursor.moveToNext()){
-            LinearLayout layout1 = new LinearLayout(getContext());
-            layout1.setOrientation(LinearLayout.VERTICAL);
-            layout1.setGravity(Gravity.CENTER_HORIZONTAL);
-            layout1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
+        while (cursor.moveToNext()) {
+            CardView cardView = new CardView(getContext());
+            LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            cardParams.setMargins(0, 0, 0, 16); // Add bottom margin between cards
+            cardView.setLayoutParams(cardParams);
+            cardView.setCardElevation(8); // Add elevation to create a shadow effect
+            cardView.setRadius(16); // Round the corners of the card
+
+            LinearLayout innerLayout = new LinearLayout(getContext());
+            innerLayout.setOrientation(LinearLayout.VERTICAL);
+            innerLayout.setPadding(16, 16, 16, 16); // Add padding inside the card
+            innerLayout.setGravity(Gravity.CENTER_HORIZONTAL);
 
             byte[] array = cursor.getBlob(8);
             Bitmap bitmap = BitmapFactory.decodeByteArray(array, 0, array.length);
             ImageView imageView = new ImageView(getContext());
             imageView.setImageBitmap(bitmap);
-            layout1.addView(imageView);
+            LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200);
+            imageView.setLayoutParams(imageParams);
+            innerLayout.addView(imageView);
 
-            Button button = new Button(getContext());
-            button.setText(cursor.getString(2));
-            button.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
-            button.setTextSize(30);
-            layout1.addView(button);
+            TextView textView = new TextView(getContext());
+            textView.setText(cursor.getString(2));
+            textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            textView.setTextSize(18); // Set the text size
+            innerLayout.addView(textView);
 
-            layout.addView(layout1);
+            cardView.addView(innerLayout);
+            layout.addView(cardView);
+
             int id = cursor.getInt(0);
-            button.setOnClickListener(new View.OnClickListener() {
+            cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(getContext(), DisplaySections.class);
-                    intent.putExtra("ID", String.valueOf(id));
-                    intent.putExtra("COURSE_NAME", button.getText().toString());
-                    startActivity(intent);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("ID", String.valueOf(id));
+                    bundle.putString("COURSE_NAME", textView.getText().toString());
+
+                    Fragment fragment = new DisplaySection();
+                    fragment.setArguments(bundle);
+                    replaceFragment(fragment);
                 }
             });
         }
 
-
         return view;
     }
+
+    private void replaceFragment(Fragment newFragment){
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainerView, newFragment);
+        fragmentTransaction.commit();
+    }
+
+
 }

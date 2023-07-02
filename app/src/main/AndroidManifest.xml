@@ -14,9 +14,7 @@
             android:exported="false" />
         <activity android:name=".Login" />
         <activity android:name=".SignUp" />
-        <activity android:name=".CreateNewCourse" />
         <activity android:name=".EditDeleteCourses" />
-        <activity android:name=".DisplaySections" />
         <activity android:name=".EditSection" />
         <activity android:name=".ViewOfferingHistory" />
         <activity android:name=".CreateNewSection"/>
