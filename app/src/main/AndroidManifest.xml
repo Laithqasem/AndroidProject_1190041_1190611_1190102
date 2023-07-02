@@ -12,7 +12,6 @@
         <activity android:name=".Trainee_Activity"></activity>
         <activity android:name=".Admin_Activity" />
         <activity android:name=".InstructorEditProfile" />
-        <activity android:name=".InstructorActivity" />
         <activity android:name=".InstructorCoursesActivity" />
         <activity android:name=".InstructorStudentsActivity" />
         <activity android:name=".InstructorScheduleActivity" />

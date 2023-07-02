@@ -3,6 +3,7 @@ package com.example.finalproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -99,10 +100,53 @@ public class Login extends AppCompatActivity {
                     Intent intent = new Intent(Login.this, Admin_Activity.class);
                     startActivity(intent);
                     finish();
+
                 }else if(isValid.equals("INSTRUCTOR")){
                     Intent intent = new Intent(Login.this, Instructor_Activity.class);
+
+                    Cursor user_data = dataBaseHelper.getInstructorData(entered_email);
+                    System.out.println("EMAIL ASNDIH HD : " +user_data);
+                    String user_email ="";
+                    String user_password="" ;
+                    String user_first_name="";
+                    String user_last_name="";
+                    byte[] user_personal_photo = new byte[1024];
+                    String user_mobile="" ;
+                    String user_address="";
+                    String user_specialization="";
+                    String user_degree="";
+                    String user_canTeach="";
+
+                    if (user_data.moveToFirst()) {
+                        do {
+                             user_email = user_data.getString(0);
+                             user_password = user_data.getString(1);
+                             user_first_name = user_data.getString(2);
+                             user_last_name = user_data.getString(3);
+                             user_personal_photo = user_data.getBlob(4);
+                             user_mobile = user_data.getString(5);
+                             user_address = user_data.getString(6);
+                             user_specialization = user_data.getString(7);
+                             user_degree = user_data.getString(8);
+                             user_canTeach = user_data.getString(9);
+
+                        } while (user_data.moveToNext());
+                    }
+
+                    intent.putExtra("EMAIL", user_email);
+                    intent.putExtra("PASSWORD", user_password);
+                    intent.putExtra("FIRST_NAME", user_first_name);
+                    intent.putExtra("LAST_NAME", user_last_name);
+                    intent.putExtra("PERSONAL_PHOTO",user_personal_photo);
+                    intent.putExtra("MOBILE_NUMBER", user_mobile);
+                    intent.putExtra("ADDRESS", user_address);
+                    intent.putExtra("SPECIALIZATION",user_specialization);
+                    intent.putExtra("DEGREE",user_degree);
+                    intent.putExtra("canTeach",user_canTeach);
+
+                    // Start the activity with the Intent
                     startActivity(intent);
-                    finish();
+
                 }else if(isValid.equals("TRAINEE")){
                     Intent intent = new Intent(Login.this, Trainee_Activity.class);
                     startActivity(intent);

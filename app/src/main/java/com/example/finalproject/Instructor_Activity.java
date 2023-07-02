@@ -16,21 +16,35 @@ public class Instructor_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor);
 
+        String user_email = getIntent().getStringExtra("EMAIL");
+        String user_password = getIntent().getStringExtra("PASSWORD");
+        String user_first_name = getIntent().getStringExtra("FIRST_NAME");
+        String user_last_name = getIntent().getStringExtra("LAST_NAME");
+        byte[] user_personal_photo = getIntent().getByteArrayExtra("PERSONAL_PHOTO");
+        String user_mobile_no = getIntent().getStringExtra("MOBILE_NUMBER");
+        String user_address = getIntent().getStringExtra("ADDRESS");
+        String user_specialization = getIntent().getStringExtra("SPECIALIZATION");
+        String user_degree = getIntent().getStringExtra("DEGREE");
+        String user_canTeach = getIntent().getStringExtra("canTeach");
+
+
+
+
         Button bt = (Button) findViewById(R.id.button3);
 
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("adsdasdas");
-                System.out.println("YSEEEEEEdfasfafaEEEEEEEEESESESESESESESESES");
-                System.out.println("dasdasadss");
-                System.out.println("dasasdadsds");
-                System.out.println("sdssdsdsd");
-                System.out.println("dssadasdsadsdsds");
-                System.out.println("czxcxczxcxzxcz");
-                System.out.println("czzcxczcx");
-                System.out.println("czcxc");
-                System.out.println("YSEEEEEEEEEcxxczcxcxzEEEEEESESESESESESESESES");
+                System.out.println("EMAIL: " + user_email);
+                System.out.println("PASSWORD: " +user_password);
+                System.out.println("FIRST_NAME: " +user_first_name);
+                System.out.println("LAST_NAME: " +user_last_name);
+                System.out.println("PERSONAL_PHOTO: " +user_personal_photo);
+                System.out.println("MOBILE_NUMBER: " +user_mobile_no);
+                System.out.println("ADDRESS: " +user_address);
+                System.out.println("SPECIALIZATION: " +user_specialization);
+                System.out.println("DEGREE: " +user_degree);
+                System.out.println("CANTEACH: " +user_canTeach);
 
 
             }
