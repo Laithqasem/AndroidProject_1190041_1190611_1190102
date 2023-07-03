@@ -6,12 +6,10 @@ public class Course {
     private String courseID;
     private String courseName;
     private String prerequisites;
-    // Todo: photo
     private String startDate;
     private String endDate;
     private String registrationStart;
     private String registrationEnd;
-
     private byte[] image;
 
     public Course() {
