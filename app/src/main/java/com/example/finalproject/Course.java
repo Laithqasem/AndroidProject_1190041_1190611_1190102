@@ -10,14 +10,17 @@ public class Course {
     private String endDate;
     private String registrationStart;
     private String registrationEnd;
-    private byte[] image;
+//    private byte[] image;
+        int image;
+
+
 
     public Course() {
 
     }
 
     public Course(String courseID, String courseName, String prerequisites, String startDate,
-                  String endDate, String registrationStart, String registrationEnd, byte[] image) {
+                  String endDate, String registrationStart, String registrationEnd, int image) {
         this.courseID = courseID;
         this.courseName = courseName;
         this.prerequisites = prerequisites;
@@ -84,11 +87,11 @@ public class Course {
         this.registrationEnd = registrationEnd;
     }
 
-    public byte[] getImage() {
+    public int getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(int image) {
         this.image = image;
     }
 

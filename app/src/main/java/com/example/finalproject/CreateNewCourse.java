@@ -376,7 +376,7 @@ public class CreateNewCourse  extends AppCompatActivity {
                 course.setEndDate(ENDDATE);
                 course.setRegistrationStart(REGSTART);
                 course.setRegistrationEnd(REGEND);
-                course.setImage(new ImageHandler().getByteArray(imageView));
+//                course.setImage(new ImageHandler().getByteArray(imageView));
                 dataBaseHelper.insertCourses(course);
 
                 Intent intent = new Intent(CreateNewCourse.this, CreateNewSection.class);

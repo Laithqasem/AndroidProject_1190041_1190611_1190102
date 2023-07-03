@@ -70,7 +70,7 @@ public class ViewOfferingHistory extends AppCompatActivity {
                                 course.setEndDate(cursor.getString(4));
                                 course.setRegistrationStart(cursor.getString(5));
                                 course.setRegistrationEnd(cursor.getString(6));
-                                course.setImage(cursor.getBlob(7));
+                                course.setImage(cursor.getInt(7));
                                 break;
                             }
                         }
@@ -83,8 +83,8 @@ public class ViewOfferingHistory extends AppCompatActivity {
                         textView.setGravity(Gravity.CENTER_HORIZONTAL);
 
                         ImageView imageView = new ImageView(ViewOfferingHistory.this);
-                        Bitmap bitmap = BitmapFactory.decodeByteArray(course.getImage(), 0, course.getImage().length);
-                        imageView.setImageBitmap(bitmap);
+//                        Bitmap bitmap = BitmapFactory.decodeByteArray(course.getImage(), 0, course.getImage().length);
+//                        imageView.setImageBitmap(bitmap);
 
                         linearLayout.addView(imageView);
                         linearLayout.addView(textView);

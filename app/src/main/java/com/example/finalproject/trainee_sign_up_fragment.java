@@ -53,7 +53,7 @@ public class trainee_sign_up_fragment extends Fragment {
             }
         });
 
-        email = view.findViewById(R.id.email);
+        email = view.findViewById(R.id.Course_startDate);
         first_name = view.findViewById(R.id.edit_first_name_text);
         last_name = view.findViewById(R.id.edit_last_name_text);
         password = view.findViewById(R.id.edit_password_text);

@@ -42,7 +42,7 @@ public class DisplaySections extends AppCompatActivity {
                     if(cursor.getString(0).equals(finalCOURSE_ID)){
                         Course course = new Course(cursor.getString(0), cursor.getString(1), cursor.getString(2),
                                 cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6),
-                                cursor.getBlob(7));
+                                cursor.getInt(7));
                         String START_DATE = course.getStartDate();
                         String END_DATE = course.getEndDate();
                         Intent intent = new Intent(DisplaySections.this, CreateNewSection.class);

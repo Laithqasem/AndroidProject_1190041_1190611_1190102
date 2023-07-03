@@ -1,6 +1,8 @@
 package com.example.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,24 +51,15 @@ public class InstructorCoursesActivity extends AppCompatActivity {
         });
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        List<Item> items = new ArrayList<Item>();
-        items.add(new Item("John wick","john.wick@email.com",R.drawable.a));
-        items.add(new Item("Robert j","robert.j@email.com",R.drawable.b));
-        items.add(new Item("James Gunn","james.gunn@email.com",R.drawable.c));
-        items.add(new Item("Ricky tales","rickey.tales@email.com",R.drawable.d));
-        items.add(new Item("Micky mose","mickey.mouse@email.com",R.drawable.e));
-        items.add(new Item("Pick War","pick.war@email.com",R.drawable.f));
-        items.add(new Item("Leg piece","leg.piece@email.com",R.drawable.g));
-        items.add(new Item("Apple Mac","apple.mac@email.com",R.drawable.g));
-        items.add(new Item("John wick","john.wick@email.com",R.drawable.a));
-        items.add(new Item("Robert j","robert.j@email.com",R.drawable.b));
-        items.add(new Item("James Gunn","james.gunn@email.com",R.drawable.c));
-        items.add(new Item("Ricky tales","rickey.tales@email.com",R.drawable.d));
-        items.add(new Item("Micky mose","mickey.mouse@email.com",R.drawable.e));
-        items.add(new Item("Pick War","pick.war@email.com",R.drawable.f));
-        items.add(new Item("Leg piece","leg.piece@email.com",R.drawable.g));
-        items.add(new Item("Apple Mac","apple.mac@email.com",R.drawable.g));
 
+        List<Course> items = new ArrayList<Course>();
+        items.add(new Course("ENCS5150","Lab Android","ENCS3330","9:00","10:30","3/4","15/6",R.drawable.a));
+        items.add(new Course("ENCS3330","Operating System","ENCS3110, ENCS4410","10:00","11:30","2/2","25/1",R.drawable.b));
+        items.add(new Course("ENCS2340","Interface","ENCS4120","11:30","12:30","1/1","1/5",R.drawable.c));
+        items.add(new Course("ENCS3340","JAVA","ENCS2130","12:45","1:30","12/6","17/7",R.drawable.d));
+        items.add(new Course("ENCS3390","Linux","ENCS2350","1:30","3:30","5/5","19/1",R.drawable.e));
+        items.add(new Course("ENCS4380","Real Time","ENCS2380","2:45","3:30","11/7","2/2",R.drawable.f));
+        items.add(new Course("ENCS4360","Culs","ENCS3380","3:30","4:30","30/2","8/7",R.drawable.g));
 
 
 
