@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -102,11 +105,20 @@ public class deleteCourses extends Fragment {
                 @Override
                 public void onClick(View view) {
                     dataBaseHelper.deleteCourse(String.valueOf(id));
-                    Intent intent = new Intent(getContext(), MainActivity.class);
-                    startActivity(intent);
+
+                    Toast.makeText(getContext(), "Course Deleted Successfully", Toast.LENGTH_SHORT).show();
+                    Fragment fragment = new deleteCourses();
+                    replaceFragment(fragment);
                 }
             });
         }
         return view;
+    }
+
+    private void replaceFragment(Fragment newFragment) {
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainerView, newFragment);
+        fragmentTransaction.commit();
     }
 }

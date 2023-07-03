@@ -12,15 +12,7 @@
         <activity
             android:name=".TraineeActivites"
             android:exported="false" />
-        <activity android:name=".Login" />
-        <activity android:name=".SignUp" />
         <activity android:name=".EditDeleteCourses" />
-        <activity android:name=".EditSection" />
-        <activity android:name=".ViewOfferingHistory" />
-        <activity android:name=".CreateNewSection"/>
-        <activity android:name=".ViewProfiles"/>
-        <activity android:name=".ApproveStudents"/>
-        <activity android:name=".ApproveStudentsInSections"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

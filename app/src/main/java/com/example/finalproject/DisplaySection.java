@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -94,11 +97,14 @@ public class DisplaySection extends Fragment {
                         String START_DATE = course.getStartDate();
                         String END_DATE = course.getEndDate();
 
-                        Intent intent = new Intent(getContext(), CreateNewSection.class);
-                        intent.putExtra("COURSE_ID", finalCOURSE_ID);
-                        intent.putExtra("START_DATE", START_DATE);
-                        intent.putExtra("END_DATE", END_DATE);
-                        startActivity(intent);
+                        Fragment fragment = new CreateNewSections();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("COURSE_ID", finalCOURSE_ID);
+                        bundle.putString("START_DATE", START_DATE);
+                        bundle.putString("END_DATE", END_DATE);
+                        fragment.setArguments(bundle);
+
+                        replaceFragment(fragment);
                         return;
                     }
                 }
@@ -161,19 +167,25 @@ public class DisplaySection extends Fragment {
                                 getContext(),"TRAINING_CENTER",null,1);
                         dataBaseHelper.deleteSection(delete.getText().toString().substring(15));
 
-                        Intent intent = new Intent(getContext(), DisplaySections.class);
-                        intent.putExtra("ID", finalCOURSE_ID);
-                        intent.putExtra("COURSE_NAME", textView.getText().toString());
-                        startActivity(intent);
+                        Toast.makeText(getContext(), "Section " + delete.getText().toString().substring(15) +  " Deleted Successfully", Toast.LENGTH_SHORT).show();
+
+                        Fragment fragment = new DisplaySection();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("ID", finalCOURSE_ID);
+                        bundle.putString("COURSE_NAME", textView.getText().toString());
+                        fragment.setArguments(bundle);
+                        replaceFragment(fragment);
                     }
                 });
 
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getContext(), EditSection.class);
-                        intent.putExtra("SECTION_ID", button.getText().toString());
-                        startActivity(intent);
+                        Fragment fragment = new EditSections();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("SECTION_ID", button.getText().toString());
+                        fragment.setArguments(bundle);
+                        replaceFragment(fragment);
                     }
                 });
 
@@ -183,6 +195,13 @@ public class DisplaySection extends Fragment {
             }
         }
         return view;
+    }
+
+    private void replaceFragment(Fragment newFragment) {
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainerView, newFragment);
+        fragmentTransaction.commit();
     }
 
     LinearLayout createVerticalLayout(String s1, String s2){

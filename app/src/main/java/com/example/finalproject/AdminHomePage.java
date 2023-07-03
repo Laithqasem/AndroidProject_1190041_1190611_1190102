@@ -88,24 +88,21 @@ public class AdminHomePage extends Fragment {
         view_offering_history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ViewOfferingHistory.class);
-                startActivity(intent);
+                replaceFragment(new ViewOfferingsHistory());
             }
         });
 
         view_profiles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ViewProfiles.class);
-                startActivity(intent);
+                replaceFragment(new ViewProfiles());
             }
         });
 
         approve_students.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ApproveStudents.class);
-                startActivity(intent);
+                replaceFragment(new ApproveStudent());
             }
         });
 
