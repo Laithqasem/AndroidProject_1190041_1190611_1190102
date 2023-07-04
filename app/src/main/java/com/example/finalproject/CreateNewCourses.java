@@ -509,7 +509,7 @@ public class CreateNewCourses extends Fragment {
         return !checkDates(r1, l2, false) && !checkDates(r2, l1, false);
     }
 
-    private boolean checkDates(String s1, String s2, boolean equal){
+    public boolean checkDates(String s1, String s2, boolean equal){
         String[] s1_split = s1.split("\\s+");
         String[] s2_split = s2.split("\\s+");
         int month1 = getInvMonthFormat(s1_split[0]);
@@ -596,11 +596,11 @@ public class CreateNewCourses extends Fragment {
         datePickerDialog4 = new DatePickerDialog(getContext(), style, dateSetListener4, year, month, day);
     }
 
-    private String makeDateString(int day, int month, int year) {
+    public String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
     }
 
-    private int getInvMonthFormat(String month){
+    public int getInvMonthFormat(String month){
         if(month.equals("JAN")) return 1;
         if(month.equals("FEB")) return 2;
         if(month.equals("MAR")) return 3;

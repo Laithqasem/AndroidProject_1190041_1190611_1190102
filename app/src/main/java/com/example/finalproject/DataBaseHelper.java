@@ -555,5 +555,17 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
     }
 
 
+    public Cursor getNotificationsForTrainee(String email) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM Notifications WHERE " +
+                "traineeEmail = \"" + email + "\" and status = 0" , null);
+    }
+
+    public void updateNotification(int idNot) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("status", 1);
+        sqLiteDatabase.update("Notifications", contentValues, "notID = ?", new String[]{String.valueOf(idNot)});
+    }
 }
 

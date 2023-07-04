@@ -78,7 +78,7 @@ public class Trainee_Course_history extends Fragment {
 
     public void getHistoryOfcourse(DataBaseHelper dataBaseHelper, ArrayList<String> listViewItems, boolean from){
 
-        CreateNewCourse checkDates = new CreateNewCourse();
+        CreateNewCourses checkDates = new CreateNewCourses();
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
         int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
