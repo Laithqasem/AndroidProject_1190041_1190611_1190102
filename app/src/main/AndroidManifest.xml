@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalProject">
+
         <activity
             android:name=".TraineeActivites"
             android:exported="false" />
@@ -23,6 +24,8 @@
         <activity android:name=".ViewProfiles"/>
         <activity android:name=".ApproveStudents"/>
         <activity android:name=".ApproveStudentsInSections"/>
+
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
