@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,12 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.Objects;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ViewProfiles#newInstance} factory method to
+ * Use the {@link AdminHomePage#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ViewProfiles extends Fragment {
+public class AdminHomePage extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,7 +30,7 @@ public class ViewProfiles extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ViewProfiles() {
+    public AdminHomePage() {
         // Required empty public constructor
     }
 
@@ -37,11 +40,11 @@ public class ViewProfiles extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ViewProfiles.
+     * @return A new instance of fragment AdminHomePage.
      */
     // TODO: Rename and change types and number of parameters
-    public static ViewProfiles newInstance(String param1, String param2) {
-        ViewProfiles fragment = new ViewProfiles();
+    public static AdminHomePage newInstance(String param1, String param2) {
+        AdminHomePage fragment = new AdminHomePage();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,31 +64,59 @@ public class ViewProfiles extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_view_profiles, container, false);
+        View view = inflater.inflate(R.layout.fragment_admin_home_page, container, false);
+        Button create_new_course = (Button) view.findViewById(R.id.create_new_course);
+        Button view_courses = (Button) view.findViewById(R.id.view_courses);
+        Button view_offering_history = (Button) view.findViewById(R.id.view_offering_history);
+        Button view_profiles = (Button) view.findViewById(R.id.view_profiles);
+        Button approve_students = (Button) view.findViewById(R.id.approve_students);
 
-        Button view_trainees_button = view.findViewById(R.id.view_trainees_button);
-        Button view_instructors_button = view.findViewById(R.id.view_instructors_button);
-
-        view_trainees_button.setOnClickListener(new View.OnClickListener() {
+        create_new_course.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceFragment(new ViewTrainees());
+                replaceFragment(new CreateNewCourses());
             }
         });
 
-        view_instructors_button.setOnClickListener(new View.OnClickListener() {
+        view_courses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceFragment(new ViewInstructors());
+                replaceFragment(new UpdateCourses());
             }
         });
+
+        view_offering_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getActivity(), TraineeActivites.class);
+                startActivity(intent);
+
+                //replaceFragment(new ViewOfferingsHistory());
+            }
+        });
+
+        view_profiles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                replaceFragment(new ViewProfiles());
+            }
+        });
+
+        approve_students.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                replaceFragment(new ApproveStudent());
+            }
+        });
+
         return view;
     }
 
     private void replaceFragment(Fragment newFragment){
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, newFragment);
+        fragmentTransaction.replace(R.id.fragmentContainerView, newFragment);
         fragmentTransaction.commit();
     }
 }

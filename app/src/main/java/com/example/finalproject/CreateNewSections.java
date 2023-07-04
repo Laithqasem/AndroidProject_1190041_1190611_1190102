@@ -7,26 +7,41 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Layout;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Locale;
 
-public class CreateNewSection   extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link CreateNewSections#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class CreateNewSections extends Fragment {
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
     private Button start_time, end_time, add;
-    private ImageButton back;
     private TextView instructortv, maxtv, starttimetv, endtimetv, daystv, roomtv;
     private TextView email, max, days, room;
     int hour1, minute1;
@@ -37,56 +52,120 @@ public class CreateNewSection   extends AppCompatActivity {
 
     String[] weekDays = {"Saturday", "Monday", "Tuesday", "Wednesday", "Thursday"};
 
+    public CreateNewSections() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment CreateNewSections.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static CreateNewSections newInstance(String param1, String param2) {
+        CreateNewSections fragment = new CreateNewSections();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_section);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_create_new_sections, container, false);
 
         String COURSE_ID = "-1";
         String START_DATE = "-1";
         String END_DATE = "-1";
-        Bundle extras = getIntent().getExtras();
+        Bundle extras = getArguments();
         if (extras != null) {
             COURSE_ID = extras.getString("COURSE_ID");
             START_DATE = extras.getString("START_DATE");
             END_DATE = extras.getString("END_DATE");
         }
-        System.out.println("THIS IS " + COURSE_ID);
-        System.out.println("THIS IS " + START_DATE);
-        System.out.println("THIS IS " + END_DATE);
-        start_time = findViewById(R.id.start_time);
-        end_time = findViewById(R.id.end_time);
 
-        instructortv = findViewById(R.id.instructortv);
-        maxtv = findViewById(R.id.maxtv);
-        starttimetv = findViewById(R.id.starttimetv);
-        endtimetv = findViewById(R.id.eendtimetv);
-        daystv = findViewById(R.id.daystv);
-        roomtv = findViewById(R.id.roomtv);
-        email = findViewById(R.id.instructor_email);
-        max = findViewById(R.id.max_trainees);
-        days = findViewById(R.id.days_list);
-        room = findViewById(R.id.room_list);
+        start_time = view.findViewById(R.id.start_time);
+        end_time = view.findViewById(R.id.end_time);
 
-        back = findViewById(R.id.imageButton);
-        add = findViewById(R.id.add_the_section);
+        instructortv = view.findViewById(R.id.instructortv);
+        maxtv = view.findViewById(R.id.maxtv);
+        starttimetv = view.findViewById(R.id.starttimetv);
+        endtimetv = view.findViewById(R.id.eendtimetv);
+        daystv = view.findViewById(R.id.daystv);
+        roomtv = view.findViewById(R.id.roomtv);
+        email = view.findViewById(R.id.instructor_email);
+        max = view.findViewById(R.id.max_trainees);
+        days = view.findViewById(R.id.days_list);
+        room = view.findViewById(R.id.room_list);
+
+        add = view.findViewById(R.id.add_the_section);
         selectDay = new boolean[weekDays.length];
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CreateNewSection.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
         String finalCOURSE_ID = COURSE_ID;
         String finalSTART_DATE = START_DATE;
         String finalEND_DATE = END_DATE;
-        System.out.println("THIS IS " + finalCOURSE_ID);
-        System.out.println("THIS IS " + finalSTART_DATE);
-        System.out.println("THIS IS " + finalEND_DATE);
+
+        start_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener()
+                {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute)
+                    {
+                        hour1 = selectedHour;
+                        minute1 = selectedMinute;
+                        start_time.setText(String.valueOf(hour1) + ":" + String.valueOf(minute1));
+                        start_time.setTextColor(Color.BLACK);
+                    }
+                };
+
+                // int style = AlertDialog.THEME_HOLO_DARK;
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), /*style,*/ onTimeSetListener, hour1, minute1, true);
+
+                timePickerDialog.setTitle("Select Time");
+                timePickerDialog.show();
+            }
+        });
+
+        end_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener()
+                {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute)
+                    {
+                        hour2 = selectedHour;
+                        minute2 = selectedMinute;
+                        end_time.setText(String.valueOf(hour2) + ":" + String.valueOf(minute2));
+                        end_time.setTextColor(Color.BLACK);
+                    }
+                };
+
+                // int style = AlertDialog.THEME_HOLO_DARK;
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), /*style,*/ onTimeSetListener, hour2, minute2, true);
+
+                timePickerDialog.setTitle("Select Time");
+                timePickerDialog.show();
+            }
+        });
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,10 +225,10 @@ public class CreateNewSection   extends AppCompatActivity {
                 }
 
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(
-                        CreateNewSection.this,"TRAINING_CENTER",null,1);
+                        getContext(),"TRAINING_CENTER",null,1);
 
                 if(!dataBaseHelper.checkInstructor(EMAIL)){
-                    Toast toast =Toast.makeText(CreateNewSection.this, "The Instructor Doesn't Exist", Toast.LENGTH_SHORT);
+                    Toast toast =Toast.makeText(getContext(), "The Instructor Doesn't Exist", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
                 }
@@ -168,19 +247,19 @@ public class CreateNewSection   extends AppCompatActivity {
                             cursor.getString(5),
                             cursor.getString(6),
                             cursor.getString(7), cursor.getString(8), cursor.getString(9)
-                            );
+                    );
                     if(section.getInstructorEmail().equals(EMAIL)){
                         String s1 = section.getStartTime();
                         String s2 = section.getEndTime();
 
-                         if(conflict(s1, s2, section.getDays(), START_TIME, END_TIME, DAYS,
-                                 finalSTART_DATE, finalEND_DATE, section.getStartDate(), section.getEndDate())){
-                             can = false;
-                         }
+                        if(conflict(s1, s2, section.getDays(), START_TIME, END_TIME, DAYS,
+                                finalSTART_DATE, finalEND_DATE, section.getStartDate(), section.getEndDate())){
+                            can = false;
+                        }
                     }
                 }
                 if(!can){
-                    Toast toast = Toast.makeText(CreateNewSection.this, "The Instructor Has Another Class In This Time", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getContext(), "The Instructor Has Another Class In This Time", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
                 }
@@ -198,12 +277,26 @@ public class CreateNewSection   extends AppCompatActivity {
 
                 dataBaseHelper.insertSection(section);
 
-                email.setText("");
-                max.setText("");
-                start_time.setText("");
-                end_time.setText("");
-                days.setText("");
-                room.setText("");
+                Cursor cursor2 = dataBaseHelper.getCourse(finalCOURSE_ID);
+                cursor2.moveToNext();
+                String courseName = "(" + cursor2.getString(1) + ", " + cursor2.getString(2) + ")";
+
+                Cursor cursor1 = dataBaseHelper.getAllTrainees();
+                while(cursor1.moveToNext()){
+                    String email = cursor1.getString(0);
+
+                    Notification notification = new Notification();
+                    notification.setTraineeEmail(email);
+                    notification.setNotText("A new section has been added to the course " + courseName);
+                    notification.setStatus(0);
+                    dataBaseHelper.insertNotifications(notification);
+                }
+
+                Toast toast = Toast.makeText(getContext(), "Section Added Successfully", Toast.LENGTH_SHORT);
+                toast.show();
+
+
+                replaceFragment(new AdminHomePage());
             }
         });
 
@@ -211,7 +304,7 @@ public class CreateNewSection   extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(
-                        CreateNewSection.this
+                        getContext()
                 );
 
                 builder.setTitle("Select Days");
@@ -274,8 +367,9 @@ public class CreateNewSection   extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(start_time.getText().toString().isEmpty() || end_time.getText().toString().isEmpty() ||
-                        days.getText().toString().isEmpty()) {
-                    Toast toast =Toast.makeText(CreateNewSection.this, "Select Time and Day First", Toast.LENGTH_SHORT);
+                        days.getText().toString().isEmpty() || email.getText().toString().isEmpty() ||
+                        max.getText().toString().isEmpty()){
+                    Toast toast =Toast.makeText(getContext(), "Select the previous data first", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
                 }
@@ -283,7 +377,7 @@ public class CreateNewSection   extends AppCompatActivity {
                 boolean[] can = new boolean[20];
                 for(int i = 0; i < 20; i++) can[i] = true;
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(
-                        CreateNewSection.this,"TRAINING_CENTER",null,1);
+                        getContext(),"TRAINING_CENTER",null,1);
 
                 Cursor cursor = dataBaseHelper.getSections();
                 while(cursor.moveToNext()){
@@ -297,23 +391,9 @@ public class CreateNewSection   extends AppCompatActivity {
                             cursor.getString(6),
                             cursor.getString(7), cursor.getString(8), cursor.getString(9));
 
-                    System.out.println(section.toString());
-                    // print everything in the if statement
-                    System.out.println("start time: " + start_time.getText().toString());
-                    System.out.println("end time: " + end_time.getText().toString());
-                    System.out.println("days: " + days.getText().toString());
-                    System.out.println("section start time: " + section.getStartTime());
-                    System.out.println("section end time: " + section.getEndTime());
-                    System.out.println("section days: " + section.getDays());
-                    System.out.println("final start date: " + finalSTART_DATE);
-                    System.out.println("final end date: " + finalEND_DATE);
-                    System.out.println("section start date: " + section.getStartDate());
-                    System.out.println("section end date: " + section.getEndDate());
-                    System.out.println("room: " + section.getRoom());
-
                     if(conflict(start_time.getText().toString(), end_time.getText().toString(), days.getText().toString(),
-                                    section.getStartTime(), section.getEndTime(), section.getDays(),
-                                finalSTART_DATE, finalEND_DATE, section.getStartDate(), section.getEndDate())){
+                            section.getStartTime(), section.getEndTime(), section.getDays(),
+                            finalSTART_DATE, finalEND_DATE, section.getStartDate(), section.getEndDate())){
 
                         can[Integer.parseInt(section.getRoom()) - 1] = false;
                     }
@@ -333,7 +413,7 @@ public class CreateNewSection   extends AppCompatActivity {
                             j++;
                         }
                     }
-                    AlertDialog.Builder builder = new AlertDialog.Builder(CreateNewSection.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setTitle("Choose Room");
                     builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
                         @Override
@@ -352,11 +432,20 @@ public class CreateNewSection   extends AppCompatActivity {
                     builder.show();
                 }
                 else{
-                    Toast toast =Toast.makeText(CreateNewSection.this, "No available rooms for your selection", Toast.LENGTH_SHORT);
+                    Toast toast =Toast.makeText(getContext(), "No available rooms for your selection", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }
         });
+
+        return view;
+    }
+
+    private void replaceFragment(Fragment newFragment) {
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainerView, newFragment);
+        fragmentTransaction.commit();
     }
 
     public boolean time_intersect(int h1, int m1, int h2, int m2, int h3, int m3, int h4, int m4){
@@ -464,47 +553,5 @@ public class CreateNewSection   extends AppCompatActivity {
             return min_1 < min_2;
         }
         return true;
-    }
-
-    public void popTimePicker1(View view) {
-        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener()
-        {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute)
-            {
-                hour1 = selectedHour;
-                minute1 = selectedMinute;
-                start_time.setText(String.valueOf(hour1) + ":" + String.valueOf(minute1));
-                start_time.setTextColor(Color.BLACK);
-            }
-        };
-
-        // int style = AlertDialog.THEME_HOLO_DARK;
-
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, /*style,*/ onTimeSetListener, hour1, minute1, true);
-
-        timePickerDialog.setTitle("Select Time");
-        timePickerDialog.show();
-    }
-
-    public void popTimePicker2(View view) {
-        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener()
-        {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute)
-            {
-                hour2 = selectedHour;
-                minute2 = selectedMinute;
-                end_time.setText(String.valueOf(hour2) + ":" + String.valueOf(minute2));
-                end_time.setTextColor(Color.BLACK);
-            }
-        };
-
-        // int style = AlertDialog.THEME_HOLO_DARK;
-
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, /*style,*/ onTimeSetListener, hour2, minute2, true);
-
-        timePickerDialog.setTitle("Select Time");
-        timePickerDialog.show();
     }
 }

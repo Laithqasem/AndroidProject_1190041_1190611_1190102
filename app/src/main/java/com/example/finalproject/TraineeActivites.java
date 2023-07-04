@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,8 @@ public class TraineeActivites extends AppCompatActivity {
     public static String email = "mezo@email.com";//fix to send from login.
     public static FragmentManager fragmentManagerTrainee;
     private Fragment currentFragment;
+
+    public static Button notificationsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,7 @@ public class TraineeActivites extends AppCompatActivity {
         Button searchButton = findViewById(R.id.btnSearch);
         Button homeButton = findViewById(R.id.btnHome);
         Button coursesButton = findViewById(R.id.btnCourses);
+        notificationsButton = findViewById(R.id.btnNotifications);
 
         Bundle bundle = new Bundle();
         bundle.putString("email", getEmail());
@@ -35,6 +39,17 @@ public class TraineeActivites extends AppCompatActivity {
         fragobj2.setArguments(bundle);
 
         currentFragment = fragmentManagerTrainee.findFragmentById(R.id.FirstFragment);
+
+        DataBaseHelper db = new DataBaseHelper(TraineeActivites.this, "TRAINING_CENTER", null, 1);
+        Cursor cursor = db.getNotificationsForTrainee(getEmail());
+
+        int nots = cursor.getCount();
+
+        if(nots > 0){
+            notificationsButton.setText("Notifications (" + nots + ")");
+        }
+
+
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,6 +75,13 @@ public class TraineeActivites extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openCourses();
+            }
+        });
+
+        notificationsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openNotifications();
             }
         });
 
@@ -196,6 +218,41 @@ public class TraineeActivites extends AppCompatActivity {
         // Update the current fragment
         currentFragment = coursesFragment;
     }
+
+    public void openNotifications(){
+
+        Fragment notificationFragment = new Fragment_Notifications_trainee();
+
+        FragmentTransaction fragmentTransaction = fragmentManagerTrainee.beginTransaction();
+
+        // Hide all other fragments
+        for (Fragment fragment : fragmentManagerTrainee.getFragments()) {
+            if (fragment != notificationFragment) {
+                fragmentTransaction.hide(fragment);
+            }
+        }
+
+        // Show the search fragment if it is not already added
+        if (!notificationFragment.isAdded()) {
+            fragmentTransaction.add(R.id.content_frame, notificationFragment);
+        }
+
+        // Show the search fragment
+        fragmentTransaction.show(notificationFragment);
+
+        // Add the transaction to the back stack
+        fragmentTransaction.addToBackStack(null);
+
+        // Commit the transaction
+        fragmentTransaction.commit();
+
+        // Update the current fragment
+        currentFragment = notificationFragment;
+
+
+
+    }
+
 
     // Override the onBackPressed() method to handle back button presses
     @Override

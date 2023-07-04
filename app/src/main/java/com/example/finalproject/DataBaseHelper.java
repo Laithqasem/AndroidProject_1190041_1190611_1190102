@@ -108,7 +108,6 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
 
 
     public void insertTrainee(Trainee trainee){
-
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("email", trainee.getEmail());
@@ -119,7 +118,6 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         contentValues.put("address", trainee.getAddress());
         contentValues.put("image", trainee.getImage());
         sqLiteDatabase.insert("Trainee", null, contentValues);
-
     }
 
     public void insertCourses(Course course){
@@ -141,7 +139,6 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         ContentValues contentValues = new ContentValues();
         contentValues.put("COURSE_ID", topic.getCourseID());
         contentValues.put("TOPIC_NAME", topic.getTopicName());
-
         sqLiteDatabase.insert("TOPICS", null, contentValues);
     }
 
@@ -190,20 +187,9 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         return sqLiteDatabase.rawQuery("SELECT * FROM COURSES Where " + "ID = \"" + id + "\"", null);
     }
 
-    //function to get all sections for a specific course
     public Cursor getSectionsForTrainee(int id){
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection Where " + "COURSE_ID = " + id, null);
-
-        if (cursor.moveToNext()){
-
-
-
-
-        }
-
-        Cursor cursor1 = sqLiteDatabase.rawQuery("SELECT * FROM SECTION Where " + "COURSE_ID = " + id, null);
-        return cursor1;
+        return sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection Where " + "sectionID = " + id, null);
     }
     //function to delete trainee from trainee2section table based on section id and trainee email
     public void deleteTraineeFromSection(String email, String sectionId){
@@ -217,37 +203,6 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
                 "AND sectionID = " + sectionId, null);
 
         return cursor;
-    }
-
-    public ArrayList<String> checkPrerquesite(int sectionId){
-        ArrayList<String> preR = new ArrayList<>();
-        String[] pre = null;
-        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM SECTION WHERE " +
-                "SECTION_ID = " + sectionId, null);
-        int CourseId = -1;
-        if (!cursor.moveToNext())
-            return null;
-        else
-            CourseId = cursor.getInt(2);
-
-        Cursor cursor1 = sqLiteDatabase.rawQuery("SELECT * FROM COURSES WHERE " +
-                "ID = " + CourseId, null);
-
-        if (!cursor1.moveToNext())
-            return null;
-        else
-            pre = cursor1.getString(3).split(", ");
-
-        if (pre.length == 1 && pre[0].equals(""))
-            return null;
-        else{
-            for (int i = 0; i < pre.length; i++)
-                preR.add(pre[i]);
-        }
-        //for (String s: pre)
-           // System.out.println(s + "hererhere\n");
-        return preR;
     }
 
     public void insertTraineeSection(TraineeToSection traineeToSection){
@@ -351,11 +306,6 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
                 "COURSE_ID = " + valueOf, null);
     }
 
-    public Cursor getCourseFromId(int valueOf) {
-        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        return sqLiteDatabase.rawQuery("SELECT * FROM COURSES WHERE " +
-                "ID = " + valueOf, null);
-    }
 
     public Cursor getAllSectionsOfTrainee(String email) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
@@ -363,7 +313,123 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
                 "traineeEmail = \"" + email + "\"", null);
     }
 
-    public void UpdateeTrainee(String alteredFirst, String alteredLast, String alteredMobile, String alteredAddress){
+    public Cursor getCourse(String valueOf) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM COURSES WHERE " +
+                "ID = " + valueOf, null);
+    }
+
+    public void insertNotifications(Notification notification) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("notText", notification.getNotText());
+        contentValues.put("status", notification.getStatus());
+        contentValues.put("traineeEmail", notification.getTraineeEmail());
+        sqLiteDatabase.insert("Notifications", null, contentValues);
+    }
+
+    public Cursor getAllNotifications() {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM Notifications", null);
+    }
+
+    public int getCourseIDForSection(int id) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM SECTION WHERE " +
+                "SECTION_ID = " + id, null);
+        assert cursor.getCount() == 1;
+        cursor.moveToNext();
+        return cursor.getInt(2);
+    }
+
+    public Cursor getTraineeToSection() {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection", null);
+    }
+
+    public String getStartDate(int courseID) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM COURSES WHERE " +
+                "ID = " + courseID, null);
+        assert cursor.getCount() == 1;
+        cursor.moveToNext();
+        return cursor.getString(4);
+    }
+
+    public String getEndDate(int courseID) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM COURSES WHERE " +
+                "ID = " + courseID, null);
+        assert cursor.getCount() == 1;
+        cursor.moveToNext();
+        return cursor.getString(5);
+    }
+
+    public String getStartTime(int otherSectionID) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM SECTION WHERE " +
+                "SECTION_ID = " + otherSectionID, null);
+        assert cursor.getCount() == 1;
+        cursor.moveToNext();
+        return cursor.getString(4);
+    }
+
+    public String getEndTime(int otherSectionID) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM SECTION WHERE " +
+                "SECTION_ID = " + otherSectionID, null);
+        assert cursor.getCount() == 1;
+        cursor.moveToNext();
+        return cursor.getString(5);
+    }
+
+    public String getDays(int otherSectionID) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM SECTION WHERE " +
+                "SECTION_ID = " + otherSectionID, null);
+        assert cursor.getCount() == 1;
+        cursor.moveToNext();
+        return cursor.getString(6);
+    }
+
+   public ArrayList<String> checkPrerquesite(int sectionId){
+        ArrayList<String> preR = new ArrayList<>();
+        String[] pre = null;
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM SECTION WHERE " +
+                "SECTION_ID = " + sectionId, null);
+        int CourseId = -1;
+        if (!cursor.moveToNext())
+            return null;
+        else
+            CourseId = cursor.getInt(2);
+
+        Cursor cursor1 = sqLiteDatabase.rawQuery("SELECT * FROM COURSES WHERE " +
+                "ID = " + CourseId, null);
+
+        if (!cursor1.moveToNext())
+            return null;
+        else
+            pre = cursor1.getString(3).split(", ");
+
+        if (pre.length == 1 && pre[0].equals(""))
+            return null;
+        else{
+            for (int i = 0; i < pre.length; i++)
+                preR.add(pre[i]);
+        }
+        //for (String s: pre)
+           // System.out.println(s + "hererhere\n");
+        return preR;
+    }
+
+    public Cursor getCourseFromId(int valueOf) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM COURSES WHERE " +
+                "ID = " + valueOf, null);
+    }
+
+     public void UpdateeTrainee(String alteredFirst, String alteredLast, String alteredMobile, String alteredAddress){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("firstName", alteredFirst);
@@ -374,9 +440,17 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
 
     }
 
-    public Cursor getCourse(String valueOf) {
+
+    public Cursor getNotificationsForTrainee(String email) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        return sqLiteDatabase.rawQuery("SELECT * FROM COURSES WHERE " +
-                "ID = " + valueOf, null);
+        return sqLiteDatabase.rawQuery("SELECT * FROM Notifications WHERE " +
+                "traineeEmail = \"" + email + "\" and status = 0" , null);
+    }
+
+    public void updateNotification(int idNot) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("status", 1);
+        sqLiteDatabase.update("Notifications", contentValues, "notID = ?", new String[]{String.valueOf(idNot)});
     }
 }

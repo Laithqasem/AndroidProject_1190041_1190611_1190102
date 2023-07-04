@@ -13,10 +13,10 @@ import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ViewProfiles#newInstance} factory method to
+ * Use the {@link UpdateCourses#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ViewProfiles extends Fragment {
+public class UpdateCourses extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,7 +27,7 @@ public class ViewProfiles extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ViewProfiles() {
+    public UpdateCourses() {
         // Required empty public constructor
     }
 
@@ -37,11 +37,11 @@ public class ViewProfiles extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ViewProfiles.
+     * @return A new instance of fragment UpdateCourses.
      */
     // TODO: Rename and change types and number of parameters
-    public static ViewProfiles newInstance(String param1, String param2) {
-        ViewProfiles fragment = new ViewProfiles();
+    public static UpdateCourses newInstance(String param1, String param2) {
+        UpdateCourses fragment = new UpdateCourses();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,22 +61,22 @@ public class ViewProfiles extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_view_profiles, container, false);
+        View view = inflater.inflate(R.layout.fragment_update_courses, container, false);
 
-        Button view_trainees_button = view.findViewById(R.id.view_trainees_button);
-        Button view_instructors_button = view.findViewById(R.id.view_instructors_button);
+        Button edit = view.findViewById(R.id.edit_button);
+        Button delete = view.findViewById(R.id.delete_button);
 
-        view_trainees_button.setOnClickListener(new View.OnClickListener() {
+        edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceFragment(new ViewTrainees());
+                replaceFragment(new EditCourses());
             }
         });
 
-        view_instructors_button.setOnClickListener(new View.OnClickListener() {
+        delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceFragment(new ViewInstructors());
+                replaceFragment(new deleteCourses());
             }
         });
         return view;
@@ -85,7 +85,7 @@ public class ViewProfiles extends Fragment {
     private void replaceFragment(Fragment newFragment){
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, newFragment);
+        fragmentTransaction.replace(R.id.fragmentContainerView, newFragment);
         fragmentTransaction.commit();
     }
 }

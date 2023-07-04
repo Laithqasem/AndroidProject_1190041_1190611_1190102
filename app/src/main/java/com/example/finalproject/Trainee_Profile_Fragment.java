@@ -84,7 +84,7 @@ public class Trainee_Profile_Fragment extends Fragment {
         String email = null, firstName = null, lastName = null, mobileNumber = null, address = null;
         byte[] image;
         
-        Cursor cursor = dataBaseHelper.getOneTrainee("mezo@email.com");
+        Cursor cursor = dataBaseHelper.getOneTrainee("big@email.com");
 
         while (cursor.moveToNext()){
                     email = cursor.getString(0);

@@ -1,5 +1,7 @@
 package com.example.finalproject;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -7,36 +9,50 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Objects;
 import java.util.TreeSet;
 
-public class CreateNewCourse  extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link CreateNewCourses#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class CreateNewCourses extends Fragment {
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
 
     private DatePickerDialog datePickerDialog1;
     private DatePickerDialog datePickerDialog2;
     private DatePickerDialog datePickerDialog3;
     private DatePickerDialog datePickerDialog4;
     private Button start_date, end_date, reg_start, reg_end, photo, add;
-    private ImageButton back;
 
     TextView id, name, idtv, nametv, topicstv, startdatetv, enddatetv, regstarttv, regendtv, phototv;
 
@@ -49,47 +65,100 @@ public class CreateNewCourse  extends AppCompatActivity {
 
     String[] topics = {"Programming", "Math", "History", "Science"};
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_course);
-        initDatePicker();
-        idtv = findViewById(R.id.idtv);
-        nametv = findViewById(R.id.nametv);
-        topicstv = findViewById(R.id.topicstv);
-        startdatetv = findViewById(R.id.startdatetv);
-        enddatetv = findViewById(R.id.enddatetv);
-        regstarttv = findViewById(R.id.regstarttv);
-        regendtv = findViewById(R.id.regendtv);
-        phototv = findViewById(R.id.phototv);
+    public CreateNewCourses() {
+        // Required empty public constructor
+    }
 
-        id = findViewById(R.id.course_id);
-        name = findViewById(R.id.course_name);
-        start_date = findViewById(R.id.start_date);
-        end_date = findViewById(R.id.end_date);
-        reg_start = findViewById(R.id.registration_start_date);
-        reg_end = findViewById(R.id.registration_end_date);
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment CreateNewCourses.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static CreateNewCourses newInstance(String param1, String param2) {
+        CreateNewCourses fragment = new CreateNewCourses();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_create_new_courses, container, false);
+
+        start_date = view.findViewById(R.id.start_date);
+        end_date = view.findViewById(R.id.end_date);
+        reg_start = view.findViewById(R.id.registration_start_date);
+        reg_end = view.findViewById(R.id.registration_end_date);
+
+        initDatePicker();
+        start_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                datePickerDialog1.show();
+            }
+        });
+
+        end_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                datePickerDialog2.show();
+            }
+        });
+
+        reg_start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                datePickerDialog3.show();
+            }
+        });
+
+        reg_end.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                datePickerDialog4.show();
+            }
+        });
+
+        idtv = view.findViewById(R.id.idtv);
+        nametv = view.findViewById(R.id.nametv);
+        topicstv = view.findViewById(R.id.topicstv);
+        startdatetv = view.findViewById(R.id.startdatetv);
+        enddatetv = view.findViewById(R.id.enddatetv);
+        regstarttv = view.findViewById(R.id.regstarttv);
+        regendtv = view.findViewById(R.id.regendtv);
+        phototv = view.findViewById(R.id.phototv);
+
+        id = view.findViewById(R.id.course_id);
+        name = view.findViewById(R.id.course_name);
+
 
         start_date.setText(getTodaysDate());
         end_date.setText(getTodaysDate());
         reg_start.setText(getTodaysDate());
         reg_end.setText(getTodaysDate());
 
-        topic_list = findViewById(R.id.topic_list);
-        pre_list = findViewById(R.id.prerequisites_list);
+        topic_list = view.findViewById(R.id.topic_list);
+        pre_list = view.findViewById(R.id.prerequisites_list);
         selectTopic = new boolean[topics.length];
 
-        photo = findViewById(R.id.add_photo);
-        imageView = findViewById(R.id.uploaded_image);
-        back = findViewById(R.id.imageButton);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CreateNewCourse.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+        photo = view.findViewById(R.id.add_photo);
+        imageView = view.findViewById(R.id.uploaded_image);
 
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +173,7 @@ public class CreateNewCourse  extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(
-                        CreateNewCourse.this
+                        getContext()
                 );
 
                 builder.setTitle("Select Topics");
@@ -167,13 +236,13 @@ public class CreateNewCourse  extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(name.getText().toString().isEmpty()){
-                    Toast toast = Toast.makeText(CreateNewCourse.this, "Please enter course name first", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getContext(), "Please enter course name first", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
                 }
 
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(
-                        CreateNewCourse.this,"TRAINING_CENTER",null,1);
+                        getContext(),"TRAINING_CENTER",null,1);
                 Cursor cursor = dataBaseHelper.getAllCourses();
                 int sz = 0;
                 while(cursor.moveToNext()) sz++;
@@ -188,7 +257,7 @@ public class CreateNewCourse  extends AppCompatActivity {
                     }
                     sz = set.size();
                     if(sz == 0){
-                        Toast toast = Toast.makeText(CreateNewCourse.this, "No courses available", Toast.LENGTH_SHORT);
+                        Toast toast = Toast.makeText(getContext(), "No courses available", Toast.LENGTH_SHORT);
                         toast.show();
                         return;
                     }
@@ -201,7 +270,7 @@ public class CreateNewCourse  extends AppCompatActivity {
                     }
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(
-                            CreateNewCourse.this
+                            getContext()
                     );
 
                     builder.setTitle("Select Prerequisites");
@@ -259,13 +328,13 @@ public class CreateNewCourse  extends AppCompatActivity {
                     builder.show();
                 }
                 else{
-                    Toast toast = Toast.makeText(CreateNewCourse.this, "There are no courses yet", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getContext(), "There are no courses yet", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }
         });
 
-        add = findViewById(R.id.add_the_course);
+        add = view.findViewById(R.id.add_the_course);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -374,7 +443,7 @@ public class CreateNewCourse  extends AppCompatActivity {
                 }
 
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(
-                        CreateNewCourse.this,"TRAINING_CENTER",null,1);
+                        getContext(),"TRAINING_CENTER",null,1);
 
                 Cursor cursor = dataBaseHelper.getAllCourses();
                 while(cursor.moveToNext()){
@@ -383,7 +452,7 @@ public class CreateNewCourse  extends AppCompatActivity {
                     String endDate = cursor.getString(5);
                     if(courseID.equals(ID)){
                         if(checkIntersectionOfDates(STARTDATE, ENDDATE, startDate, endDate)){
-                            Toast toast = Toast.makeText(CreateNewCourse.this, "The course is offered in the period provided", Toast.LENGTH_SHORT);
+                            Toast toast = Toast.makeText(getContext(), "The course is offered in the period provided", Toast.LENGTH_SHORT);
                             toast.show();
                             return;
                         }
@@ -407,11 +476,33 @@ public class CreateNewCourse  extends AppCompatActivity {
                 course.setImage(new ImageHandler().getByteArray(imageView));
                 dataBaseHelper.insertCourses(course);
 
-                Intent intent = new Intent(CreateNewCourse.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                Cursor cursor1 = dataBaseHelper.getAllTrainees();
+                while(cursor1.moveToNext()){
+                    String email = cursor1.getString(0);
+
+                    Notification notification = new Notification();
+                    notification.setTraineeEmail(email);
+                    notification.setNotText("A new course (" + ID + ", " + NAME + ") has been added");
+                    notification.setStatus(0);
+                    dataBaseHelper.insertNotifications(notification);
+                }
+
+                Toast toast = Toast.makeText(getContext(), "Course added successfully", Toast.LENGTH_SHORT);
+                toast.show();
+
+                replaceFragment(new AdminHomePage());
             }
         });
+
+
+        return view;
+    }
+
+    private void replaceFragment(Fragment newFragment){
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainerView, newFragment);
+        fragmentTransaction.commit();
     }
 
     private boolean checkIntersectionOfDates(String l1, String r1, String l2, String r2){
@@ -447,7 +538,7 @@ public class CreateNewCourse  extends AppCompatActivity {
         return makeDateString(day, month, year);
     }
 
-    private void initDatePicker() {
+    public void initDatePicker() {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener()
         {
             @Override
@@ -499,10 +590,10 @@ public class CreateNewCourse  extends AppCompatActivity {
 
         int style = AlertDialog.THEME_HOLO_LIGHT;
 
-        datePickerDialog1 = new DatePickerDialog(this, style, dateSetListener, year, month, day);
-        datePickerDialog2 = new DatePickerDialog(this, style, dateSetListener2, year, month, day);
-        datePickerDialog3 = new DatePickerDialog(this, style, dateSetListener3, year, month, day);
-        datePickerDialog4 = new DatePickerDialog(this, style, dateSetListener4, year, month, day);
+        datePickerDialog1 = new DatePickerDialog(getContext(), style, dateSetListener, year, month, day);
+        datePickerDialog2 = new DatePickerDialog(getContext(), style, dateSetListener2, year, month, day);
+        datePickerDialog3 = new DatePickerDialog(getContext(), style, dateSetListener3, year, month, day);
+        datePickerDialog4 = new DatePickerDialog(getContext(), style, dateSetListener4, year, month, day);
     }
 
     public String makeDateString(int day, int month, int year) {
@@ -555,21 +646,8 @@ public class CreateNewCourse  extends AppCompatActivity {
         return "JAN";
     }
 
-    public void openDatePicker(View view) {
-        datePickerDialog1.show();
-    }
-    public void openDatePicker2(View view) {
-        datePickerDialog2.show();
-    }
-    public void openDatePicker3(View view) {
-        datePickerDialog3.show();
-    }
-    public void openDatePicker4(View view) {
-        datePickerDialog4.show();
-    }
-
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == RESULT_OK){
@@ -578,4 +656,5 @@ public class CreateNewCourse  extends AppCompatActivity {
             }
         }
     }
+
 }
