@@ -64,6 +64,7 @@ public class AdminHomePage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_admin_home_page, container, false);
         Button create_new_course = (Button) view.findViewById(R.id.create_new_course);
         Button view_courses = (Button) view.findViewById(R.id.view_courses);
