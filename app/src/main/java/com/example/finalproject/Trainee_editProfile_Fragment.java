@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -76,28 +77,63 @@ public class Trainee_editProfile_Fragment extends Fragment {
         textViewMobileNumber = rootView.findViewById(R.id.editTextMobileNumber);
         textViewAddress = rootView.findViewById(R.id.editTextAddress);
         buttonSave = rootView.findViewById(R.id.buttonSave);
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(),"TRAINING_CENTER",null,1);
+        Cursor cursor = dataBaseHelper.getOneTrainee("mezo@email.com");
 
-        //query database for trainee info
+        String email = null;
+        String firstName = null;
+        String lastName = null;
+        String mobileNumber = null;
+        String address = null;
+        byte[] image;
+        while (cursor.moveToNext()){
+            email = cursor.getString(0);
+            firstName = cursor.getString(2);
+            lastName = cursor.getString(3);
+            mobileNumber = cursor.getString(4);
+            address = cursor.getString(5);
+            image = cursor.getBlob(6);
 
-        textViewFirstName.setText("First Name");
-        textViewLastName.setText("Last Name");
-        textViewEmail.setText("Email");
-        textViewMobileNumber.setText("Mobile Number");
-        textViewAddress.setText("Address");
+        }
 
-        //
+        textViewEmail.setText(email);
+        textViewFirstName.setText(firstName);
+        textViewLastName.setText(lastName);
+        textViewMobileNumber.setText(mobileNumber);
+        textViewAddress.setText(address);
 
        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String alteredFirst = textViewFirstName.getText().toString();
-                String alteredLast = textViewLastName.getText().toString();
-                String alteredEmail = textViewEmail.getText().toString();
-                String alteredMobile = textViewMobileNumber.getText().toString();
-                String alteredAddress = textViewAddress.getText().toString();
 
-                //query database to update trainee info
+                if (textViewFirstName.getText().toString().isEmpty()){
+                    textViewFirstName.setError("First name is required");
+                    return;
+                }
+                if (textViewLastName.getText().toString().isEmpty()){
+                    textViewLastName.setError("Last name is required");
+                    return;
+                }
+                if (textViewEmail.getText().toString().isEmpty()){
+                    textViewEmail.setError("Email is required");
+                    return;
+                }
+                if (textViewMobileNumber.getText().toString().isEmpty()){
+                    textViewMobileNumber.setError("Mobile number is required");
+                    return;
+                }
+                if (textViewAddress.getText().toString().isEmpty()){
+                    textViewAddress.setError("Address is required");
+                    return;
 
+                } else {
+                    String alteredFirst = textViewFirstName.getText().toString();
+                    String alteredLast = textViewLastName.getText().toString();
+                    String alteredMobile = textViewMobileNumber.getText().toString();
+                    String alteredAddress = textViewAddress.getText().toString();
+
+                    dataBaseHelper.UpdateeTrainee(alteredFirst,alteredLast,alteredMobile,alteredAddress);
+                }
             }
         });
 

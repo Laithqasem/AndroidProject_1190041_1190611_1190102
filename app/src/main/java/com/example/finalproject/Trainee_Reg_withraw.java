@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -26,10 +27,16 @@ public class Trainee_Reg_withraw extends RecyclerView.Adapter<Trainee_Reg_withra
 {
     private ArrayList<Section> SectionList;
     private String Temail;
+    private ArrayList<String> preReqList;
+    private ArrayList<String> pre;
 
     public Trainee_Reg_withraw(ArrayList<Section> SecList, String email) {
         this.SectionList = SecList;
         this.Temail = email;
+    }
+
+    public Trainee_Reg_withraw() {
+
     }
 
     @NonNull
@@ -75,9 +82,12 @@ public class Trainee_Reg_withraw extends RecyclerView.Adapter<Trainee_Reg_withra
         private TextView courseDescription = itemView.findViewById(R.id.textViewCourseTime);
         private Button RegisterButton = itemView.findViewById(R.id.buttonRegisterCourse);
 
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            Trainee_Course_history history = new Trainee_Course_history();
+            preReqList = new ArrayList<String>();
+            pre = new ArrayList<String>();
                 //max size of class, already registered, already waitlisted
                 RegisterButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -88,6 +98,15 @@ public class Trainee_Reg_withraw extends RecyclerView.Adapter<Trainee_Reg_withra
                                 "TRAINING_CENTER",null,1);
 
                         Cursor cursor = dataBaseHelper.checkExistence(Temail, String.valueOf(sec.getSectionID()));
+                        //from section we got the pre of the course in question
+                        pre = dataBaseHelper.checkPrerquesite(sec.getSectionID());
+                        history.getHistoryOfcourse(dataBaseHelper, preReqList, false);//Check tmw
+
+                        if (pre != null)
+                            if(!pre.equals(preReqList)) {//checktmw
+                                Toast.makeText(v.getContext(), "You have not completed the prerequisites", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
 
                         int count = dataBaseHelper.getTraineeCount(String.valueOf(sec.getSectionID()));
 
@@ -96,7 +115,9 @@ public class Trainee_Reg_withraw extends RecyclerView.Adapter<Trainee_Reg_withra
 
                                 if(checkConflicts(Temail, String.valueOf(sec.getSectionID()))){
                                     return;
+
                                 }
+//
 
                                 TraineeToSection t1 = new TraineeToSection(-1, sec.getSectionID() ,Temail, 0);
                                 dataBaseHelper.insertTraineeSection(t1);
