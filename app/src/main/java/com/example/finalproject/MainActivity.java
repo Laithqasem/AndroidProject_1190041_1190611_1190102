@@ -22,17 +22,33 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin_page);
 
-        Button home = (Button) findViewById(R.id.home);
-        Button profile = (Button) findViewById(R.id.profile);
-        Button logout = (Button) findViewById(R.id.logout);
 
-        home.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_main);
+//        DataBaseHelper dataBaseHelper = new DataBaseHelper(
+//                MainActivity.this,"TRAINING_CENTER",null,1);
+//        return;
+
+        Button sign_up_button = (Button) findViewById(R.id.login_page_button);
+
+        sign_up_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment admin_home_page = new AdminHomePage();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, admin_home_page).commit();
+                Intent intent = new Intent(MainActivity.this, SignUp.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+
+        Button login_button = (Button) findViewById(R.id.login_button);
+
+        login_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Login.class);
+                startActivity(intent);
+                finish();
             }
         });
 
