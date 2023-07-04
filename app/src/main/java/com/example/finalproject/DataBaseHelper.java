@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
     public DataBaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -389,4 +391,54 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         cursor.moveToNext();
         return cursor.getString(6);
     }
+
+   public ArrayList<String> checkPrerquesite(int sectionId){
+        ArrayList<String> preR = new ArrayList<>();
+        String[] pre = null;
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM SECTION WHERE " +
+                "SECTION_ID = " + sectionId, null);
+        int CourseId = -1;
+        if (!cursor.moveToNext())
+            return null;
+        else
+            CourseId = cursor.getInt(2);
+
+        Cursor cursor1 = sqLiteDatabase.rawQuery("SELECT * FROM COURSES WHERE " +
+                "ID = " + CourseId, null);
+
+        if (!cursor1.moveToNext())
+            return null;
+        else
+            pre = cursor1.getString(3).split(", ");
+
+        if (pre.length == 1 && pre[0].equals(""))
+            return null;
+        else{
+            for (int i = 0; i < pre.length; i++)
+                preR.add(pre[i]);
+        }
+        //for (String s: pre)
+           // System.out.println(s + "hererhere\n");
+        return preR;
+    }
+
+    public Cursor getCourseFromId(int valueOf) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM COURSES WHERE " +
+                "ID = " + valueOf, null);
+    }
+
+     public void UpdateeTrainee(String alteredFirst, String alteredLast, String alteredMobile, String alteredAddress){
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("firstName", alteredFirst);
+        contentValues.put("lastName", alteredLast);
+        contentValues.put("mobileNumber", alteredMobile);
+        contentValues.put("address", alteredAddress);
+        sqLiteDatabase.update("Trainee", contentValues, "email = ?", new String[]{TraineeActivites.getEmail()});
+
+    }
+
+
 }
