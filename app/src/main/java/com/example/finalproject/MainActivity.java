@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 ////////////////
 //                Instructor instructor2 = new Instructor("mazen@gmail.com", "1234", "Mazen", "Batrawi", "0597969540",
 //                        "Ramallah", "CSE", "Bachelor", "", new byte[1]);
-
+//
 ////
 //                dataBaseHelper.insertInstructor(instructor);
 //                dataBaseHelper.insertInstructor(instructor2);
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 ////                        "Ramallah", "CSE", "Bachelor", "", new byte[1]);
 ////
 ////                dataBaseHelper.insertInstructor(instructor2);
-
+//
 //                Trainee t1 = new Trainee("mezo@email.com","1234", "Mohammad",
 //                        "Batrawi", "0597999540", "Ramallah", new byte[1]);
 //

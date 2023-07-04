@@ -88,10 +88,7 @@ public class Trainee_Profile_Fragment extends Fragment {
 
         while (cursor.moveToNext()){
                     email = cursor.getString(0);
-            System.out.println(email);
-                    //cursor.getString(1);
                     firstName = cursor.getString(2);
-            System.out.println(firstName);
                     lastName = cursor.getString(3);
                     mobileNumber = cursor.getString(4);
                     address = cursor.getString(5);
@@ -105,6 +102,7 @@ public class Trainee_Profile_Fragment extends Fragment {
         textViewLastName.setText(lastName);
         textViewMobileNumber.setText(mobileNumber);
         textViewAddress.setText(address);
+        //do the image
 
 
 

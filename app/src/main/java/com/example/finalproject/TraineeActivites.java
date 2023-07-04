@@ -25,6 +25,7 @@ public class TraineeActivites extends AppCompatActivity {
         Button profileButton = findViewById(R.id.btnProfile);
         Button searchButton = findViewById(R.id.btnSearch);
         Button homeButton = findViewById(R.id.btnHome);
+        Button coursesButton = findViewById(R.id.btnCourses);
 
         Bundle bundle = new Bundle();
         bundle.putString("email", getEmail());
@@ -55,6 +56,12 @@ public class TraineeActivites extends AppCompatActivity {
             }
         });
 
+        coursesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCourses();
+            }
+        });
 
 
         // Check if there's a saved instance state
@@ -158,6 +165,36 @@ public class TraineeActivites extends AppCompatActivity {
 
         // Update the current fragment
         currentFragment = searchFragment;
+    }
+
+    public void openCourses() {
+        Fragment coursesFragment = new Trainee_Course_history();
+
+        FragmentTransaction fragmentTransaction = fragmentManagerTrainee.beginTransaction();
+
+        // Hide all other fragments
+        for (Fragment fragment : fragmentManagerTrainee.getFragments()) {
+            if (fragment != coursesFragment) {
+                fragmentTransaction.hide(fragment);
+            }
+        }
+
+        // Show the search fragment if it is not already added
+        if (!coursesFragment.isAdded()) {
+            fragmentTransaction.add(R.id.content_frame, coursesFragment);
+        }
+
+        // Show the search fragment
+        fragmentTransaction.show(coursesFragment);
+
+        // Add the transaction to the back stack
+        fragmentTransaction.addToBackStack(null);
+
+        // Commit the transaction
+        fragmentTransaction.commit();
+
+        // Update the current fragment
+        currentFragment = coursesFragment;
     }
 
     // Override the onBackPressed() method to handle back button presses

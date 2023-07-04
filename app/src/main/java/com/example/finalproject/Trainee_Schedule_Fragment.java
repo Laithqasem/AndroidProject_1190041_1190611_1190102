@@ -182,7 +182,7 @@ public class Trainee_Schedule_Fragment extends Fragment implements AdapterView.O
 
 
         DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(), "TRAINING_CENTER", null, 1);
-        System.out.println("I'm in Schedule " + Email);
+        //System.out.println("I'm in Schedule " + Email);
 
         Cursor cursor = dataBaseHelper.getSecId(Email);// search for email in T2S table
 
