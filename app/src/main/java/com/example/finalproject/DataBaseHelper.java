@@ -235,6 +235,25 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         return cursor.getCount() == 0;
     }
 
+    public String getCourseName(int course_id) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        String res="asd";
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM COURSES", null);
+
+        while (cursor.moveToNext()){
+
+            System.out.println( "qweqweqweewq   " +cursor.getInt(0));
+            if(cursor.getInt(0) == course_id){
+                return cursor.getString(2) ;
+            }
+
+                return "Course";
+
+        }
+
+
+        return res;
+    }
     public Cursor getSections() {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         return sqLiteDatabase.rawQuery("SELECT * FROM SECTION", null);

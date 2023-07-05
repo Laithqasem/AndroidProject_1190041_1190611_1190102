@@ -472,6 +472,7 @@ public class instructor_sign_up_fragment extends Fragment {
                     instructor.setAddress(address_string);
                     instructor.setSpecialization(selected_specialization);
                     instructor.setDegree(chosen_specialization);
+
                     instructor.setCanTeach(canTeach);
 
 //                    String databaseName = "TRAINING_CENTER";

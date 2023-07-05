@@ -5,12 +5,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MyViewHolder extends RecyclerView.ViewHolder {
 
     ImageView imageView;
     TextView course_id,courseName, maxTrainees,startTime, endTime,days, room,startDate, endDate;
+    CardView cardView;
 
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -30,10 +32,13 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         room = itemView.findViewById(R.id.Section_room);
         startDate = itemView.findViewById(R.id.Section_startDate);
         endDate = itemView.findViewById(R.id.Section_endtDate);
+        cardView = itemView.findViewById(R.id.cardView);
 
 
 
 
 
     }
+
+
 }

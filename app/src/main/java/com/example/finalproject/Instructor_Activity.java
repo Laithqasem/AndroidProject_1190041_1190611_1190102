@@ -132,13 +132,13 @@ public class Instructor_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(Instructor_Activity.this, "TRAINING_CENTER", null, 1);
 
-//                Course course = new Course(10,"ENCS1110","IC", "ENCS1110,ENEE4700","24/7","28/7","24/5","20/6",new byte[1024]);
+//                Course course = new Course(18,"ENCS1110","Laith", "ENCS1110,ENEE4700","24/7","28/7","24/5","20/6",new byte[1024]);
 //                dataBaseHelper.insertCourses(course);
-//                Course course2 = new Course(11,"ENEE4112","LAB", "ENCS1110","24/7","28/7","24/5","20/6",new byte[1024]);
+//                Course course2 = new Course(19,"ENEE4112","Majd", "ENCS1110","24/7","28/7","24/5","20/6",new byte[1024]);
 //                dataBaseHelper.insertCourses(course2);
-//                Course course3 = new Course(12,"ENCS2222","Arch", "ENCS1110","24/7","28/7","24/5","20/6",new byte[1024]);
+//                Course course3 = new Course(20,"ENCS2222","Qasdsa", "ENCS1110","24/7","28/7","24/5","20/6",new byte[1024]);
 //                dataBaseHelper.insertCourses(course3);
-//                Course course4 = new Course(13,"ENCS3333","Interface", "ENCS1110","24/7","28/7","24/5","20/6",new byte[1024]);
+//                Course course4 = new Course(21,"ENCS3333","Interface", "ENCS1110","24/7","28/7","24/5","20/6",new byte[1024]);
 //                dataBaseHelper.insertCourses(course4);
 
 //                private int sectionID;
@@ -149,15 +149,15 @@ public class Instructor_Activity extends AppCompatActivity {
 //                private String days;
 //                private String room, startDate, endDate;
 
-                Section section = new Section(1,"laith@gmail.com",10,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
+                Section section = new Section(6,"laith@gmail.com",10,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
                 dataBaseHelper.insertSection(section);
-                Section section2 = new Section(2,"laith@gmail.com",11,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
+                Section section2 = new Section(7,"laith@gmail.com",11,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
                 dataBaseHelper.insertSection(section2);
-                Section section3 = new Section(3,"laith@gmail.com",12,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
+                Section section3 = new Section(8,"laith@gmail.com",12,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
                 dataBaseHelper.insertSection(section3);
-                Section section4 = new Section(4,"instructor@gmail.com",13,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
+                Section section4 = new Section(9,"instructor@gmail.com",20,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
                 dataBaseHelper.insertSection(section4);
-                Section section5 = new Section(5,"instructor@gmail.com",14,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
+                Section section5 = new Section(10,"instructor@gmail.com",18,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
                 dataBaseHelper.insertSection(section5);
                 System.out.println("YEEEEEEEEEES");
 

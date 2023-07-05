@@ -3,6 +3,7 @@ package com.example.finalproject;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,14 +14,19 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InstructorCoursesActivity extends AppCompatActivity {
+public class InstructorCoursesActivity extends AppCompatActivity implements SelectListener{
     boolean flag = false;
     int cnt=0;
     String user_email="";
+    DataBaseHelper dataBaseHelper = new DataBaseHelper(InstructorCoursesActivity.this, "TRAINING_CENTER", null, 1);
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor_courses);
+
 //        if(cnt==0){
 //            String str = getIntent().getStringExtra("EMAIL");
 //            user_email=str;
@@ -73,7 +79,6 @@ public class InstructorCoursesActivity extends AppCompatActivity {
 
            System.out.println("wds" +user_email);
 
-            DataBaseHelper dataBaseHelper = new DataBaseHelper(InstructorCoursesActivity.this, "TRAINING_CENTER", null, 1);
 
                 Cursor cursor = dataBaseHelper.getAllSectionsBasedOnInstructor(user_email);
                 System.out.println(cursor);
@@ -89,6 +94,7 @@ public class InstructorCoursesActivity extends AppCompatActivity {
                         String room = cursor.getString(7);
                         String startDate = cursor.getString(8);
                         String endDate = cursor.getString(9);
+
 
                         items.add( new Section(sectionID,instructorEmail,courseID,maxTrainees,startTime,endTime,days,room,startDate,endDate));
 
@@ -107,9 +113,14 @@ public class InstructorCoursesActivity extends AppCompatActivity {
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new MyAdapter(getApplicationContext(),items));
+        recyclerView.setAdapter(new MyAdapter(getApplicationContext(),items,this));
 
 
 
+    }
+
+    @Override
+    public void onItemClicked(Section section) {
+        Toast.makeText(this, section.getDays(), Toast.LENGTH_LONG ).show();
     }
 }
