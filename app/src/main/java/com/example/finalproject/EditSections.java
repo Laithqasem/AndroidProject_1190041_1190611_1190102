@@ -52,7 +52,7 @@ public class EditSections extends Fragment {
 
     Button start_time;
     Button end_time;
-    TextView days, room;
+    Button days, room;
     final String[] finalSTART_DATE = {"-1"};
     final String[] finalEND_DATE = { "-1" };
     final String[] finalCourse_ID = {"-1"};
@@ -106,8 +106,18 @@ public class EditSections extends Fragment {
                     {
                         hour1 = selectedHour;
                         minute1 = selectedMinute;
-                        start_time.setText(String.valueOf(hour1) + ":" + String.valueOf(minute1));
-                        start_time.setTextColor(Color.BLACK);
+                        if (minute1 < 10 && hour1 < 10) {
+                            start_time.setText("0" + String.valueOf(hour1) + ":" + "0" + String.valueOf(minute1));
+                        }
+                        else if (minute1 < 10) {
+                            start_time.setText(String.valueOf(hour1) + ":" + "0" + String.valueOf(minute1));
+                        }
+                        else if (hour1 < 10) {
+                            start_time.setText("0" + String.valueOf(hour1) + ":" + String.valueOf(minute1));
+                        }
+                        else {
+                            start_time.setText(String.valueOf(hour1) + ":" + String.valueOf(minute1));
+                        }
                     }
                 };
 
@@ -130,8 +140,18 @@ public class EditSections extends Fragment {
                     {
                         hour2 = selectedHour;
                         minute2 = selectedMinute;
-                        end_time.setText(String.valueOf(hour2) + ":" + String.valueOf(minute2));
-                        end_time.setTextColor(Color.BLACK);
+                        if (minute2 < 10 && hour2 < 10) {
+                            end_time.setText("0" + String.valueOf(hour2) + ":" + "0" + String.valueOf(minute2));
+                        }
+                        else if (minute2 < 10) {
+                            end_time.setText(String.valueOf(hour2) + ":" + "0" + String.valueOf(minute2));
+                        }
+                        else if (hour2 < 10) {
+                            end_time.setText("0" + String.valueOf(hour2) + ":" + String.valueOf(minute2));
+                        }
+                        else {
+                            end_time.setText(String.valueOf(hour2) + ":" + String.valueOf(minute2));
+                        }
                     }
                 };
 
@@ -186,8 +206,6 @@ public class EditSections extends Fragment {
                 max_students.setText(String.valueOf(section.getMaxTrainees()));
                 start_time.setText(section.getStartTime());
                 end_time.setText(section.getEndTime());
-                start_time.setTextColor(Color.BLACK);
-                end_time.setTextColor(Color.BLACK);
                 days.setText(section.getDays());
                 room.setText(section.getRoom());
                 course = section.getCourseID();
@@ -375,7 +393,6 @@ public class EditSections extends Fragment {
                             }
                         }
                         days.setText(stringBuilder.toString());
-                        days.setTextColor(Color.BLACK);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

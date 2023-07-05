@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -124,11 +125,14 @@ public class ApproveStudent extends Fragment {
                         TextView textView = new TextView(getContext());
                         textView.setText(s);
                         textView.setTextSize(20);
-                        textView.setTextColor(Color.BLACK);
+                        textView.setTextColor(Color.WHITE);
                         textView.setGravity(Gravity.CENTER_HORIZONTAL);
 
+                        byte[] array = course.getImage();
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(array, 0, array.length);
                         ImageView imageView = new ImageView(getContext());
-                        Bitmap bitmap = BitmapFactory.decodeByteArray(course.getImage(), 0, course.getImage().length);
+                        imageView.setImageResource(R.drawable.profile_photo_placeholder);
+                        imageView.setLayoutParams(new LinearLayout.LayoutParams(600, 600));
                         imageView.setImageBitmap(bitmap);
 
                         linearLayout.addView(imageView);
@@ -138,13 +142,12 @@ public class ApproveStudent extends Fragment {
                         textView1.setText("Sections");
                         textView1.setTextSize(30);
                         textView1.setTypeface(null, Typeface.BOLD);
-                        textView1.setTextColor(Color.BLACK);
+                        textView1.setTextColor(Color.WHITE);
                         textView1.setGravity(Gravity.CENTER_HORIZONTAL);
                         linearLayout.addView(textView1);
 
                         Cursor cursor2 = dataBaseHelper.getAllOfferings(String.valueOf(id[i]));
-                        int j = 0;
-                        while (cursor2.moveToNext()){
+                        while (cursor2.moveToNext()) {
                             Section section = new Section();
 
                             section.setSectionID(cursor2.getInt(0));
@@ -158,23 +161,43 @@ public class ApproveStudent extends Fragment {
                             section.setStartDate(cursor2.getString(8));
                             section.setEndDate(cursor2.getString(9));
 
+                            CardView cardView = new CardView(getContext());
+                            LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
+                                    ViewGroup.LayoutParams.MATCH_PARENT,
+                                    ViewGroup.LayoutParams.WRAP_CONTENT
+                            );
+                            cardParams.setMargins(0, 0, 0, 16); // Set spacing between card views
+                            cardView.setLayoutParams(cardParams);
+                            cardView.setRadius(8);
+                            cardView.setCardElevation(4);
+                            cardView.setUseCompatPadding(true);
+
+                            LinearLayout linearLayout1 = new LinearLayout(getContext());
+                            linearLayout1.setOrientation(LinearLayout.VERTICAL);
+                            linearLayout1.setLayoutParams(new LinearLayout.LayoutParams(
+                                    ViewGroup.LayoutParams.MATCH_PARENT,
+                                    ViewGroup.LayoutParams.WRAP_CONTENT
+                            ));
+
+
                             String s1 = section.toString();
                             int has = dataBaseHelper.countStudentsInSection(String.valueOf(section.getSectionID()));
                             s1 = s1 + "Number of students: " + has + " / " + section.getMaxTrainees() + "\n";
-                            if(j != 0){
-                                s1 = "\n\n" + s1;
-                            }
-                            j++;
+
                             TextView textView2 = new TextView(getContext());
                             textView2.setText(s1);
                             textView2.setTextSize(20);
-                            textView2.setTextColor(Color.BLACK);
+                            textView2.setTextColor(Color.WHITE);
                             textView2.setGravity(Gravity.CENTER_HORIZONTAL);
 
                             Button button1 = new Button(getContext());
                             button1.setText("Approve Students");
                             button1.setGravity(Gravity.CENTER_HORIZONTAL);
                             button1.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                            button1.setLayoutParams(new LinearLayout.LayoutParams(
+                                    ViewGroup.LayoutParams.MATCH_PARENT,
+                                    ViewGroup.LayoutParams.WRAP_CONTENT
+                            ));
                             button1.setTextSize(20);
 
                             button1.setOnClickListener(new View.OnClickListener() {
@@ -188,9 +211,10 @@ public class ApproveStudent extends Fragment {
                                     replaceFragment(fragment);
                                 }
                             });
-
-                            linearLayout.addView(textView2);
-                            linearLayout.addView(button1);
+                            linearLayout1.addView(textView2);
+                            linearLayout1.addView(button1);
+                            cardView.addView(linearLayout1);
+                            linearLayout.addView(cardView);
                         }
                         dialogInterface.dismiss();
                     }

@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.Gravity;
@@ -19,6 +20,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -99,7 +102,6 @@ public class ViewOfferingsHistory extends Fragment {
                         button.setText(items[i]);
                         linearLayout.removeAllViews();
 
-                        String courseName = items[i];
                         Cursor cursor1 = dataBaseHelper.getAllCourses();
                         Course course = new Course();
                         while(cursor1.moveToNext()){
@@ -118,16 +120,18 @@ public class ViewOfferingsHistory extends Fragment {
                         }
 
                         String s = course.toString();
+                        s = "\n\n" + s;
                         TextView textView = new TextView(getContext());
                         textView.setText(s);
                         textView.setTextSize(20);
-                        textView.setTextColor(Color.BLACK);
+                        textView.setTextColor(Color.WHITE);
                         textView.setGravity(Gravity.CENTER_HORIZONTAL);
 
-                        ImageView imageView = new ImageView(getContext());
                         Bitmap bitmap = BitmapFactory.decodeByteArray(course.getImage(), 0, course.getImage().length);
+                        ImageView imageView = new ImageView(getContext());
+                        imageView.setImageResource(R.drawable.profile_photo_placeholder);
+                        imageView.setLayoutParams(new LinearLayout.LayoutParams(600, 600));
                         imageView.setImageBitmap(bitmap);
-
                         linearLayout.addView(imageView);
                         linearLayout.addView(textView);
 
@@ -135,12 +139,11 @@ public class ViewOfferingsHistory extends Fragment {
                         textView1.setText("Offering History");
                         textView1.setTextSize(30);
                         textView1.setTypeface(null, Typeface.BOLD);
-                        textView1.setTextColor(Color.BLACK);
+                        textView1.setTextColor(Color.WHITE);
                         textView1.setGravity(Gravity.CENTER_HORIZONTAL);
                         linearLayout.addView(textView1);
 
                         Cursor cursor2 = dataBaseHelper.getAllOfferings(String.valueOf(id[i]));
-                        int j = 0;
                         while (cursor2.moveToNext()){
                             Section section = new Section();
 
@@ -156,16 +159,29 @@ public class ViewOfferingsHistory extends Fragment {
                             section.setEndDate(cursor2.getString(9));
 
                             String s1 = section.toString();
-                            if(j != 0){
-                                s1 = "\n\n" + s1;
-                            }
-                            j++;
                             TextView textView2 = new TextView(getContext());
                             textView2.setText(s1);
                             textView2.setTextSize(20);
-                            textView2.setTextColor(Color.BLACK);
+                            textView2.setTextColor(Color.WHITE);
                             textView2.setGravity(Gravity.CENTER_HORIZONTAL);
-                            linearLayout.addView(textView2);
+
+                            CardView cardView = new CardView(getContext());
+                            LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
+                                    ViewGroup.LayoutParams.MATCH_PARENT,
+                                    ViewGroup.LayoutParams.WRAP_CONTENT
+                            );
+                            cardParams.setMargins(0, 0, 0, 16); // Set spacing between card views
+                            cardView.setLayoutParams(cardParams);
+                            cardView.setRadius(8);
+                            cardView.setCardElevation(4);
+                            cardView.setUseCompatPadding(true);
+
+                            cardView.addView(textView2);
+                            linearLayout.addView(cardView);
+                            // add \n\n\n
+                            TextView textView3 = new TextView(getContext());
+                            textView3.setText("\n\n\n");
+                            linearLayout.addView(textView3);
 
                         }
                         dialogInterface.dismiss();

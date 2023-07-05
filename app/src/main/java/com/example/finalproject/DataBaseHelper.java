@@ -86,6 +86,12 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         return cursor;
 
     }
+
+    public Cursor getAllInstructors() {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM INSTRUCTOR", null);
+        return cursor;
+    }
     public String getLoginPassword(String email, String password) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM ADMIN WHERE " +
@@ -207,7 +213,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         sqLiteDatabase.insert("TRAINEE", null, contentValues);
     }
 
-    public void insertCourses(Course course){
+    public int insertCourses(Course course){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("COURSE_ID", course.getCourseID());
@@ -218,7 +224,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         contentValues.put("START_REG", course.getRegistrationStart());
         contentValues.put("END_REG", course.getRegistrationEnd());
         contentValues.put("IMAGE", course.getImage());
-        sqLiteDatabase.insert("COURSES", null, contentValues);
+        return (int) sqLiteDatabase.insert("COURSES", null, contentValues);
     }
 
     public void insertTopics(Topic topic){
@@ -570,5 +576,16 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         ContentValues contentValues = new ContentValues();
         contentValues.put("status", 1);
         sqLiteDatabase.update("Notifications", contentValues, "notID = ?", new String[]{String.valueOf(idNot)});
+    }
+
+    public Cursor getTopics(String course_id) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM TOPICS WHERE " +
+                "COURSE_ID = " + course_id, null);
+    }
+
+    public void deleteAllTopics() {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        sqLiteDatabase.delete("TOPICS", null, null);
     }
 }

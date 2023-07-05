@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.Gravity;
@@ -73,8 +74,19 @@ public class ViewTrainees extends Fragment {
 
         DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(), "TRAINING_CENTER", null,1);
         Cursor cursor = dataBaseHelper.getAllTrainees();
-        int i = 0;
+
         while (cursor.moveToNext()) {
+            CardView cardView = new CardView(getContext());
+            LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            cardParams.setMargins(0, 0, 0, 16); // Set spacing between card views
+            cardView.setLayoutParams(cardParams);
+            cardView.setRadius(8);
+            cardView.setCardElevation(4);
+            cardView.setUseCompatPadding(true);
+
             Trainee trainee = new Trainee(cursor.getString(0), cursor.getString(1), cursor.getString(2),
                     cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getBlob(6));
 
@@ -87,24 +99,21 @@ public class ViewTrainees extends Fragment {
             byte[] array = trainee.getImage();
             Bitmap bitmap = BitmapFactory.decodeByteArray(array, 0, array.length);
             ImageView imageView = new ImageView(getContext());
+            imageView.setImageResource(R.drawable.profile_photo_placeholder);
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(600, 600));
             imageView.setImageBitmap(bitmap);
-            layout1.addView(imageView);
 
             String s = trainee.toString();
             TextView textView1 = new TextView(getContext());
-            if(i != 0){
-                s = "\n\n" + s;
-            }
-            else{
-                i++;
-                s = "\n" + s;
-            }
             textView1.setText(s);
             textView1.setTextColor(Color.BLACK);
             textView1.setTextSize(20);
             textView1.setGravity(Gravity.CENTER_HORIZONTAL);
+
+            layout1.addView(imageView);
             layout1.addView(textView1);
-            layout.addView(layout1);
+            cardView.addView(layout1);
+            layout.addView(cardView);
         }
         return view;
     }
