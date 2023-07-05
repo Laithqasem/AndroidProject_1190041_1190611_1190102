@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import android.widget.ImageButton;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import android.widget.ImageButton;
 
 public class TraineeActivites extends AppCompatActivity {
 
-    public static String email = "mezo@email.com";//fix to send from login.
+    public static String email = "rami@gmail.com";//fix to send from login.
     public static FragmentManager fragmentManagerTrainee;
     private Fragment currentFragment;
 

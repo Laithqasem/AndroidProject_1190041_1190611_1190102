@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="#1976D2" />
     <corners android:radius="15dp" />
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#1976D2" />
+    <corners android:radius="15dp" />
+>>>>>>> 3bffab370e959d048cbfb77ccf0d9b3719fdc723
 </shape>

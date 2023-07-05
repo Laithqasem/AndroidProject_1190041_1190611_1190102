@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.graphics.Color;
 
 import androidx.fragment.app.Fragment;
 

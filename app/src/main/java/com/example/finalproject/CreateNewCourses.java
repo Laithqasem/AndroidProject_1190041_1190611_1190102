@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -52,7 +53,8 @@ public class CreateNewCourses extends Fragment {
     private DatePickerDialog datePickerDialog2;
     private DatePickerDialog datePickerDialog3;
     private DatePickerDialog datePickerDialog4;
-    private Button start_date, end_date, reg_start, reg_end, photo, add;
+    private Button start_date, end_date, reg_start, reg_end;
+    private Button photo, add;
 
     TextView id, name, idtv, nametv, topicstv, startdatetv, enddatetv, regstarttv, regendtv, phototv;
 
@@ -64,7 +66,7 @@ public class CreateNewCourses extends Fragment {
     ArrayList<Integer> topic_index = new ArrayList<>(), pre_index = new ArrayList<>();
 
     String[] topics = {"Technology", "Engineering", "Pharmacy", "Business", "Physics", "Medicine",
-                        "Marketing", "Math", "Law", "Literature", "Biology", "Accounting"};
+                        "Marketing", "Math", "Law", "Literature", "Biology", "Accountant"};
 
     public CreateNewCourses() {
         // Required empty public constructor
@@ -161,6 +163,8 @@ public class CreateNewCourses extends Fragment {
         photo = view.findViewById(R.id.add_photo);
         imageView = view.findViewById(R.id.uploaded_image);
 
+
+
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -210,7 +214,6 @@ public class CreateNewCourses extends Fragment {
                             }
                         }
                         topic_list.setText(stringBuilder.toString());
-                        topic_list.setTextColor(Color.BLACK);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -307,7 +310,6 @@ public class CreateNewCourses extends Fragment {
                                 }
                             }
                             pre_list.setText(stringBuilder.toString());
-                            pre_list.setTextColor(Color.BLACK);
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -458,12 +460,21 @@ public class CreateNewCourses extends Fragment {
                             return;
                         }
                     }
-                }
 
-                String[] topics = TOPICS.split(", ");
-                for(String topic : topics){
-                    Topic topic1 = new Topic(1, ID, topic);
-                    dataBaseHelper.insertTopics(topic1);
+                    if(!PRE.isEmpty()){
+                        String[] prerequisitesArray = PRE.split(", ");
+                        for(String prerequisite : prerequisitesArray){
+                            if(prerequisite.equals(cursor.getString(2))){
+                                if(checkIntersectionOfDates(STARTDATE, ENDDATE, startDate, endDate) ||
+                                        checkDates(STARTDATE, startDate, true)){
+                                    Toast toast = Toast.makeText(getContext(), "The prerequisites " + prerequisite + " is offered after the " +
+                                            "beginning of the course", Toast.LENGTH_SHORT);
+                                    toast.show();
+                                    return;
+                                }
+                            }
+                        }
+                    }
                 }
 
                 Course course = new Course();
@@ -475,11 +486,22 @@ public class CreateNewCourses extends Fragment {
                 course.setRegistrationStart(REGSTART);
                 course.setRegistrationEnd(REGEND);
                 course.setImage(new ImageHandler().getByteArray(imageView));
-                dataBaseHelper.insertCourses(course);
+                int id = dataBaseHelper.insertCourses(course);
+
+                if(id == -1){
+                    Toast toast = Toast.makeText(getContext(), "Error inserting", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+
+                String[] topics = TOPICS.split(", ");
+                for(String topic : topics){
+                    Topic topic1 = new Topic(1, String.valueOf(id), topic);
+                    dataBaseHelper.insertTopics(topic1);
+                }
 
                 Cursor cursor1 = dataBaseHelper.getAllTrainees();
                 while(cursor1.moveToNext()){
-                    System.out.println(cursor1.getString(0));
                     String email = cursor1.getString(0);
 
                     Notification notification = new Notification();

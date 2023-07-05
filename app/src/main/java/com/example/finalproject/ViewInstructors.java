@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.Gravity;
@@ -15,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,9 +76,19 @@ public class ViewInstructors extends Fragment {
 
         DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(), "TRAINING_CENTER", null,1);
         Cursor cursor = dataBaseHelper.getAllInstructor();
-        int i = 0;
 
         while (cursor.moveToNext()) {
+            CardView cardView = new CardView(getContext());
+            LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            cardParams.setMargins(0, 0, 0, 16); // Set spacing between card views
+            cardView.setLayoutParams(cardParams);
+            cardView.setRadius(8);
+            cardView.setCardElevation(4);
+            cardView.setUseCompatPadding(true);
+
             Instructor instructor = new Instructor(cursor.getString(0), cursor.getString(1), cursor.getString(2),
                     cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6),
                     cursor.getString(7), cursor.getString(8), cursor.getBlob(9));
@@ -86,26 +99,26 @@ public class ViewInstructors extends Fragment {
             linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             TextView textView = new TextView(getContext());
             String s = instructor.toString();
-            if(i == 0){
-                s = "\n" + s;
-            }
-            else{
-                s = "\n\n" + s;
-            }
-            i++;
+
             textView.setText(s);
             textView.setTextSize(20);
             textView.setGravity(Gravity.CENTER_HORIZONTAL);
-            textView.setTextColor(Color.BLACK);
+            textView.setTextColor(Color.WHITE);
 
             byte[] array = instructor.getImage();
             Bitmap bitmap = BitmapFactory.decodeByteArray(array, 0, array.length);
             ImageView imageView = new ImageView(getContext());
+            imageView.setImageResource(R.drawable.profile_photo_placeholder);
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(600, 600));
             imageView.setImageBitmap(bitmap);
-            linearLayout.addView(imageView);
 
+            linearLayout.addView(imageView);
             linearLayout.addView(textView);
-            layout.addView(linearLayout);
+            cardView.addView(linearLayout);
+            layout.addView(cardView);
+            TextView textView1 = new TextView(getContext());
+            textView1.setText("\n\n");
+            layout.addView(textView1);
         }
         return view;
     }
