@@ -24,6 +24,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.TreeSet;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,7 +44,9 @@ public class CreateNewSections extends Fragment {
 
     private Button start_time, end_time, add;
     private TextView instructortv, maxtv, starttimetv, endtimetv, daystv, roomtv;
-    private TextView email, max, days, room;
+    private TextView max;
+    private Button email;
+    private Button days, room;
     int hour1, minute1;
     int hour2, minute2;
 
@@ -129,8 +132,18 @@ public class CreateNewSections extends Fragment {
                     {
                         hour1 = selectedHour;
                         minute1 = selectedMinute;
-                        start_time.setText(String.valueOf(hour1) + ":" + String.valueOf(minute1));
-                        start_time.setTextColor(Color.BLACK);
+                        if (minute1 < 10 && hour1 < 10) {
+                            start_time.setText("0" + String.valueOf(hour1) + ":" + "0" + String.valueOf(minute1));
+                        }
+                        else if (minute1 < 10) {
+                            start_time.setText(String.valueOf(hour1) + ":" + "0" + String.valueOf(minute1));
+                        }
+                        else if (hour1 < 10) {
+                            start_time.setText("0" + String.valueOf(hour1) + ":" + String.valueOf(minute1));
+                        }
+                        else {
+                            start_time.setText(String.valueOf(hour1) + ":" + String.valueOf(minute1));
+                        }
                     }
                 };
 
@@ -153,8 +166,18 @@ public class CreateNewSections extends Fragment {
                     {
                         hour2 = selectedHour;
                         minute2 = selectedMinute;
-                        end_time.setText(String.valueOf(hour2) + ":" + String.valueOf(minute2));
-                        end_time.setTextColor(Color.BLACK);
+                        if (minute2 < 10 && hour2 < 10) {
+                            end_time.setText("0" + String.valueOf(hour2) + ":" + "0" + String.valueOf(minute2));
+                        }
+                        else if (minute2 < 10) {
+                            end_time.setText(String.valueOf(hour2) + ":" + "0" + String.valueOf(minute2));
+                        }
+                        else if (hour2 < 10) {
+                            end_time.setText("0" + String.valueOf(hour2) + ":" + String.valueOf(minute2));
+                        }
+                        else {
+                            end_time.setText(String.valueOf(hour2) + ":" + String.valueOf(minute2));
+                        }
                     }
                 };
 
@@ -340,7 +363,6 @@ public class CreateNewSections extends Fragment {
                             }
                         }
                         days.setText(stringBuilder.toString());
-                        days.setTextColor(Color.BLACK);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -359,6 +381,93 @@ public class CreateNewSections extends Fragment {
                     }
                 });
 
+                builder.show();
+            }
+        });
+
+        String finalCOURSE_ID1 = COURSE_ID;
+        email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(
+                        getContext(),"TRAINING_CENTER",null,1);
+
+                Cursor cursor1 = dataBaseHelper.getAllInstructors();
+                int sz = cursor1.getCount();
+                if(sz == 0){
+                    Toast toast =Toast.makeText(getContext(), "There is no instructor", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+                boolean[] can = new boolean[sz];
+                String[] emails = new String[sz];
+                String[] canTeach = new String[sz];
+                int j = 0;
+                while(cursor1.moveToNext()){
+                    can[j] = true;
+                    emails[j] = cursor1.getString(0);
+                    canTeach[j] = cursor1.getString(8);
+                    if(canTeach[j].isEmpty()){
+                        can[j] = false;
+                        continue;
+                    }
+                    canTeach[j] = canTeach[j].substring(2);
+                    j++;
+                }
+
+                Cursor cursor = dataBaseHelper.getTopics(finalCOURSE_ID1);
+                while(cursor.moveToNext()){
+                    Topic topic = new Topic(
+                            cursor.getInt(0),
+                            cursor.getString(1),
+                            cursor.getString(2));
+
+
+                    for(int i = 0; i < sz; i++){
+                        if(canTeach[i].isEmpty()){
+                            can[i] = false;
+                            continue;
+                        }
+                        String[] topics = canTeach[i].split(", ");
+                        TreeSet<String> set = new TreeSet<>();
+                        Collections.addAll(set, topics);
+                        if (!set.contains(topic.getTopicName())) {
+                            can[i] = false;
+                        }
+                    }
+                }
+                int sz2 = 0;
+                for (boolean b : can) {
+                    if (b) sz2++;
+                }
+                if(sz2 == 0){
+                    Toast toast =Toast.makeText(getContext(), "There is no instructor can teach this course", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+                String[] items = new String[sz2];
+                j = 0;
+                for(int i = 0; i < sz; i++){
+                    if(can[i]){
+                        items[j++] = emails[i];
+                    }
+                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Choose Instructor");
+                builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        email.setText(items[i]);
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                AlertDialog dialog = builder.create();
                 builder.show();
             }
         });

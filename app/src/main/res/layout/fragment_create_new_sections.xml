@@ -35,15 +35,15 @@
                         android:textStyle="bold"
                         android:translationY="10dp" />
 
-                    <EditText
+                    <Button
                         android:id="@+id/instructor_email"
-                        android:layout_width="333dp"
+                        android:layout_width="329dp"
                         android:layout_height="53dp"
                         android:layout_marginHorizontal="40dp"
                         android:ems="10"
-                        android:inputType="textPersonName"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/mainColor" />
+                        android:textColor="@color/white"
+                        android:drawableEnd="@drawable/dropdown_menu_background"
+                        />
 
                 </LinearLayout>
 
@@ -69,8 +69,8 @@
                         android:layout_marginHorizontal="40dp"
                         android:ems="10"
                         android:inputType="textPersonName"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/mainColor" />
+                        android:textColor="@color/white"
+                         />
 
                 </LinearLayout>
 
@@ -87,11 +87,12 @@
                 <Button
                     android:id="@+id/start_time"
                     android:layout_width="329dp"
-                    android:layout_height="57dp"
+                    android:layout_height="53dp"
                     android:layout_marginHorizontal="40dp"
-                    android:drawableEnd="@drawable/icons8_down_button_32"
-                    android:drawablePadding="12dp"
-                    android:padding="12dp" />
+                    android:ems="10"
+                    android:textColor="@color/white"
+                    android:drawableEnd="@drawable/dropdown_menu_background"
+                    />
 
                 <TextView
                     android:id="@+id/eendtimetv"
@@ -106,11 +107,12 @@
                 <Button
                     android:id="@+id/end_time"
                     android:layout_width="329dp"
-                    android:layout_height="57dp"
+                    android:layout_height="53dp"
                     android:layout_marginHorizontal="40dp"
-                    android:drawableEnd="@drawable/icons8_down_button_32"
-                    android:drawablePadding="12dp"
-                    android:padding="12dp" />
+                    android:ems="10"
+                    android:textColor="@color/white"
+                    android:drawableEnd="@drawable/dropdown_menu_background"
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -127,16 +129,15 @@
                         android:textStyle="bold"
                         android:translationY="10dp" />
 
-                    <TextView
+                    <Button
                         android:id="@+id/days_list"
                         android:layout_width="329dp"
                         android:layout_height="53dp"
                         android:layout_marginHorizontal="40dp"
-                        android:drawableEnd="@drawable/icons8_down_button_32"
                         android:ems="10"
-                        android:inputType="textPersonName"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/mainColor" />
+                        android:textColor="@color/white"
+                        android:drawableEnd="@drawable/dropdown_menu_background"
+                        />
 
                 </LinearLayout>
 
@@ -155,31 +156,25 @@
                         android:textStyle="bold"
                         android:translationY="10dp" />
 
-                    <TextView
+                    <Button
                         android:id="@+id/room_list"
                         android:layout_width="329dp"
                         android:layout_height="53dp"
                         android:layout_marginHorizontal="40dp"
-                        android:drawableEnd="@drawable/icons8_down_button_32"
                         android:ems="10"
-                        android:inputType="textPersonName"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/mainColor" />
+                        android:textColor="@color/white"
+                        android:drawableEnd="@drawable/dropdown_menu_background"
+                        />
 
                 </LinearLayout>
 
                 <Button
                     android:id="@+id/add_the_section"
-                    android:layout_width="329dp"
-
-                    android:layout_height="70dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="40dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="40dp"
-                    android:text="Add"
-                    android:textColor="@color/mainColor"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+                    android:layout_marginVertical="20dp"
+                    android:text="Add Section" />
 
 
             </LinearLayout>
