@@ -166,6 +166,7 @@ public class Login extends AppCompatActivity {
                     }
 
                     intent.putExtra("EMAIL", user_email);
+                    intent.putExtra("FROM", "LOGIN");
                     intent.putExtra("PASSWORD", user_password);
                     intent.putExtra("FIRST_NAME", user_first_name);
                     intent.putExtra("LAST_NAME", user_last_name);

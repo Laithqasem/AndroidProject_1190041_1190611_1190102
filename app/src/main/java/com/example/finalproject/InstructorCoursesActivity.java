@@ -26,29 +26,32 @@ public class InstructorCoursesActivity extends AppCompatActivity {
 //            user_email=str;
 //        }
 //        cnt++;
-
+         user_email = getIntent().getStringExtra("EMAIL");
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation2);
         bottomNavigationView.setSelectedItemId(R.id.course_navbar);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.home_navbar:
                     Intent intent = new Intent(InstructorCoursesActivity.this, Instructor_Activity.class);
+                    intent.putExtra("EMAIL", user_email);
                     startActivity(intent);
-                    intent.putExtra("EMAIL2", user_email);
                     finish();
                     System.out.println("1");
                     return true;
                 case R.id.course_navbar:
                     System.out.println("2");
+
                     return true;
                 case R.id.student_navbar:
                     Intent intent2 = new Intent(InstructorCoursesActivity.this, InstructorStudentsActivity.class);
+                    intent2.putExtra("EMAIL", user_email);
                     startActivity(intent2);
                     finish();
                     System.out.println("3");
                     return true;
                 case R.id.schedule_navbar:
                     Intent intent3 = new Intent(InstructorCoursesActivity.this, InstructorScheduleActivity.class);
+                    intent3.putExtra("EMAIL", user_email);
                     startActivity(intent3);
                     finish();
                     System.out.println("4");
@@ -68,10 +71,8 @@ public class InstructorCoursesActivity extends AppCompatActivity {
 //        items.add( new Section(24,"laith@gmail.com",11,45,"8:30","9:30","M,W","Masri 332","22/7","23/7"));
 //        items.add( new Section(25,"laith@gmail.com",11,45,"8:30","9:30","M,W","Masri 332","22/7","23/7"));
 
+           System.out.println("wds" +user_email);
 
-
-            user_email = getIntent().getStringExtra("EMAIL");
-                System.out.println(user_email);
             DataBaseHelper dataBaseHelper = new DataBaseHelper(InstructorCoursesActivity.this, "TRAINING_CENTER", null, 1);
 
                 Cursor cursor = dataBaseHelper.getAllSectionsBasedOnInstructor(user_email);
