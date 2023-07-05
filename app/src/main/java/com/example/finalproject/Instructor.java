@@ -5,7 +5,6 @@ public class Instructor {
     private String password;
     private String firstName;
     private String lastName;
-    // Todo: photo
     private String mobileNumber;
     private String address;
     private String specialization;
