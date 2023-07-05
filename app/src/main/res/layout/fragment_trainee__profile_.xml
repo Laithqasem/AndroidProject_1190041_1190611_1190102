@@ -23,13 +23,15 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="First Name:"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/textViewFirstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:padding="8dp" />
 
     </LinearLayout>
 
@@ -47,13 +49,15 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="Last Name:"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/textViewLastName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:padding="8dp" />
 
     </LinearLayout>
 
@@ -69,13 +73,15 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="Email:"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/textViewEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:padding="8dp" />
 
     </LinearLayout>
 
@@ -91,13 +97,15 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="Mobile Number:"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/textViewMobileNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:padding="8dp" />
 
     </LinearLayout>
 
@@ -113,23 +121,28 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="Address:"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/textViewAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:padding="8dp" />
 
     </LinearLayout>
 
 
     <Button
         android:id="@+id/buttonEdit"
-        android:layout_width="wrap_content"
+        android:layout_width="107dp"
         android:layout_height="wrap_content"
-        android:text="Edit Profile"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_background"
+        android:text="Edit Profile"
+        android:textColor="#FFFFFF" />
+
 
 </LinearLayout>
