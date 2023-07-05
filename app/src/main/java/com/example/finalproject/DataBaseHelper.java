@@ -125,7 +125,11 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM SECTION WHERE COURSE_ID = ?", new String[]{courseID});
         return cursor;
     }
-
+    public Cursor getAllSectionsBasedOnInstructor (String email) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM SECTION  WHERE INSTRUCTOR_EMAIL = '" + email + "'", null);
+        return cursor;
+    }
     public void deleteCourse(String courseID){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         sqLiteDatabase.delete("COURSES", "ID = ?", new String[]{courseID});
@@ -154,7 +158,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         contentValues.put("PASSWORD", instructor.getPassword());
         contentValues.put("FIRST_NAME", instructor.getFirstName());
         contentValues.put("LAST_NAME", instructor.getLastName());
-        contentValues.put("PERSONAL_PHOTO", instructor.getImage());
+        contentValues.put("IMAGE", instructor.getImage());
         contentValues.put("MOBILE_NUMBER", instructor.getMobileNumber());
         contentValues.put("ADDRESS", instructor.getAddress());
         contentValues.put("SPECIALIZATION", instructor.getSpecialization());
@@ -196,7 +200,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         contentValues.put("PASSWORD", trainee.getPassword());
         contentValues.put("FIRST_NAME", trainee.getFirstName());
         contentValues.put("LAST_NAME", trainee.getLastName());
-        contentValues.put("PERSONAL_PHOTO", trainee.getImage());
+        contentValues.put("IMAGE", trainee.getImage());
         contentValues.put("ADDRESS", trainee.getAddress());
         contentValues.put("MOBILE_NUMBER", trainee.getMobileNumber());
         contentValues.put("IMAGE", trainee.getImage());
@@ -505,7 +509,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         contentValues.put("PERSONAL_PHOTO", array);
         sqLiteDatabase.update("ADMIN", contentValues, "EMAIL = ?", new String[]{origin});
     }
-}
+
    public ArrayList<String> checkPrerquesite(int sectionId){
         ArrayList<String> preR = new ArrayList<>();
         String[] pre = null;
@@ -568,4 +572,3 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         sqLiteDatabase.update("Notifications", contentValues, "notID = ?", new String[]{String.valueOf(idNot)});
     }
 }
-

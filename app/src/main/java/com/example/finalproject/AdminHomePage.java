@@ -90,10 +90,10 @@ public class AdminHomePage extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getActivity(), TraineeActivites.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), TraineeActivites.class);
+//                startActivity(intent);
 
-                //replaceFragment(new ViewOfferingsHistory());
+                replaceFragment(new ViewOfferingsHistory());
             }
         });
 
