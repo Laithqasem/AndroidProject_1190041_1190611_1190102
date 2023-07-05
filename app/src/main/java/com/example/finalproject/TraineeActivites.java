@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import android.widget.ImageButton;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -25,10 +26,10 @@ public class TraineeActivites extends AppCompatActivity {
 
         fragmentManagerTrainee = getSupportFragmentManager();
 
-        Button profileButton = findViewById(R.id.btnProfile);
-        Button searchButton = findViewById(R.id.btnSearch);
-        Button homeButton = findViewById(R.id.btnHome);
-        Button coursesButton = findViewById(R.id.btnCourses);
+        ImageButton profileButton = findViewById(R.id.btnProfile);
+        ImageButton searchButton = findViewById(R.id.btnSearch);
+        ImageButton homeButton = findViewById(R.id.btnHome);
+        ImageButton coursesButton = findViewById(R.id.btnCourses);
         notificationsButton = findViewById(R.id.btnNotifications);
 
         Bundle bundle = new Bundle();
