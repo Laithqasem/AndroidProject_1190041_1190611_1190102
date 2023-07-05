@@ -63,7 +63,8 @@ public class CreateNewCourses extends Fragment {
     private ImageView imageView;
     ArrayList<Integer> topic_index = new ArrayList<>(), pre_index = new ArrayList<>();
 
-    String[] topics = {"Programming", "Math", "History", "Science"};
+    String[] topics = {"Technology", "Engineering", "Pharmacy", "Business", "Physics", "Medicine",
+                        "Marketing", "Math", "Law", "Literature", "Biology", "Accounting"};
 
     public CreateNewCourses() {
         // Required empty public constructor
@@ -478,6 +479,7 @@ public class CreateNewCourses extends Fragment {
 
                 Cursor cursor1 = dataBaseHelper.getAllTrainees();
                 while(cursor1.moveToNext()){
+                    System.out.println(cursor1.getString(0));
                     String email = cursor1.getString(0);
 
                     Notification notification = new Notification();

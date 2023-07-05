@@ -15,15 +15,16 @@
             android:exported="false" />
         <activity android:name=".Login" />
         <activity android:name=".SignUp" />
-        <activity android:name=".CreateNewCourse" />
+        <activity android:name=".CreateNewCourses" />
+        <activity android:name=".AdminPage" />
         <activity android:name=".EditDeleteCourses" />
-        <activity android:name=".DisplaySections" />
-        <activity android:name=".EditSection" />
-        <activity android:name=".ViewOfferingHistory" />
-        <activity android:name=".CreateNewSection"/>
+        <activity android:name=".DisplaySection" />
+        <activity android:name=".EditSections" />
+        <activity android:name=".ViewOfferingsHistory" />
+        <activity android:name=".CreateNewSections"/>
         <activity android:name=".ViewProfiles"/>
-        <activity android:name=".ApproveStudents"/>
-        <activity android:name=".ApproveStudentsInSections"/>
+        <activity android:name=".ApproveStudent"/>
+        <activity android:name=".ApproveStudentInSection"/>
 
 
         <activity

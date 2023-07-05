@@ -53,7 +53,6 @@ public class Login extends AppCompatActivity {
                 Intent intent = new Intent(Login.this, MainActivity.class);
                 startActivity(intent);
                 finish();
-
             }
         });
 
@@ -81,12 +80,12 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                // Validate character length
                 String email_string = s.toString();
                 if (!Patterns.EMAIL_ADDRESS.matcher(email_string).matches()) {
                     email.setError("Please enter a valid email address");
                     valid_email = false;
-                } else {
+                }
+                else {
                     valid_email = true;
                     email.setError(null);
                 }
@@ -101,22 +100,11 @@ public class Login extends AppCompatActivity {
                 String entered_password = password.getText().toString();
                 boolean remember_me_check_box = rememberMe.isChecked();
 
-                System.out.println(entered_email);
-                System.out.println(entered_password);
-                System.out.println(remember_me_check_box);
-
-
-
-
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(
                         Login.this,"TRAINING_CENTER",null,1);
 
-
-
-
                 String isValid = dataBaseHelper.getLoginPassword(entered_email,entered_password);
                 if(isValid.equals("ADMIN")){
-
                     if(remember_me_check_box){
 
                         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -125,14 +113,13 @@ public class Login extends AppCompatActivity {
                         editor.apply();
 
                     }
-
                     Intent intent = new Intent(Login.this, AdminPage.class);
                     intent.putExtra("EMAIL", entered_email);
                     startActivity(intent);
                     finish();
 
                 }
-                /*else if(isValid.equals("INSTRUCTOR")){
+                else if(isValid.equals("INSTRUCTOR")){
                     Intent intent = new Intent(Login.this, Instructor_Activity.class);
 
                     Cursor user_data = dataBaseHelper.getInstructorData(entered_email);
@@ -148,23 +135,24 @@ public class Login extends AppCompatActivity {
                     String user_degree="";
                     String user_canTeach="";
 
+
                     if (user_data.moveToFirst()) {
                         do {
                             user_email = user_data.getString(0);
                             user_password = user_data.getString(1);
                             user_first_name = user_data.getString(2);
                             user_last_name = user_data.getString(3);
-                            user_personal_photo = user_data.getBlob(4);
-                            user_mobile = user_data.getString(5);
-                            user_address = user_data.getString(6);
-                            user_specialization = user_data.getString(7);
-                            user_degree = user_data.getString(8);
-                            user_canTeach = user_data.getString(9);
+                            user_mobile = user_data.getString(4);
+                            user_address = user_data.getString(5);
+                            user_specialization = user_data.getString(6);
+                            user_degree = user_data.getString(7);
+                            user_canTeach = user_data.getString(8);
+                            user_personal_photo = user_data.getBlob(9);
 
                         } while (user_data.moveToNext());
                     }
-
                     intent.putExtra("EMAIL", user_email);
+                    intent.putExtra("FROM", "LOGIN");
                     intent.putExtra("PASSWORD", user_password);
                     intent.putExtra("FIRST_NAME", user_first_name);
                     intent.putExtra("LAST_NAME", user_last_name);
@@ -174,7 +162,6 @@ public class Login extends AppCompatActivity {
                     intent.putExtra("SPECIALIZATION",user_specialization);
                     intent.putExtra("DEGREE",user_degree);
                     intent.putExtra("canTeach",user_canTeach);
-
                     if(remember_me_check_box){
 
                         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -183,11 +170,9 @@ public class Login extends AppCompatActivity {
                         editor.apply();
 
                     }
-
-                    // Start the activity with the Intent
                     startActivity(intent);
-
-                }else if(isValid.equals("TRAINEE")){
+                }
+                else if(isValid.equals("TRAINEE")){
                     if(remember_me_check_box){
 
                         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -196,21 +181,16 @@ public class Login extends AppCompatActivity {
                         editor.apply();
 
                     }
-                    Intent intent = new Intent(Login.this, Trainee_Activity.class);
+                    Intent intent = new Intent(Login.this, TraineeActivites.class);
                     startActivity(intent);
                     finish();
-                }else{
+                }
+                else{
                     System.out.println("Wrong email or password");
                     Toast.makeText(Login.this,"Wrong email or password" , Toast.LENGTH_LONG).show();
-
-                }*/
-
-
-
-
+                }
             }
         });
-
 
     }
 }

@@ -2,19 +2,44 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".instructor_sign_up_fragment">
+    android:background="@color/whiteColor"
+    tools:context=".InstructorEditProfile">
 
-    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="460dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/headerbkg" />
+
+    <Button
+        android:id="@+id/back_button_edit"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/back_button2"
+
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.067" />
+
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/scrollView2"
+        android:layout_width="409dp"
+        android:layout_height="405dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.883">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,41 +47,6 @@
             android:background="@drawable/round_sign_up"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/email_address2"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_marginHorizontal="20dp"
-                android:textSize="20sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/email_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginHorizontal="40dp"
-                    android:text=" Email address"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:translationY="10dp" />
-
-                <EditText
-                    android:id="@+id/Course_startDate"
-                    android:layout_width="311dp"
-                    android:layout_height="53dp"
-                    android:layout_marginHorizontal="40dp"
-                    android:background="@drawable/edittext"
-                    android:ems="10"
-                    android:textColor="@color/black"
-                    android:inputType="textPersonName"
-                    android:textColorHint="@color/mainColor" />
-
-            </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -68,20 +58,37 @@
                     android:layout_marginHorizontal="40dp"
 
 
-                    android:text=" First Name"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:translationY="10dp" />
 
-                <EditText
-                    android:id="@+id/edit_first_name_text"
-                    android:layout_width="311dp"
-                    android:layout_height="53dp"
-                    android:layout_marginHorizontal="40dp"
-                    android:background="@drawable/edittext"
-                    android:ems="10"
-                    android:textColor="@color/black"
-                    android:inputType="textPersonName" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/edit_first_name_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="53dp"
+                        android:layout_marginHorizontal="40dp"
+                        android:background="@drawable/edittext"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/black" />
+
+                    <Button
+                        android:id="@+id/edit_first_name_button"
+                        android:layout_width="100dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/round_buttons2"
+                        android:text="Change First Name"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:textColor="@color/mainColor"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -92,22 +99,39 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="20dp"
                     android:layout_marginHorizontal="40dp"
-                    android:text=" Last Name"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:translationY="10dp" />
 
-                <EditText
-                    android:id="@+id/edit_last_name_text"
-                    android:layout_width="311dp"
-                    android:layout_height="53dp"
-                    android:layout_marginHorizontal="40dp"
-                    android:background="@drawable/edittext"
-                    android:ems="10"
-                    android:textColor="@color/black"
-                    android:inputType="textPersonName" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/edit_last_name_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="53dp"
+                        android:layout_marginHorizontal="40dp"
+                        android:background="@drawable/edittext"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/black" />
+
+                    <Button
+                        android:id="@+id/edit_last_name_button"
+                        android:layout_width="100dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/round_buttons2"
+                        android:text="Change Last Name"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:textColor="@color/mainColor"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -118,54 +142,45 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="20dp"
                     android:layout_marginHorizontal="40dp"
-                    android:text=" Password"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:translationY="10dp" />
 
-                <EditText
-                    android:id="@+id/edit_password_text"
-                    android:layout_width="311dp"
-                    android:layout_height="53dp"
-                    android:layout_marginHorizontal="40dp"
-                    android:background="@drawable/edittext"
-                    android:ems="10"
-                    android:textColor="@color/black"
-                    android:inputType="textPersonName" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginHorizontal="40dp"
-                    android:text=" Confirm Password"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:translationY="10dp" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/confirm_password"
-                    android:layout_width="311dp"
-                    android:layout_height="53dp"
-                    android:layout_marginHorizontal="40dp"
-                    android:background="@drawable/edittext"
-                    android:ems="10"
-                    android:textColor="@color/black"
-                    android:inputType="textPersonName" />
+                    <EditText
+                        android:id="@+id/edit_password_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="53dp"
+                        android:layout_marginHorizontal="40dp"
+                        android:background="@drawable/edittext"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/black" />
+
+                    <Button
+                        android:id="@+id/edit_password_button"
+                        android:layout_width="100dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/round_buttons2"
+                        android:text="Change Password"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:textColor="@color/mainColor"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="97dp"
+                android:layout_height="112dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -179,7 +194,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                     <Button
                         android:id="@+id/chooseImageButton"
@@ -222,15 +237,33 @@
                     android:textStyle="bold"
                     android:translationY="10dp" />
 
-                <EditText
-                    android:id="@+id/edit_mobile_text"
-                    android:layout_width="311dp"
-                    android:layout_height="53dp"
-                    android:layout_marginHorizontal="40dp"
-                    android:background="@drawable/edittext"
-                    android:ems="10"
-                    android:textColor="@color/black"
-                    android:inputType="textPersonName" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/edit_mobile_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="53dp"
+                        android:layout_marginHorizontal="40dp"
+                        android:background="@drawable/edittext"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/black" />
+
+                    <Button
+                        android:id="@+id/edit_mobile_number_button"
+                        android:layout_width="100dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/round_buttons2"
+                        android:text="change Mobile Number"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:textColor="@color/mainColor"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -248,15 +281,33 @@
                     android:textStyle="bold"
                     android:translationY="10dp" />
 
-                <EditText
-                    android:id="@+id/edit_address_text"
-                    android:layout_width="311dp"
-                    android:layout_height="53dp"
-                    android:layout_marginHorizontal="40dp"
-                    android:background="@drawable/edittext"
-                    android:ems="10"
-                    android:textColor="@color/black"
-                    android:inputType="textPersonName" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/edit_address_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="53dp"
+                        android:layout_marginHorizontal="40dp"
+                        android:background="@drawable/edittext"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/black" />
+
+                    <Button
+                        android:id="@+id/edit_address_button"
+                        android:layout_width="100dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/round_buttons2"
+                        android:text="Change Address"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:textColor="@color/mainColor"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -269,17 +320,41 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginHorizontal="40dp"
-                    android:text=" Specialization"
+                    android:text="Specialization"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:translationY="10dp" />
 
-                <Spinner
-                    android:id="@+id/spinner"
-                    android:layout_width="311dp"
-                    android:layout_height="53dp"
-                    android:layout_marginHorizontal="40dp"
-                    android:ems="10" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <EditText
+                        android:id="@+id/edit_specialization_edit_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="53dp"
+                        android:layout_marginHorizontal="40dp"
+                        android:background="@drawable/edittext"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/black" />
+
+                    <Button
+                        android:id="@+id/edit_specialization"
+                        android:layout_width="100dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/round_buttons2"
+                        android:text="change Specialization"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:textColor="@color/mainColor"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -298,45 +373,64 @@
                     android:textStyle="bold"
                     android:translationY="10dp" />
 
-                <RadioGroup
-                    android:id="@+id/specialization"
-                    android:layout_width="331dp"
-                    android:layout_height="100dp"
-                    android:layout_marginHorizontal="40dp">
-                    <RadioButton
-                        android:id="@+id/BSc"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="BSc"
-                        android:textSize="16dp"
-                        android:textStyle="bold"
-                        android:buttonTint="@color/whiteColor"
-                        />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/MSc"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="MSc"
-                        android:textSize="16dp"
-                        android:textStyle="bold"
-                        android:buttonTint="@color/whiteColor"/>
+                    <RadioGroup
+                        android:id="@+id/specialization"
+                        android:layout_width="163dp"
+                        android:layout_height="100dp"
+                        android:layout_marginHorizontal="40dp">
 
-                    <RadioButton
-                        android:id="@+id/PhD"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="PhD"
-                        android:textSize="16dp"
-                        android:textStyle="bold"
-                        android:buttonTint="@color/whiteColor" />
-                </RadioGroup>
+                        <RadioButton
+                            android:id="@+id/BSc"
+                            android:layout_width="136dp"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/whiteColor"
+                            android:text="BSc"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <RadioButton
+                            android:id="@+id/MSc"
+                            android:layout_width="136dp"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/whiteColor"
+                            android:text="MSc"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <RadioButton
+                            android:id="@+id/PhD"
+                            android:layout_width="137dp"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/whiteColor"
+                            android:text="PhD"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                    </RadioGroup>
+
+                    <Button
+                        android:id="@+id/editSpecialization_button"
+                        android:layout_width="100dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/round_buttons2"
+                        android:text="Change Degree"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:textColor="@color/mainColor"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="223dp"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
@@ -486,22 +580,31 @@
 
                 </LinearLayout>
 
-            </LinearLayout>
-            <Button
-                android:id="@+id/sign_up2"
-                android:layout_marginHorizontal="40dp"
+                <Button
+                    android:id="@+id/changeFields_button"
+                    android:layout_width="100dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_buttons2"
+                    android:text="Change teachable Fields"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    android:textColor="@color/mainColor"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
-                android:layout_width="311dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="40dp"
-                android:background="@drawable/round_buttons2"
-                android:text="Sign Up"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textColor="@color/mainColor"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginHorizontal="40dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:translationY="10dp" />
+
+            </LinearLayout>
+
+
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
