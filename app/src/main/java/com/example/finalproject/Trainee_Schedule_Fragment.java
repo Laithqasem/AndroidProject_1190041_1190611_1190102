@@ -168,12 +168,12 @@ public class Trainee_Schedule_Fragment extends Fragment implements AdapterView.O
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String daySelected = adapterView.getItemAtPosition(i).toString();
-
-        //also clear the color of the table
+        int color = Color.parseColor("#F2F2F2");
         for (int j = 0; j < sz; j++) {
             txtTimeList.get(j).setText("");
             txtCourseList.get(j).setText("");
-            txtTimeList.get(j).setBackgroundColor(Color.GRAY);
+            txtTimeList.get(j).setBackgroundColor(color);
+            txtCourseList.get(j).setBackgroundColor(color);
         }
 
         //query on the day for the specific trainee

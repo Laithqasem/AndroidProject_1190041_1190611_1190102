@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
@@ -12,18 +11,4 @@
             android:gravity="end|center_vertical" />
     </item>
 </layer-list>
-=======
-<?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape android:shape="rectangle">
-            <solid android:color="#1976D2" />
-        </shape>
-    </item>
-    <item android:right="10dp">
-        <bitmap
-            android:src="@android:drawable/arrow_down_float"
-            android:gravity="end|center_vertical" />
-    </item>
-</layer-list>
->>>>>>> 3bffab370e959d048cbfb77ccf0d9b3719fdc723
+
