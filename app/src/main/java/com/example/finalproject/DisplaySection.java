@@ -89,10 +89,14 @@ public class DisplaySection extends Fragment {
 
                 Cursor cursor = dataBaseHelper.getAllCourses();
                 while(cursor.moveToNext()){
+//                    Course course = new Course(Integer.parseInt(finalCOURSE_ID), cursor.getString(1), cursor.getString(2), cursor.getString(3),
+//                            cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7),
+//                            cursor.getBlob(8));
+                    Course course = new Course(Integer.parseInt(finalCOURSE_ID), cursor.getString(1), cursor.getString(2), cursor.getString(3),
+                            cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7),
+                            new byte[1024]);
+
                     if(cursor.getInt(0) == Integer.parseInt(finalCOURSE_ID)){
-                        Course course = new Course(Integer.parseInt(finalCOURSE_ID), cursor.getString(1), cursor.getString(2), cursor.getString(3),
-                                cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7),
-                                cursor.getBlob(8));
 
                         String START_DATE = course.getStartDate();
                         String END_DATE = course.getEndDate();

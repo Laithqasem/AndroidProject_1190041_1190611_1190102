@@ -86,7 +86,8 @@ public class deleteCourses extends Fragment {
             layout1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
 
-            byte[] array = cursor.getBlob(8);
+            byte[] array = new byte[1024];
+            array = cursor.getBlob(8);
             Bitmap bitmap = BitmapFactory.decodeByteArray(array, 0, array.length);
             ImageView imageView = new ImageView(getContext());
             imageView.setImageBitmap(bitmap);

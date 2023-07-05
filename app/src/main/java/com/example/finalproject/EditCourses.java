@@ -99,7 +99,9 @@ public class EditCourses extends Fragment {
             innerLayout.setPadding(16, 16, 16, 16); // Add padding inside the card
             innerLayout.setGravity(Gravity.CENTER_HORIZONTAL);
 
-            byte[] array = cursor.getBlob(8);
+
+            byte[] array = new byte[1024];
+//            array = cursor.getBlob(8);
             Bitmap bitmap = BitmapFactory.decodeByteArray(array, 0, array.length);
             ImageView imageView = new ImageView(getContext());
             imageView.setImageBitmap(bitmap);

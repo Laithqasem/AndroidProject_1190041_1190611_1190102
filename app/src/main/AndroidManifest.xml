@@ -15,9 +15,13 @@
             android:exported="false" />
         <activity android:name=".Login" />
         <activity android:name=".SignUp" />
-        <activity android:name=".CreateNewCourse" />
+        <activity android:name=".Instructor_Activity" />
         <activity android:name=".EditDeleteCourses" />
-        <activity android:name=".DisplaySections" />
+        <activity android:name=".InstructorEditProfile" />
+        <activity android:name=".InstructorCoursesActivity" />
+        <activity android:name=".InstructorStudentsActivity" />
+        <activity android:name=".InstructorScheduleActivity" />
+        <activity android:name=".AdminPage" />
         <activity android:name=".EditSection" />
         <activity android:name=".ViewOfferingHistory" />
         <activity android:name=".CreateNewSection"/>

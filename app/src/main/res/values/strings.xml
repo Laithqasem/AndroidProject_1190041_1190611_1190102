@@ -12,6 +12,13 @@
         <item>Saturday</item>
         <item>Sunday</item>
     </string-array>
-
+    <string-array name="spinner_items">
+        <item>CSE</item>
+        <item>Accountant</item>
+        <item>Medicine</item>
+        <item>Business</item>
+        <item>Pharmacist</item>
+        <item>Civil Engineering</item>
+    </string-array>
 
 </resources>

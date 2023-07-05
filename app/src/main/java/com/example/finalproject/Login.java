@@ -132,7 +132,7 @@ public class Login extends AppCompatActivity {
                     finish();
 
                 }
-                /*else if(isValid.equals("INSTRUCTOR")){
+                else if(isValid.equals("INSTRUCTOR")){
                     Intent intent = new Intent(Login.this, Instructor_Activity.class);
 
                     Cursor user_data = dataBaseHelper.getInstructorData(entered_email);
@@ -196,14 +196,14 @@ public class Login extends AppCompatActivity {
                         editor.apply();
 
                     }
-                    Intent intent = new Intent(Login.this, Trainee_Activity.class);
+                    Intent intent = new Intent(Login.this, TraineeActivites.class);
                     startActivity(intent);
                     finish();
                 }else{
                     System.out.println("Wrong email or password");
                     Toast.makeText(Login.this,"Wrong email or password" , Toast.LENGTH_LONG).show();
 
-                }*/
+                }
 
 
 
