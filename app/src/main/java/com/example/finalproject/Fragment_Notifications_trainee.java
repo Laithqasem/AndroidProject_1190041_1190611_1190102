@@ -5,6 +5,7 @@ import static com.example.finalproject.TraineeActivites.getEmail;
 import android.database.Cursor;
 import android.os.Bundle;
 
+import android.annotation.SuppressLint;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -133,6 +134,7 @@ public class Fragment_Notifications_trainee extends Fragment {
              listV.setAdapter(adapter);
 
             listV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @SuppressLint("SuspiciousIndentation")
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Pair selectedItem = (Pair) parent.getItemAtPosition(position);
@@ -143,9 +145,9 @@ public class Fragment_Notifications_trainee extends Fragment {
                         nots--;
 
                         if(nots > 0)
-                            TraineeActivites.notificationsButton.setText("Notifications (" + (nots) + ")");
-                        else
-                            TraineeActivites.notificationsButton.setText("Notifications");
+                        //     TraineeActivites.notificationsButton.setText("Notifications (" + (nots) + ")");
+                        // else
+                        //     TraineeActivites.notificationsButton.setText("Notifications");
 
 
                         replaceFragment(new Fragment_Notifications_trainee());
