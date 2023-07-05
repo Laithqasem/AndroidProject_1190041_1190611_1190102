@@ -75,7 +75,8 @@ public class ViewTrainees extends Fragment {
         Cursor cursor = dataBaseHelper.getAllTrainees();
         int i = 0;
         while (cursor.moveToNext()) {
-            Trainee trainee = new Trainee(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getBlob(6));
+            Trainee trainee = new Trainee(cursor.getString(0), cursor.getString(1), cursor.getString(2),
+                    cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getBlob(6));
 
             LinearLayout layout1 = new LinearLayout(getContext());
             layout1.setOrientation(LinearLayout.VERTICAL);
@@ -83,11 +84,11 @@ public class ViewTrainees extends Fragment {
             layout1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
 
-//            byte[] array = trainee.getImage();
-//            Bitmap bitmap = BitmapFactory.decodeByteArray(array, 0, array.length);
-//            ImageView imageView = new ImageView(getContext());
-//            imageView.setImageBitmap(bitmap);
-//            layout1.addView(imageView);
+            byte[] array = trainee.getImage();
+            Bitmap bitmap = BitmapFactory.decodeByteArray(array, 0, array.length);
+            ImageView imageView = new ImageView(getContext());
+            imageView.setImageBitmap(bitmap);
+            layout1.addView(imageView);
 
             String s = trainee.toString();
             TextView textView1 = new TextView(getContext());
