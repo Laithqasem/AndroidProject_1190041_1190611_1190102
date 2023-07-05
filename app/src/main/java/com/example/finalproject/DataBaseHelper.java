@@ -158,7 +158,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         contentValues.put("PASSWORD", instructor.getPassword());
         contentValues.put("FIRST_NAME", instructor.getFirstName());
         contentValues.put("LAST_NAME", instructor.getLastName());
-        contentValues.put("PERSONAL_PHOTO", instructor.getImage());
+        contentValues.put("IMAGE", instructor.getImage());
         contentValues.put("MOBILE_NUMBER", instructor.getMobileNumber());
         contentValues.put("ADDRESS", instructor.getAddress());
         contentValues.put("SPECIALIZATION", instructor.getSpecialization());

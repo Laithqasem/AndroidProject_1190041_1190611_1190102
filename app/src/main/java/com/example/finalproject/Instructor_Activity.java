@@ -80,18 +80,19 @@ public class Instructor_Activity extends AppCompatActivity {
 //                private String startTime, endTime;
 //                private String days;
 //                private String room, startDate, endDate;
-//                Section section = new Section(1,"laith@gmail.com",10,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
-//                dataBaseHelper.insertSection(section);
-//                Section section2 = new Section(2,"laith@gmail.com",11,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
-//                dataBaseHelper.insertSection(section2);
-//                Section section3 = new Section(3,"laith@gmail.com",12,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
-//                dataBaseHelper.insertSection(section3);
-//                Section section4 = new Section(4,"instructor@gmail.com",13,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
-//                dataBaseHelper.insertSection(section4);
-//                Section section5 = new Section(5,"instructor@gmail.com",14,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
-//                dataBaseHelper.insertSection(section5);
-//                System.out.println("YEEEEEEEEEES");
-//
+
+                Section section = new Section(1,"laith@gmail.com",10,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
+                dataBaseHelper.insertSection(section);
+                Section section2 = new Section(2,"laith@gmail.com",11,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
+                dataBaseHelper.insertSection(section2);
+                Section section3 = new Section(3,"laith@gmail.com",12,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
+                dataBaseHelper.insertSection(section3);
+                Section section4 = new Section(4,"instructor@gmail.com",13,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
+                dataBaseHelper.insertSection(section4);
+                Section section5 = new Section(5,"instructor@gmail.com",14,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
+                dataBaseHelper.insertSection(section5);
+                System.out.println("YEEEEEEEEEES");
+
 //
             }
         });

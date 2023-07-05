@@ -148,18 +148,19 @@ public class Login extends AppCompatActivity {
                     String user_degree="";
                     String user_canTeach="";
 
+
                     if (user_data.moveToFirst()) {
                         do {
                             user_email = user_data.getString(0);
                             user_password = user_data.getString(1);
                             user_first_name = user_data.getString(2);
                             user_last_name = user_data.getString(3);
-                            user_personal_photo = user_data.getBlob(4);
-                            user_mobile = user_data.getString(5);
-                            user_address = user_data.getString(6);
-                            user_specialization = user_data.getString(7);
-                            user_degree = user_data.getString(8);
-                            user_canTeach = user_data.getString(9);
+                            user_mobile = user_data.getString(4);
+                            user_address = user_data.getString(5);
+                            user_specialization = user_data.getString(6);
+                            user_degree = user_data.getString(7);
+                            user_canTeach = user_data.getString(8);
+                            user_personal_photo = user_data.getBlob(9);
 
                         } while (user_data.moveToNext());
                     }
