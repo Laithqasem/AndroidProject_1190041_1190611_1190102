@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -196,8 +197,9 @@ public class Trainee_Course_history extends Fragment {
         });
 
         // Initialize and set adapter for ListView
-        listAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, listViewItems);
+        listAdapter = new ArrayAdapter<>(requireContext(), R.layout.text_for_course_browser_trainee, listViewItems);
         listView.setAdapter(listAdapter);
+
 
 
 

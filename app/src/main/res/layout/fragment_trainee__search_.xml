@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="top"
+        android:background="#FFFFFF"
         android:padding="5dp">
 
         <EditText
@@ -18,12 +19,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="#5F5C80"
+            android:textColorHint="#5F5C80"
             android:hint="Search courses" />
 
         <Button
             android:id="@+id/buttonSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#F9A825"
             android:text="Search" />
 
     </LinearLayout>

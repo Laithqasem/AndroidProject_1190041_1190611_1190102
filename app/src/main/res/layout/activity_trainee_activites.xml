@@ -13,7 +13,7 @@ android:id="@+id/content_frame"
 android:layout_width="match_parent"
 android:layout_height="0dp"
 android:layout_weight="1"
-android:background="#FFFFFF"> <!-- White background -->
+android:background="#F2F2F2"> <!-- White background -->
 
 <androidx.fragment.app.FragmentContainerView
     android:id="@+id/FirstFragment"
@@ -31,58 +31,66 @@ android:background="#FFFFFF"> <!-- White background -->
 <LinearLayout
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
+    android:background="#4285F4"
 android:orientation="horizontal">
 
-<!-- Home button -->
-<Button
-    android:id="@+id/btnHome"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:drawableEnd="@drawable/icons8_home_40"
-    android:gravity="center"
-    android:drawablePadding="8dp"
-    android:background="#4285F4"
-    android:textColor="#FFFFFF" /> <!-- White text color -->
-
-<!-- Search button -->
-<Button
+    <ImageButton
+        android:id="@+id/btnHome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@drawable/icons8_home_40"
+        android:background="#4285F4"
+        android:layout_marginTop="5dp"
+        android:textColor="#FFFFFF"
+        android:scaleType="centerInside"
+        />
+    <!-- Search button -->
+<ImageButton
     android:id="@+id/btnSearch"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_weight="1"
-    android:text="Search"
+    android:src="@drawable/icons8_search_40"
     android:background="#4285F4"
-android:textColor="#FFFFFF" />
+    android:layout_marginTop="5dp"
+    android:textColor="#FFFFFF"
+    android:scaleType="centerInside"/>
 
 <!-- Profile button -->
-<Button
+<ImageButton
     android:id="@+id/btnProfile"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_weight="1"
-    android:text="Profile"
+    android:src="@drawable/icons8_customer_40"
     android:background="#4285F4"
-    android:textColor="#FFFFFF" /> <!-- White text color -->
+    android:layout_marginTop="5dp"
+    android:textColor="#FFFFFF"
+    android:scaleType="centerInside" /> <!-- White text color -->
 
 <!-- Notifications button -->
 <Button
     android:id="@+id/btnNotifications"
     android:layout_width="0dp"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_weight="1"
-    android:text="Notifications"
+    android:src="@drawable/icons8_home_40"
     android:background="#4285F4"
-android:textColor="#FFFFFF" /> <!-- White text color -->
+    android:layout_marginTop="5dp"
+    android:textColor="#FFFFFF"
+    android:scaleType="centerInside" /> <!-- White text color -->
 
 <!-- Courses button -->
-<Button
+<ImageButton
     android:id="@+id/btnCourses"
     android:layout_width="0dp"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_weight="1"
-    android:text="Courses"
+    android:src="@drawable/icons8_search_in_browser_40"
     android:background="#4285F4"
-android:textColor="#FFFFFF" /> <!-- White text color -->
+    android:layout_marginTop="5dp"
+    android:textColor="#FFFFFF"
+    android:scaleType="centerInside" /> <!-- White text color -->
 </LinearLayout>
     </LinearLayout>

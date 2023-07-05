@@ -10,12 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:textColor="#5F5C80"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textViewCourseDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#5F5C80"
         android:layout_marginTop="8dp" />
 
     <LinearLayout
@@ -23,20 +25,26 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp">
 
-        <Button
-            android:id="@+id/buttonView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="View" />
+            <Button
+                android:id="@+id/buttonView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="View"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/button_register_background" />
 
-        <Button
-            android:id="@+id/buttonRegister"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Register" />
+            <Button
+                android:id="@+id/buttonRegister"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Register"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/button_register_background"
+                android:layout_marginStart="8dp" /> <!-- Add margin on the start side (left side) -->
+
+        </LinearLayout>
+
 
     </LinearLayout>
-
-</LinearLayout>

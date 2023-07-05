@@ -139,7 +139,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
         public void bind(Course course) {
             courseNameTextView.setText(course.getCourseName());
-            //courseDescriptionTextView.setText(course.getDescription());
+            //courseDescriptionTextView.setText("Starts on: " + course.getStartDate());
         }
 
 

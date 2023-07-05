@@ -173,7 +173,7 @@ public class Trainee_Schedule_Fragment extends Fragment implements AdapterView.O
         for (int j = 0; j < sz; j++) {
             txtTimeList.get(j).setText("");
             txtCourseList.get(j).setText("");
-            txtTimeList.get(j).setBackgroundColor(Color.GRAY);
+            txtTimeList.get(j).setBackgroundColor(Color.WHITE);
         }
 
         //query on the day for the specific trainee
@@ -243,11 +243,20 @@ public class Trainee_Schedule_Fragment extends Fragment implements AdapterView.O
                 if (day.equals(daySelected)) {
                     String startTime = section.getStartTime();
                     String endTime = section.getEndTime();
+                    int Courseid = section.getCourseID();
+
+                    Cursor cursor3 =dataBaseHelper.getCourseId(Courseid);
+                    if(cursor3.moveToNext())
+                    {
+                        String courseName = cursor3.getString(1);
+                        String courseRoom = cursor3.getString(2);
+                        txtCourseList.get(startIndex).setText(courseName + " " + courseRoom);
+                    }
+
+
                     //String courseName = section.get
                     //String courseRoom = section.getCourseRoom();
 
-                    // Set the course name and room
-                    txtCourseList.get(startIndex).setText( " Cc");
 
                     // Set the time
                     txtTimeList.get(startIndex).setText(startTime + " " + endTime);
