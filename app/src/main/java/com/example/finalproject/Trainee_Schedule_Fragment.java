@@ -243,12 +243,17 @@ public class Trainee_Schedule_Fragment extends Fragment implements AdapterView.O
                 if (day.equals(daySelected)) {
                     String startTime = section.getStartTime();
                     String endTime = section.getEndTime();
-                    //String courseName = section.get
-                    //String courseRoom = section.getCourseRoom();
+                   int Courseid = section.getCourseID();
 
-                    // Set the course name and room
-                    txtCourseList.get(startIndex).setText( " Cc");
+                    Cursor cursor3 =dataBaseHelper.getCourseId(Courseid);
+                    if(cursor3.moveToNext())
+                    {
+                        String courseName = cursor3.getString(1);
+                        String courseRoom = cursor3.getString(2);
+                        txtCourseList.get(startIndex).setText(courseName + " " + courseRoom);
+                    }
 
+                 
                     // Set the time
                     txtTimeList.get(startIndex).setText(startTime + " " + endTime);
 
