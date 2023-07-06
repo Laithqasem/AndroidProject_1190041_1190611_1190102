@@ -42,15 +42,22 @@
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="102dp"
-        android:layout_height="17dp"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/round_buttons2"
         android:text="Edit Profile"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/mainColor"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/view9"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.572"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+
+
+        app:layout_constraintTop_toBottomOf="@+id/canteachTextView" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation2"
@@ -81,15 +88,15 @@
         android:text="insert copurses"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigation2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.552"
+        app:layout_constraintHorizontal_bias="0.109"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.919" />
+        app:layout_constraintVertical_bias="0.928" />
 
     <View
         android:id="@+id/view9"
         android:layout_width="370dp"
-        android:layout_height="400dp"
+        android:layout_height="420dp"
         android:background="@drawable/round_five"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigation2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,10 +110,10 @@
         android:id="@+id/cardView2"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="8dp"
         app:cardCornerRadius="100dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
@@ -130,7 +137,6 @@
         android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:background="@drawable/edittext_line_background"
         android:gravity="center"
         android:text="John Doe"
         android:textSize="24sp"
@@ -143,23 +149,21 @@
         android:id="@+id/degreeTextView"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/edittext_line_background"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:text="Bachelor of Science"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mobileTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/addressTextView" />
 
     <TextView
         android:id="@+id/mobileTextView"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/edittext_line_background"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:text="123-456-7890"
         android:textSize="24sp"
@@ -172,7 +176,7 @@
         android:id="@+id/emailTextView"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:background="@drawable/edittext_line_background"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:text="johndoe@example.com"
         android:textSize="24sp"
@@ -183,44 +187,45 @@
         app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/addressTextView"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:text="Bachelor of Science"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mobileTextView" />
+
+    <TextView
+        android:id="@+id/specializationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="Bachelor of Science"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/degreeTextView" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/canteachTextView"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:text="Bachelor of Science"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="Bachelor of Science"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintTop_toBottomOf="@+id/specializationTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
