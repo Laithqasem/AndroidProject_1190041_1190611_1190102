@@ -86,6 +86,10 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         return cursor;
 
     }
+
+
+
+
     public String getLoginPassword(String email, String password) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM ADMIN WHERE " +

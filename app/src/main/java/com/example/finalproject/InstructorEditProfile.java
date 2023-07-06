@@ -479,14 +479,15 @@ public class InstructorEditProfile extends AppCompatActivity {
             }
         });
 
-        Button back_button = findViewById(R.id.back_button_edit);
+        Button back_button2 = findViewById(R.id.button5);
         Drawable icon = getResources().getDrawable(R.drawable.ic_baseline_arrow_back_24_2);
-        back_button.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null);
-        back_button.setPaddingRelative(20,0,0,0);
-        back_button.setOnClickListener(new View.OnClickListener() {
+        back_button2.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null);
+        back_button2.setPaddingRelative(20,0,0,0);
+        back_button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(InstructorEditProfile.this, Instructor_Activity.class);
+                intent.putExtra("EMAIL", user_email);
                 startActivity(intent);
                 finish();
 

@@ -1,10 +1,14 @@
 package com.example.finalproject;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -15,6 +19,8 @@ public class Instructor_Activity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     String user_email="";
+    DataBaseHelper dataBaseHelper = new DataBaseHelper(
+            Instructor_Activity.this,"TRAINING_CENTER",null,1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,25 +98,44 @@ public class Instructor_Activity extends AppCompatActivity {
 
 
 
-        String user_password = getIntent().getStringExtra("PASSWORD");
-        String user_first_name = getIntent().getStringExtra("FIRST_NAME");
-        String user_last_name = getIntent().getStringExtra("LAST_NAME");
-        byte[] user_personal_photo = getIntent().getByteArrayExtra("PERSONAL_PHOTO");
-        String user_mobile_no = getIntent().getStringExtra("MOBILE_NUMBER");
-        String user_address = getIntent().getStringExtra("ADDRESS");
-        String user_specialization = getIntent().getStringExtra("SPECIALIZATION");
-        String user_degree = getIntent().getStringExtra("DEGREE");
-        String user_canTeach = getIntent().getStringExtra("canTeach");
-//        System.out.println("EMAIL: " + user_email);
-//        System.out.println("PASSWORD: " +user_password);
-//        System.out.println("FIRST_NAME: " +user_first_name);
-//        System.out.println("LAST_NAME: " +user_last_name);
-//        System.out.println("PERSONAL_PHOTO: " +user_personal_photo);
-//        System.out.println("MOBILE_NUMBER: " +user_mobile_no);
-//        System.out.println("ADDRESS: " +user_address);
-//        System.out.println("SPECIALIZATION: " +user_specialization);
-//        System.out.println("DEGREE: " +user_degree);
-//        System.out.println("CANTEACH: " +user_canTeach);
+
+
+        Cursor user_data = dataBaseHelper.getInstructorData(user_email);
+
+        byte[]user_personal_photo= new byte[1024];
+        String user_password ="PASSWORD";
+        String user_first_name = "FIRST_NAME";
+        String user_last_name = "LAST_NAME";
+        String user_mobile_no ="MOBILE_NUMBER";
+        String user_address = "ADDRESS";
+        String user_specialization = "SPECIALIZATION";
+        String user_degree = "DEGREE";
+        String user_canTeach = "canTeach";
+
+        while (user_data.moveToNext()){
+
+            if(user_data.getString(0).equals(user_email) ){
+                user_personal_photo = user_data.getBlob(9);
+                user_password =  user_data.getString(1);
+                user_first_name = user_data.getString(2);
+                user_last_name = user_data.getString(3);
+                user_mobile_no = user_data.getString(4);
+                user_address = user_data.getString(5);
+                user_specialization = user_data.getString(6);
+                user_degree = user_data.getString(7);
+                user_canTeach = user_data.getString(8);
+
+            }
+        }
+
+
+        ImageView profilePhoto = findViewById(R.id.instructor_profile_image);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(user_personal_photo, 0, user_personal_photo.length);
+        profilePhoto.setImageBitmap(bitmap);
+
+
+
+
 
 
 

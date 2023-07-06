@@ -19,17 +19,16 @@
         app:srcCompat="@drawable/headerbkg" />
 
     <Button
-        android:id="@+id/back_button_edit"
+        android:id="@+id/button5"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/back_button2"
-
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.067" />
+        app:layout_constraintVertical_bias="0.067"/>
 
     <ScrollView
         android:id="@+id/scrollView2"
