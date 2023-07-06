@@ -180,7 +180,6 @@ public class Trainee_Course_history extends Fragment {
                     listAdapter.notifyDataSetChanged();
 
                 } else if (selectedOption.equals("My Courses")) {
-
                     listViewItems.clear();
                     getHistoryOfcourse(dataBaseHelper, listViewItems, true);
                     listAdapter.notifyDataSetChanged();

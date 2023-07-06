@@ -7,6 +7,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Instructor_Activity">
 
+    <View
+        android:id="@+id/view8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/whiteColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/mainColor"
+        android:elevation="4dp"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@drawable/round_four"
+            android:icon="@drawable/ic_baseline_exit_to_app_24"
+             />
+
+    </androidx.appcompat.widget.Toolbar>
+
     <Button
         android:id="@+id/button3"
         android:layout_width="184dp"
@@ -32,8 +66,8 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation2"
-        android:layout_width="380dp"
-        android:layout_height="81dp"
+        android:layout_width="390dp"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/bottom_background"
         android:elevation="2dp"

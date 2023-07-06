@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalProject">
-
+        <activity android:name=".SectionStudents"></activity>
         <activity
             android:name=".TraineeActivites"
             android:exported="false" />
@@ -24,12 +24,10 @@
         <activity android:name=".AdminPage" />
         <activity android:name=".EditSection" />
         <activity android:name=".ViewOfferingHistory" />
-        <activity android:name=".CreateNewSection"/>
-        <activity android:name=".ViewProfiles"/>
-        <activity android:name=".ApproveStudents"/>
-        <activity android:name=".ApproveStudentsInSections"/>
-
-
+        <activity android:name=".CreateNewSection" />
+        <activity android:name=".ViewProfiles" />
+        <activity android:name=".ApproveStudents" />
+        <activity android:name=".ApproveStudentsInSections" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
