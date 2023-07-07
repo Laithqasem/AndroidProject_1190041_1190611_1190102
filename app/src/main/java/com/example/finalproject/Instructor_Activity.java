@@ -17,6 +17,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.sql.Statement;
+
 public class Instructor_Activity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
@@ -220,6 +222,11 @@ public class Instructor_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(Instructor_Activity.this, "TRAINING_CENTER", null, 1);
 
+//                dataBaseHelper.deleteALLSections();
+
+//                    String databaseName = "TRAINING_CENTER";
+//                    getContext().deleteDatabase(databaseName);
+
 //                Course course = new Course(18,"ENCS1110","Laith", "ENCS1110,ENEE4700","24/7","28/7","24/5","20/6",new byte[1024]);
 //                dataBaseHelper.insertCourses(course);
 //                Course course2 = new Course(19,"ENEE4112","Majd", "ENCS1110","24/7","28/7","24/5","20/6",new byte[1024]);
@@ -255,17 +262,19 @@ public class Instructor_Activity extends AppCompatActivity {
 //                private String days;
 //                private String room, startDate, endDate;
 
-//                Section section = new Section(6,"laith@gmail.com",10,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
+//                Section section = new Section(49,"instructor@gmail.com",10,45,"8:30","9:30","M,W","Masri 332","JUL 1 2023","JUL 12 2023");
 //                dataBaseHelper.insertSection(section);
-//                Section section2 = new Section(7,"laith@gmail.com",11,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
+//                Section section2 = new Section(50,"instructor@gmail.com",11,45,"8:30","9:30","M,W","Masri 332","JUL 5 2023","JUL 16 2023");
 //                dataBaseHelper.insertSection(section2);
-//                Section section3 = new Section(8,"laith@gmail.com",12,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
+//                Section section3 = new Section(51,"instructor@gmail.com",12,45,"8:30","9:30","M,W","Masri 332","JUL 16 2023","JUL 25 2023");
 //                dataBaseHelper.insertSection(section3);
-//                Section section4 = new Section(9,"instructor@gmail.com",20,45,"8:30","9:30","M,W","Masri 332","22/7","23/7");
+//                Section section4 = new Section(52,"instructor@gmail.com",20,45,"8:30","9:30","M,W","Masri 332","JUL 17 2023","JUL 29 2023");
 //                dataBaseHelper.insertSection(section4);
-//                Section section5 = new Section(121,"instructor@gmail.com",12,45,"10:00","9:30","M,W","Masri 332","22/7","23/7");
+//                Section section5 = new Section(53,"instructor@gmail.com",12,45,"10:00","9:30","M,W","Masri 332","JUL 18 2023","JUL 19 2023");
 //                dataBaseHelper.insertSection(section5);
-                System.out.println("YEEEEEEEEEES");
+//                Section section6 = new Section(54,"instructor@gmail.com",12,45,"10:00","9:30","M,W","Masri 332","JUL 18 2023","JUL 22 2023");
+//                dataBaseHelper.insertSection(section6);
+//                System.out.println("YEEEEEEEEEES");
 
 //
             }

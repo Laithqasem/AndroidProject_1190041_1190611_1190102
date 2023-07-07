@@ -3,27 +3,38 @@ package com.example.finalproject;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
-public class InstructorScheduleActivity extends AppCompatActivity {
+public class InstructorScheduleActivity extends AppCompatActivity implements SelectListener {
     String user_email="";
     Button DatePicker;
     DatePickerDialog datePickerDialog1;
     TextView DateTextView;
-    String pickedDay="", pickedMonth="", pickedYear="",fullPickedDate="";
+    String pickedDay="20", pickedMonth="JUL", pickedYear="2023",fullPickedDate="";
+    DataBaseHelper dataBaseHelper = new DataBaseHelper(InstructorScheduleActivity.this, "TRAINING_CENTER", null, 1);
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +85,13 @@ public class InstructorScheduleActivity extends AppCompatActivity {
             }
         });
         DatePicker.setText(getTodaysDate());
+        fullPickedDate =getTodaysDate();
+        System.out.println("  adsdsad asdsad   da s adasd as    :" +  fullPickedDate);
+        String[] dateParts = fullPickedDate.split(" ");
+        pickedMonth  = dateParts[0];
+        pickedDay  = dateParts[1];
+        pickedYear  = dateParts[2];
+
         String PickedDate = DatePicker.getText().toString();
         if(PickedDate.isEmpty()){
             DateTextView.setTextColor(Color.RED);
@@ -81,6 +99,10 @@ public class InstructorScheduleActivity extends AppCompatActivity {
         else{
             DateTextView.setTextColor(Color.WHITE);
         }
+
+
+
+
 
 
 
@@ -98,6 +120,7 @@ public class InstructorScheduleActivity extends AppCompatActivity {
         return makeDateString(day, month, year);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void initDatePicker() {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener()
         {
@@ -112,9 +135,59 @@ public class InstructorScheduleActivity extends AppCompatActivity {
                 pickedMonth  = dateParts[0];
                 pickedDay  = dateParts[1];
                 pickedYear  = dateParts[2];
+                DatePicker.setText(fullPickedDate);
 
             }
         };
+        RecyclerView recyclerView = findViewById(R.id.recyclerview3);
+        List<Section> schedule = new ArrayList<Section>();
+        Cursor cursor = dataBaseHelper.getAllSectionsBasedOnInstructor(user_email);
+//        JUL 7 2023
+        if (cursor.moveToFirst()) {
+            do {
+                int sectionID = cursor.getInt(0);
+                String instructorEmail = cursor.getString(1);
+                int courseID = cursor.getInt(2);
+                int maxTrainees = cursor.getInt(3);
+                String startTime = cursor.getString(4);
+                String endTime = cursor.getString(5);
+                String days = cursor.getString(6);
+                String room = cursor.getString(7);
+                String startDate = cursor.getString(8);
+                String endDate = cursor.getString(9);
+
+
+                String[] startDateParts = startDate.split(" ");
+                String startMonth  = startDateParts[0];
+                String startDay  = startDateParts[1];
+                String startYear  = startDateParts[2];
+
+                String[] endDateParts = endDate.split(" ");
+                String endMonth  = endDateParts[0];
+                String endDay  = endDateParts[1];
+                String endYear  = endDateParts[2];
+
+                LocalDate LocalstartDate = LocalDate.of(Integer.parseInt(startYear), getInvMonthFormat(startMonth) ,Integer.parseInt(startDay) );
+                LocalDate LocalendDate = LocalDate.of(Integer.parseInt(endYear),getInvMonthFormat(endMonth) ,Integer.parseInt(endDay) );
+                LocalDate LocalinputDate = LocalDate.of(Integer.parseInt(pickedYear), getInvMonthFormat(pickedMonth), Integer.parseInt(pickedDay));
+
+                if (LocalinputDate.isAfter(LocalstartDate) && LocalinputDate.isBefore(LocalendDate)) {
+                    System.out.println("Input date is within the specified range.");
+                    schedule.add( new Section(sectionID,instructorEmail,courseID,maxTrainees,startTime,endTime,days,room,startDate,endDate));
+
+                } else {
+                    System.out.println("Input date is outside the specified range.");
+                }
+
+
+
+            } while (cursor.moveToNext());
+
+        }
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new MyAdapter(getApplicationContext(),schedule,this));
 
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
@@ -177,5 +250,8 @@ public class InstructorScheduleActivity extends AppCompatActivity {
     }
 
 
-
+    @Override
+    public void onItemClicked(Section section) {
+        Toast.makeText(this, section.getDays(), Toast.LENGTH_SHORT ).show();
+    }
 }

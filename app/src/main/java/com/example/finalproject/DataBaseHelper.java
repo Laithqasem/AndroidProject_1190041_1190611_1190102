@@ -49,6 +49,10 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
 
     }
 
+    public void deleteALLSections() {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        sqLiteDatabase.execSQL("DROP TABLE SECTION");
+    }
     public void insertSection(Section section) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
