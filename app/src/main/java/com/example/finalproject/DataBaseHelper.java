@@ -139,7 +139,11 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
     public void deleteCourse(String courseID){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         sqLiteDatabase.delete("COURSES", "ID = ?", new String[]{courseID});
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM SECTION WHERE COURSE_ID = ?", new String[]{courseID});
         sqLiteDatabase.delete("SECTION", "COURSE_ID = ?", new String[]{courseID});
+        while (cursor.moveToNext()){
+            sqLiteDatabase.delete("TraineeToSection", "SECTION_ID = ?", new String[]{cursor.getString(0)});
+        }
     }
 
     public void updateSection(Section section) {
@@ -363,6 +367,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
     public void deleteSection(String valueOf) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         sqLiteDatabase.delete("SECTION", "SECTION_ID = ?", new String[]{valueOf});
+        sqLiteDatabase.delete("TraineeToSection", "sectionID = ?", new String[]{valueOf});
     }
 
     public String getTrainee(String email) {
@@ -488,23 +493,6 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
                 "EMAIL = \"" + email + "\"", null);
     }
 
-    public boolean check(String emailString, String passwordString) {
-        boolean ok = vaildSignUp(emailString);
-        boolean upper = false, lower = false, digit = false;
-        for(int i = 0; i < passwordString.length(); i++){
-            if(Character.isUpperCase(passwordString.charAt(i))){
-                upper = true;
-            }
-            if(Character.isLowerCase(passwordString.charAt(i))){
-                lower = true;
-            }
-            if(Character.isDigit(passwordString.charAt(i))){
-                digit = true;
-            }
-        }
-        return ok && upper && lower && digit && passwordString.length() >= 8 && passwordString.length() <= 15;
-    }
-
     public void updateAdmin(String origin, String emailString, String passwordString, String firstNameString, String lastNameString, byte[] array) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -587,5 +575,18 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
     public void deleteAllTopics() {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         sqLiteDatabase.delete("TOPICS", null, null);
+    }
+
+    public boolean getUsers(String toString) {
+        // get admins, instructors, trainees with email equals toString
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor1 = sqLiteDatabase.rawQuery("SELECT * FROM ADMIN WHERE " +
+                "EMAIL = \"" + toString + "\"", null);
+        Cursor cursor2 = sqLiteDatabase.rawQuery("SELECT * FROM INSTRUCTOR WHERE " +
+                "EMAIL = \"" + toString + "\"", null);
+        Cursor cursor3 = sqLiteDatabase.rawQuery("SELECT * FROM TRAINEE WHERE " +
+                "EMAIL = \"" + toString + "\"", null);
+
+        return cursor1.getCount() + cursor2.getCount() + cursor3.getCount() == 0;
     }
 }

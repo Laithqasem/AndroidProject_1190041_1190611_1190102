@@ -135,7 +135,21 @@ public class ApproveStudentInSection extends Fragment {
             traineeToSection.setSectionID(sectionID);
             traineeToSection.setTraineeEmail(email);
             traineeToSection.setStatus(status);
+            int i = arrayList.size();
             arrayList.add(traineeToSection);
+            checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(!checkBox.isEnabled()){
+                        return;
+                    }
+                    if (checkBox.isChecked()) {
+                        arrayList.get(i).setStatus(2);
+                    } else {
+                        arrayList.get(i).setStatus(0);
+                    }
+                }
+            });
         }
         Button button = new Button(getContext());
         button.setText("Approve");
@@ -149,7 +163,7 @@ public class ApproveStudentInSection extends Fragment {
             @Override
             public void onClick(View view) {
                 for(int i = 0; i < arrayList.size() && finalCanApproveCount[0] > 0; i++){
-                    if(arrayList.get(i).getStatus() == 0){
+                    if(arrayList.get(i).getStatus() == 2){
                         String email = arrayList.get(i).getTraineeEmail();
                         dataBaseHelper.updateTraineeInSection(arrayList.get(i).getSectionID(),
                                 arrayList.get(i).getTraineeEmail());
