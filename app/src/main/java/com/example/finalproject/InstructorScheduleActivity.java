@@ -152,10 +152,12 @@ public class InstructorScheduleActivity extends AppCompatActivity implements Sel
                 pickedDay  = dateParts[1];
                 pickedYear  = dateParts[2];
                 DatePicker.setText(fullPickedDate);
+                RecycleStart(pickedDay,pickedMonth,pickedYear);
 
             }
         };
         RecyclerView recyclerView = findViewById(R.id.recyclerview3);
+
         Cursor cursor = dataBaseHelper.getAllSectionsBasedOnInstructor(user_email);
 
         //        JUL 7 2023
@@ -245,6 +247,67 @@ public class InstructorScheduleActivity extends AppCompatActivity implements Sel
         });
 
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    void RecycleStart (String day, String month, String year){
+
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerview3);
+
+        Cursor cursor = dataBaseHelper.getAllSectionsBasedOnInstructor(user_email);
+
+        //        JUL 7 2023
+        if (cursor.moveToFirst()) {
+            do {
+                int sectionID = cursor.getInt(0);
+                String instructorEmail = cursor.getString(1);
+                int courseID = cursor.getInt(2);
+                int maxTrainees = cursor.getInt(3);
+                String startTime = cursor.getString(4);
+                String endTime = cursor.getString(5);
+                String days = cursor.getString(6);
+                String room = cursor.getString(7);
+                String startDate = cursor.getString(8);
+                String endDate = cursor.getString(9);
+
+
+                String[] startDateParts = startDate.split(" ");
+                String startMonth  = startDateParts[0];
+                String startDay  = startDateParts[1];
+                String startYear  = startDateParts[2];
+
+                String[] endDateParts = endDate.split(" ");
+                String endMonth  = endDateParts[0];
+                String endDay  = endDateParts[1];
+                String endYear  = endDateParts[2];
+
+                LocalDate LocalstartDate = LocalDate.of(Integer.parseInt(startYear), getInvMonthFormat(startMonth) ,Integer.parseInt(startDay) );
+                LocalDate LocalendDate = LocalDate.of(Integer.parseInt(endYear),getInvMonthFormat(endMonth) ,Integer.parseInt(endDay) );
+                LocalDate LocalinputDate = LocalDate.of(Integer.parseInt(pickedYear), getInvMonthFormat(pickedMonth), Integer.parseInt(pickedDay));
+
+                if (LocalinputDate.isAfter(LocalstartDate) && LocalinputDate.isBefore(LocalendDate)) {
+                    System.out.println("Input date is within the specified range.");
+                    schedule.add( new Section(sectionID,instructorEmail,courseID,maxTrainees,startTime,endTime,days,room,startDate,endDate));
+
+                } else {
+                    System.out.println("Input date is outside the specified range.");
+                }
+
+
+
+            } while (cursor.moveToNext());
+
+        }
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new MyAdapter(getApplicationContext(),schedule,this));
+
+        System.out.println(day + "asd " + month + " " + year);
+
+
+    }
+
 
     public String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;

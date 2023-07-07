@@ -547,6 +547,7 @@ public class CreateNewCourses extends Fragment {
                 month = month + 1;
                 String date = makeDateString(day, month, year);
                 start_date.setText(date);
+
             }
         };
 
