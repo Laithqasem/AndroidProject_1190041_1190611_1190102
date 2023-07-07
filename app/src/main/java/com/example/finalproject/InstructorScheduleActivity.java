@@ -189,7 +189,7 @@ public class InstructorScheduleActivity extends AppCompatActivity implements Sel
                 LocalDate LocalendDate = LocalDate.of(Integer.parseInt(endYear),getInvMonthFormat(endMonth) ,Integer.parseInt(endDay) );
                 LocalDate LocalinputDate = LocalDate.of(Integer.parseInt(pickedYear), getInvMonthFormat(pickedMonth), Integer.parseInt(pickedDay));
 
-                if (LocalinputDate.isAfter(LocalstartDate) && LocalinputDate.isBefore(LocalendDate)) {
+                if ((LocalinputDate.isAfter(LocalstartDate) && LocalinputDate.isBefore(LocalendDate))   || (LocalinputDate.isEqual(LocalendDate))|| (LocalinputDate.isEqual(LocalstartDate))) {
                     System.out.println("Input date is within the specified range.");
                     schedule.add( new Section(sectionID,instructorEmail,courseID,maxTrainees,startTime,endTime,days,room,startDate,endDate));
 
@@ -285,7 +285,7 @@ public class InstructorScheduleActivity extends AppCompatActivity implements Sel
                 LocalDate LocalendDate = LocalDate.of(Integer.parseInt(endYear),getInvMonthFormat(endMonth) ,Integer.parseInt(endDay) );
                 LocalDate LocalinputDate = LocalDate.of(Integer.parseInt(pickedYear), getInvMonthFormat(pickedMonth), Integer.parseInt(pickedDay));
 
-                if (LocalinputDate.isAfter(LocalstartDate) && LocalinputDate.isBefore(LocalendDate)) {
+                if ((LocalinputDate.isAfter(LocalstartDate) && LocalinputDate.isBefore(LocalendDate))   || (LocalinputDate.isEqual(LocalendDate))|| (LocalinputDate.isEqual(LocalstartDate))) {
                     System.out.println("Input date is within the specified range.");
                     schedule.add( new Section(sectionID,instructorEmail,courseID,maxTrainees,startTime,endTime,days,room,startDate,endDate));
 

@@ -17,8 +17,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.sql.Statement;
-
 public class Instructor_Activity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
@@ -138,7 +136,7 @@ public class Instructor_Activity extends AppCompatActivity {
 
 
 
-        ImageView profilePhoto = findViewById(R.id.instructor_profile_image);
+        ImageView profilePhoto = findViewById(R.id.uploaded_image);
         emailTextView  = findViewById(R.id.emailTextView);
          addressTextView = findViewById(R.id.addressTextView);
          specializationTextView = findViewById(R.id.specializationTextView);
@@ -146,7 +144,7 @@ public class Instructor_Activity extends AppCompatActivity {
          degreeTextView = findViewById(R.id.degreeTextView);
          nameTextView = findViewById(R.id.nameTextView);
          canteachTextView = findViewById(R.id.canteachTextView);
-         profilePhoto = findViewById(R.id.instructor_profile_image);
+         profilePhoto = findViewById(R.id.uploaded_image);
 
         Bitmap bitmap = BitmapFactory.decodeByteArray(user_personal_photo, 0, user_personal_photo.length);
         profilePhoto.setImageBitmap(bitmap);
