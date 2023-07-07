@@ -3,6 +3,7 @@ package com.example.finalproject;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Build;
@@ -30,8 +31,9 @@ public class InstructorScheduleActivity extends AppCompatActivity implements Sel
     Button DatePicker;
     DatePickerDialog datePickerDialog1;
     TextView DateTextView;
-    String pickedDay="20", pickedMonth="JUL", pickedYear="2023",fullPickedDate="";
+    String pickedDay="7", pickedMonth="JUL", pickedYear="2023",fullPickedDate="";
     DataBaseHelper dataBaseHelper = new DataBaseHelper(InstructorScheduleActivity.this, "TRAINING_CENTER", null, 1);
+    List<Section> schedule = new ArrayList<Section>();
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -82,11 +84,25 @@ public class InstructorScheduleActivity extends AppCompatActivity implements Sel
             @Override
             public void onClick(View view) {
                 datePickerDialog1.show();
+
+                schedule.clear();
+
+//                MyAdapter adapter = new MyAdapter(InstructorScheduleActivity.this, schedule, new SelectListener() {
+//                    @Override
+//                    public void onItemClicked(Section section) {
+//
+//                    }
+//                });
+//                recyclerView.setAdapter(adapter);
+//
+//// To reload the RecyclerView
+//                adapter.notifyDataSetChanged();
+
+
             }
         });
         DatePicker.setText(getTodaysDate());
         fullPickedDate =getTodaysDate();
-        System.out.println("  adsdsad asdsad   da s adasd as    :" +  fullPickedDate);
         String[] dateParts = fullPickedDate.split(" ");
         pickedMonth  = dateParts[0];
         pickedDay  = dateParts[1];
@@ -140,9 +156,9 @@ public class InstructorScheduleActivity extends AppCompatActivity implements Sel
             }
         };
         RecyclerView recyclerView = findViewById(R.id.recyclerview3);
-        List<Section> schedule = new ArrayList<Section>();
         Cursor cursor = dataBaseHelper.getAllSectionsBasedOnInstructor(user_email);
-//        JUL 7 2023
+
+        //        JUL 7 2023
         if (cursor.moveToFirst()) {
             do {
                 int sectionID = cursor.getInt(0);
@@ -197,7 +213,38 @@ public class InstructorScheduleActivity extends AppCompatActivity implements Sel
         int style = AlertDialog.THEME_HOLO_LIGHT;
 
         datePickerDialog1 = new DatePickerDialog(this, style, dateSetListener, year, month, day);
-     }
+
+
+
+
+        DatePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                schedule.clear();
+                initDatePicker();
+                System.out.println("cmooooooooooooooooon");
+                System.out.println("cmoooooooooooooooo1on");
+                System.out.println("cmooooooooooooooo11oon");
+                System.out.println("cmoooooooooooooooo121233on");
+                System.out.println("cmoooooooooooooooo123on");
+                System.out.println("cmoooooooooooooooo132on");
+                System.out.println("cmooooooooooooooooon321");
+                MyAdapter adapter = new MyAdapter(InstructorScheduleActivity.this, schedule, new SelectListener() {
+                    @Override
+                    public void onItemClicked(Section section) {
+
+                    }
+                });
+                recyclerView.setAdapter(adapter);
+
+// To reload the RecyclerView
+                adapter.notifyDataSetChanged();
+
+            }
+        });
+
+    }
 
     public String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
