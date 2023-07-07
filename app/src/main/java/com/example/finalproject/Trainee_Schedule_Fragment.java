@@ -150,10 +150,6 @@ public class Trainee_Schedule_Fragment extends Fragment implements AdapterView.O
 
 
         Email = TraineeActivites.getEmail();
-//        Bundle bundle = getArguments();
-//        if(bundle != null)
-//            Email = bundle.getString("email");
-
 
         Spinner spinnerDay = rootView.findViewById(R.id.spinnerDay);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.days, android.R.layout.simple_spinner_item);
@@ -176,15 +172,10 @@ public class Trainee_Schedule_Fragment extends Fragment implements AdapterView.O
             txtCourseList.get(j).setBackgroundColor(color);
         }
 
-        //query on the day for the specific trainee
-        Bundle bundle = getArguments();
-        if (bundle != null) Email = bundle.getString("email");
-
-
         DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(), "TRAINING_CENTER", null, 1);
         //System.out.println("I'm in Schedule " + Email);
 
-        Cursor cursor = dataBaseHelper.getSecId(Email);// search for email in T2S table
+        Cursor cursor = dataBaseHelper.getSecId(TraineeActivites.getEmail());// search for email in T2S table
 
         System.out.println(cursor.getCount() + "COUNT OF SECTION OBJECTS");
         // Save each section with the status of the student
@@ -199,10 +190,6 @@ public class Trainee_Schedule_Fragment extends Fragment implements AdapterView.O
             if (cursor2.moveToNext()) {
                 Section sec1 = new Section(cursor2.getInt(0), cursor2.getString(1), cursor2.getInt(2), cursor2.getInt(3),
                         cursor2.getString(4), cursor2.getString(5), cursor2.getString(6), cursor2.getString(7), cursor2.getString(8), cursor2.getString(9));
-//                cursor2.getString(4);//start time
-//                cursor2.getString(5);//end time
-//                cursor2.getString(6);//days
-//                cursor2.getString(7);//course room
                 System.out.println(sec1.toString() + "This is the section info");
                 map.put(sec1, status);//the section and its status for the student
             }

@@ -103,7 +103,7 @@ public class Fragment_Notifications_trainee extends Fragment {
         ArrayList<Pair> list = new ArrayList<>();
 
         DataBaseHelper db = new DataBaseHelper(getContext(), "TRAINING_CENTER", null, 1);
-        Cursor cursor = db.getNotificationsForTrainee(getEmail());
+        Cursor cursor = db.getNotificationsForTrainee(TraineeActivites.getEmail());
 
         int nots = cursor.getCount();
 
@@ -138,14 +138,14 @@ public class Fragment_Notifications_trainee extends Fragment {
                         Pair selectedItem = (Pair) parent.getItemAtPosition(position);
                         int idNot = selectedItem.getId();
                         db.updateNotification(idNot);
-                        String not = TraineeActivites.notificationsButton.getText().toString();
+                        String not = TraineeActivites.notificationsText.getText().toString();
                         int nots = Integer.parseInt(not.substring(not.indexOf("(") + 1, not.indexOf(")")));
                         nots--;
 
                         if(nots > 0)
-                            TraineeActivites.notificationsButton.setText("Notifications (" + (nots) + ")");
+                            TraineeActivites.notificationsText.setText("(" + (nots) + ")");
                         else
-                            TraineeActivites.notificationsButton.setText("Notifications");
+                            TraineeActivites.notificationsText.setText("");
 
 
                         replaceFragment(new Fragment_Notifications_trainee());
