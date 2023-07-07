@@ -79,7 +79,8 @@ public class Ccourse_desc_Frag_Trainee extends Fragment {
             courseId = args.getInt("courseId");
             //courseName = args.getString("courseDescription");
 
-            DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(),"TRAINING_CENTER",null,1);
+            DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(),
+                    "TRAINING_CENTER",null,1);
 
             Cursor cursor = dataBaseHelper.getCourseId(courseId);
 
@@ -101,9 +102,6 @@ public class Ccourse_desc_Frag_Trainee extends Fragment {
 
             }
 
-
-
-
         }
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
@@ -114,8 +112,6 @@ public class Ccourse_desc_Frag_Trainee extends Fragment {
                 fragmentManager.popBackStack();
             }
         });
-
-
 
     return rootView;
     }

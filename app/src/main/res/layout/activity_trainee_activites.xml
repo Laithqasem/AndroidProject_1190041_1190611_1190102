@@ -58,39 +58,58 @@ android:orientation="horizontal">
     android:scaleType="centerInside"/>
 
 <!-- Profile button -->
-<ImageButton
-    android:id="@+id/btnProfile"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:src="@drawable/icons8_customer_40"
-    android:background="#4285F4"
-    android:layout_marginTop="5dp"
-    android:textColor="#FFFFFF"
-    android:scaleType="centerInside" /> <!-- White text color -->
+    <ImageButton
+        android:id="@+id/btnProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_weight="1"
+        android:background="#4285F4"
+        android:scaleType="centerInside"
+        android:src="@drawable/icons8_customer_40"
+        android:textColor="#FFFFFF" /> <!-- White text color -->
 
 <!-- Notifications button -->
-<Button
-    android:id="@+id/btnNotifications"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:src="@drawable/icons8_home_40"
-    android:background="#4285F4"
-    android:layout_marginTop="5dp"
-    android:textColor="#FFFFFF"
-    android:scaleType="centerInside" /> <!-- White text color -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
 
-<!-- Courses button -->
-<ImageButton
-    android:id="@+id/btnCourses"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:src="@drawable/icons8_search_in_browser_40"
-    android:background="#4285F4"
-    android:layout_marginTop="5dp"
-    android:textColor="#FFFFFF"
-    android:scaleType="centerInside" /> <!-- White text color -->
+        <ImageButton
+            android:id="@+id/btnNotifications"
+            android:layout_width="61dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="#4285F4"
+            android:scaleType="fitEnd"
+            android:src="@drawable/icons8_notification_40"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/textViewNotifications"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="5dp"
+            android:text=""
+            android:textColor="#000000" />
+
+    </LinearLayout>
+
+
+
+
+    <!-- Courses button -->
+    <ImageButton
+        android:id="@+id/btnCourses"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_weight="1"
+        android:background="#4285F4"
+        android:scaleType="centerInside"
+        android:src="@drawable/icons8_search_in_browser_40"
+        android:textColor="#FFFFFF" /> <!-- White text color -->
 </LinearLayout>
     </LinearLayout>

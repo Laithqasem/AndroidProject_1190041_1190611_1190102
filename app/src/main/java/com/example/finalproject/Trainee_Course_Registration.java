@@ -80,16 +80,16 @@ public class Trainee_Course_Registration extends Fragment {
         if (args != null) {
             // Get the course name from the arguments
             courseId = args.getInt("courseId"); //sent from course adapter
-            Temail = args.getString("email"); //sent from course adapter
+            //Temail = args.getString("email"); //sent from course adapter
         }
 
         DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(),"TRAINING_CENTER",null,1);
 
         //query about the (from the arg) section and the trainee and send to trainee_Reg_withraw
         Cursor cursor = dataBaseHelper.getSections();
-        System.out.println(courseId);
+       // System.out.println(courseId);
 
-//        }
+
         while(cursor.moveToNext()){
             if(courseId == cursor.getInt(2)) {
                 Section instructor1 = new Section(
@@ -113,7 +113,7 @@ public class Trainee_Course_Registration extends Fragment {
             System.out.println(sec.toString() + "here the sections");
 
         //go to the courseAdapter Trainee_Reg_withraw
-        reg_withdraw = new Trainee_Reg_withraw(courseList, Temail);
+        reg_withdraw = new Trainee_Reg_withraw(courseList, TraineeActivites.getEmail());
 
         // Set the layout manager and adapter for the RecyclerView
         recyclerViewCourses.setLayoutManager(new LinearLayoutManager(getActivity()));

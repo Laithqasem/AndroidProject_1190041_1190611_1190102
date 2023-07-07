@@ -7,10 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
-public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
+public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
     public DataBaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
-//        context.deleteDatabase(name);
+        // context.deleteDatabase(name);
     }
 
     @Override
@@ -92,32 +92,33 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM INSTRUCTOR", null);
         return cursor;
     }
+
     public String getLoginPassword(String email, String password) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM ADMIN WHERE " +
                 "EMAIL = \"" + email + "\"", null);
 
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
 
-            if(cursor.getString(0).equals(email) && cursor.getString(1).equals(password)){
+            if (cursor.getString(0).equals(email) && cursor.getString(1).equals(password)) {
                 return "ADMIN";
             }
         }
         Cursor cursor2 = sqLiteDatabase.rawQuery("SELECT * FROM INSTRUCTOR WHERE " +
                 "EMAIL = \"" + email + "\"", null);
 
-        while (cursor2.moveToNext()){
+        while (cursor2.moveToNext()) {
 
-            if(cursor2.getString(0).equals(email) && cursor2.getString(1).equals(password)){
+            if (cursor2.getString(0).equals(email) && cursor2.getString(1).equals(password)) {
                 return "INSTRUCTOR";
             }
         }
         Cursor cursor3 = sqLiteDatabase.rawQuery("SELECT * FROM TRAINEE WHERE " +
                 "EMAIL = \"" + email + "\"", null);
 
-        while (cursor3.moveToNext()){
+        while (cursor3.moveToNext()) {
 
-            if(cursor3.getString(0).equals(email) && cursor3.getString(1).equals(password)){
+            if (cursor3.getString(0).equals(email) && cursor3.getString(1).equals(password)) {
                 return "TRAINEE";
             }
         }
@@ -126,17 +127,19 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
     }
 
     // This will return all sections who's course id = courseID
-    public Cursor getAllOfferings (String courseID) {
+    public Cursor getAllOfferings(String courseID) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM SECTION WHERE COURSE_ID = ?", new String[]{courseID});
         return cursor;
     }
-    public Cursor getAllSectionsBasedOnInstructor (String email) {
+
+    public Cursor getAllSectionsBasedOnInstructor(String email) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM SECTION  WHERE INSTRUCTOR_EMAIL = '" + email + "'", null);
         return cursor;
     }
-    public void deleteCourse(String courseID){
+
+    public void deleteCourse(String courseID) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         sqLiteDatabase.delete("COURSES", "ID = ?", new String[]{courseID});
         sqLiteDatabase.delete("SECTION", "COURSE_ID = ?", new String[]{courseID});
@@ -157,7 +160,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         sqLiteDatabase.update("SECTION", contentValues, "SECTION_ID = ?", new String[]{String.valueOf(section.getSectionID())});
     }
 
-    public void insertInstructor(Instructor instructor){
+    public void insertInstructor(Instructor instructor) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("EMAIL", instructor.getEmail());
@@ -173,15 +176,17 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         sqLiteDatabase.insert("INSTRUCTOR", null, contentValues);
     }
 
-    public boolean updateInstructor(String column,String value, String Email) {
+    public boolean updateInstructor(String column, String value, String Email) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-        sqLiteDatabase.rawQuery("UPDATE INSTRUCTOR SET " +column+" = '"+ value + "' WHERE EMAIL = '" + Email + "'", null);
+        sqLiteDatabase.rawQuery("UPDATE INSTRUCTOR SET " + column + " = '" + value + "' WHERE EMAIL = '" + Email + "'", null);
         return true;
     }
+
     public Cursor getAllTrainee() {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         return sqLiteDatabase.rawQuery("SELECT * FROM TRAINEE", null);
     }
+
     public Cursor getAllAdmin() {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         return sqLiteDatabase.rawQuery("SELECT * FROM ADMIN", null);
@@ -213,7 +218,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         sqLiteDatabase.insert("TRAINEE", null, contentValues);
     }
 
-    public int insertCourses(Course course){
+    public int insertCourses(Course course) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("COURSE_ID", course.getCourseID());
@@ -227,7 +232,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         return (int) sqLiteDatabase.insert("COURSES", null, contentValues);
     }
 
-    public void insertTopics(Topic topic){
+    public void insertTopics(Topic topic) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("COURSE_ID", topic.getCourseID());
@@ -271,21 +276,23 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         return sqLiteDatabase.rawQuery("SELECT * FROM TOPICS", null);
     }
 
-    public Cursor getCourseId(int id){
+    public Cursor getCourseId(int id) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         return sqLiteDatabase.rawQuery("SELECT * FROM COURSES Where " + "ID = \"" + id + "\"", null);
     }
 
-    public Cursor getSectionsForTrainee(int id){
+    public Cursor getSectionsForTrainee(int id) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         return sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection Where " + "sectionID = " + id, null);
     }
+
     //function to delete trainee from trainee2section table based on section id and trainee email
-    public void deleteTraineeFromSection(String email, String sectionId){
+    public void deleteTraineeFromSection(String email, String sectionId) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         sqLiteDatabase.delete("TraineeToSection", "traineeEmail = ? AND sectionID = ?", new String[]{email, sectionId});
     }
-    public Cursor checkExistence(String email, String sectionId){
+
+    public Cursor checkExistence(String email, String sectionId) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
                 "traineeEmail = \"" + email + "\" " +
@@ -294,7 +301,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         return cursor;
     }
 
-    public void insertTraineeSection(TraineeToSection traineeToSection){
+    public void insertTraineeSection(TraineeToSection traineeToSection) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("traineeEmail", traineeToSection.getTraineeEmail());
@@ -303,7 +310,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         sqLiteDatabase.insert("TraineeToSection", null, contentValues);
     }
 
-    public int getTraineeCount(String sectionId){
+    public int getTraineeCount(String sectionId) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
                 "sectionID = " + sectionId, null);
@@ -311,7 +318,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         return cursor.getCount();
     }
 
-    public int countStudentsInSection(String sectionId){
+    public int countStudentsInSection(String sectionId) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
                 "sectionID = " + sectionId, null);
@@ -320,19 +327,19 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
     }
 
     // This function will return a cursor to show the trainees in a specific section
-    public Cursor getTraineesInSection(String sectionId){
+    public Cursor getTraineesInSection(String sectionId) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         return sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
                 "sectionID = " + sectionId, null);
     }
 
-    public Cursor getTraineeSections(String email){
+    public Cursor getTraineeSections(String email) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         return sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
                 "traineeEmail = \"" + email + "\"", null);
     }
-  
-    public Cursor getSecId(String email){
+
+    public Cursor getSecId(String email) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
                 "traineeEmail = \"" + email + "\" ", null);
@@ -340,7 +347,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         return cursor;
     }
 
-    public Cursor getSecInfo(int SecID){
+    public Cursor getSecInfo(int SecID) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM SECTION WHERE " +
                 "SECTION_ID = " + SecID, null);
@@ -353,7 +360,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM INSTRUCTOR WHERE " +
                 "EMAIL = \"" + email + "\"", null);
         int cnt = 0;
-        while(cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             cnt++;
         }
         return cnt == 1;
@@ -370,7 +377,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM TRAINEE WHERE " +
                 "EMAIL = \"" + email + "\"", null);
         String name = "";
-        while(cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             name = cursor.getString(2) + " " + cursor.getString(3);
         }
         return name;
@@ -491,14 +498,14 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
     public boolean check(String emailString, String passwordString) {
         boolean ok = vaildSignUp(emailString);
         boolean upper = false, lower = false, digit = false;
-        for(int i = 0; i < passwordString.length(); i++){
-            if(Character.isUpperCase(passwordString.charAt(i))){
+        for (int i = 0; i < passwordString.length(); i++) {
+            if (Character.isUpperCase(passwordString.charAt(i))) {
                 upper = true;
             }
-            if(Character.isLowerCase(passwordString.charAt(i))){
+            if (Character.isLowerCase(passwordString.charAt(i))) {
                 lower = true;
             }
-            if(Character.isDigit(passwordString.charAt(i))){
+            if (Character.isDigit(passwordString.charAt(i))) {
                 digit = true;
             }
         }
@@ -516,7 +523,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         sqLiteDatabase.update("ADMIN", contentValues, "EMAIL = ?", new String[]{origin});
     }
 
-   public ArrayList<String> checkPrerquesite(int sectionId){
+    public ArrayList<String> checkPrerquesite(int sectionId) {
         ArrayList<String> preR = new ArrayList<>();
         String[] pre = null;
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
@@ -538,13 +545,16 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
 
         if (pre.length == 1 && pre[0].equals(""))
             return null;
-        else{
+        else {
             for (int i = 0; i < pre.length; i++)
                 preR.add(pre[i]);
         }
-        //for (String s: pre)
-           // System.out.println(s + "hererhere\n");
-        return preR;
+
+        System.out.println(preR.size() + "size of it ");
+        if (preR.size() == 0)
+            return new ArrayList<String>();
+        else
+            return preR;
     }
 
     public Cursor getCourseFromId(int valueOf) {
@@ -553,14 +563,27 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
                 "ID = " + valueOf, null);
     }
 
-     public void UpdateeTrainee(String alteredFirst, String alteredLast, String alteredMobile, String alteredAddress){
+    //String alteredFirst = textViewFirstName.getText().toString();
+    //                    String alteredLast = textViewLastName.getText().toString();
+    //                    String alteredMobile = textViewMobileNumber.getText().toString();
+    //                    String alteredAddress = textViewAddress.getText().toString();
+    //                    String alteredPassword = textViewPassword.getText().toString();
+    //                    //do it for the image too later on when you figure out how to do it
+    //                    byte[] image = new ImageHandler().getByteArray(imageViewProfilePicture);
+    //
+    //
+    //                    dataBaseHelper.UpdateeTrainee(alteredFirst,alteredLast,alteredMobile,alteredAddress,alteredPassword,image);
+    public void UpdateeTrainee(String alteredFirst, String alteredLast, String alteredMobile, String alteredAddress, String alteredPassword, byte[] image, String email) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("FIRST_NAME", alteredFirst);
         contentValues.put("LAST_NAME", alteredLast);
         contentValues.put("MOBILE_NUMBER", alteredMobile);
         contentValues.put("ADDRESS", alteredAddress);
-        sqLiteDatabase.update("TRAINEE", contentValues, "EMAIL = ?", new String[]{TraineeActivites.getEmail()});
+        contentValues.put("PASSWORD", alteredPassword);
+        contentValues.put("IMAGE", image);
+        sqLiteDatabase.update("TRAINEE", contentValues, "EMAIL = ?", new String[]{email});
+
 
     }
 
@@ -568,7 +591,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
     public Cursor getNotificationsForTrainee(String email) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         return sqLiteDatabase.rawQuery("SELECT * FROM Notifications WHERE " +
-                "traineeEmail = \"" + email + "\" and status = 0" , null);
+                "traineeEmail = \"" + email + "\" and status = 0", null);
     }
 
     public void updateNotification(int idNot) {
@@ -588,4 +611,56 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         sqLiteDatabase.delete("TOPICS", null, null);
     }
+
+    //dataBaseHelper.UpdateeTrainee(trainee);
+    public void UpdatesTrainee(Trainee trainee) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("FIRST_NAME", trainee.getFirstName());
+        contentValues.put("LAST_NAME", trainee.getLastName());
+        contentValues.put("MOBILE_NUMBER", trainee.getMobileNumber());
+        contentValues.put("ADDRESS", trainee.getAddress());
+        contentValues.put("PASSWORD", trainee.getPassword());
+        contentValues.put("IMAGE", trainee.getImage());
+        sqLiteDatabase.update("TRAINEE", contentValues, "EMAIL = ?", new String[]{trainee.getEmail()});
+    }
+
+
+    public ArrayList<String> getPreTrainee(String email) {
+        //see the courses that student has already taken
+        ArrayList<String> pre = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+
+        //get the sections that the student has taken
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
+                "traineeEmail = \"" + email + "\" ", null);
+
+        while(cursor.moveToNext()){
+            System.out.println(cursor.getString(1)+"here1\n");
+            //get the section id to get the course id
+            int sectionId = cursor.getInt(1);
+            Cursor cursor1 = sqLiteDatabase.rawQuery("SELECT * FROM SECTION WHERE " +
+                    "SECTION_ID = " + sectionId, null);
+
+            if(cursor1.moveToNext()){
+
+                //get the course id to get the pre req
+                int courseId = cursor1.getInt(2);
+                Cursor cursor2 = sqLiteDatabase.rawQuery("SELECT * FROM COURSES WHERE " +
+                        "ID = " + courseId, null);
+
+                if(cursor2.moveToNext()){
+                    System.out.println(cursor2.getString(3)+"here2\n");
+                    pre.add(cursor2.getString(2));
+                    }
+                }
+            }
+        return pre;
+    }
+
+
+
+
 }
+
+

@@ -89,10 +89,11 @@ public class Trainee_Course_history extends Fragment {
 
         //get the SectionId from T2S
         Cursor cursor = dataBaseHelper.getAllSectionsOfTrainee(TraineeActivites.getEmail());
-
+        System.out.println();
         while (cursor.moveToNext()){
             //search the section for the courses of the Trainee
             Cursor cursor2 = dataBaseHelper.getSection(cursor.getString(1));
+            System.out.println(cursor.getString(1) + "the section id");
 
             while (cursor2.moveToNext()){
 
@@ -103,6 +104,7 @@ public class Trainee_Course_history extends Fragment {
 
                 //int courseId = cursor2.getInt(2);
                 int courseId = section.getCourseID();
+                System.out.println(courseId + "the course id");
 
                 Cursor cursor3 = dataBaseHelper.getCourseFromId(courseId);
 
@@ -110,17 +112,16 @@ public class Trainee_Course_history extends Fragment {
                     Course course = new Course(cursor3.getInt(0), cursor3.getString(1), cursor3.getString(2),
                             cursor3.getString(3), cursor3.getString(4), cursor3.getString(5),
                             cursor3.getString(6), cursor3.getString(7), cursor3.getBlob(8));
-                    String endDate = course.getEndDate();
 
+                    System.out.println(course.getPrerequisites() + "the course pre");
                     //check if the course is finished according to today's date
-                    if(!checkDates.checkDates(endDate, TodayDate ,false)){
                         if(from)
                             listViewItems.add(course.toString());
                         else
                             listViewItems.add(course.getPrerequisites());
                     }
 
-                }
+
 
                 //listViewItems.add(section.toString());
             }

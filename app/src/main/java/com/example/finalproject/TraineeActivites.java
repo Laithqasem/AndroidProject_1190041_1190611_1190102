@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.content.Intent;
 import android.widget.ImageButton;
 
 import android.database.Cursor;
@@ -11,19 +13,30 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class TraineeActivites extends AppCompatActivity {
 
-    public static String email = "rami@gmail.com";//fix to send from login.
+    public static String email;//fix to send from login.
     public static FragmentManager fragmentManagerTrainee;
     private Fragment currentFragment;
 
-    public static Button notificationsButton;
+    public static ImageButton notificationsButton;
+    public static TextView notificationsText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trainee_activites);
+
+        Intent intent = getIntent();
+        String message = intent.getStringExtra("email");
+
+        if (message != null) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            email = message;
+        }
 
         fragmentManagerTrainee = getSupportFragmentManager();
 
@@ -32,6 +45,8 @@ public class TraineeActivites extends AppCompatActivity {
         ImageButton homeButton = findViewById(R.id.btnHome);
         ImageButton coursesButton = findViewById(R.id.btnCourses);
         notificationsButton = findViewById(R.id.btnNotifications);
+        notificationsText = findViewById(R.id.textViewNotifications);
+
 
         Bundle bundle = new Bundle();
         bundle.putString("email", getEmail());
@@ -48,7 +63,7 @@ public class TraineeActivites extends AppCompatActivity {
         int nots = cursor.getCount();
 
         if(nots > 0){
-            notificationsButton.setText("Notifications (" + nots + ")");
+            notificationsText.setText("(" + nots + ")");
         }
 
 

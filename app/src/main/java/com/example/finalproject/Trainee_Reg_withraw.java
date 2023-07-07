@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -100,13 +101,20 @@ public class Trainee_Reg_withraw extends RecyclerView.Adapter<Trainee_Reg_withra
                         Cursor cursor = dataBaseHelper.checkExistence(Temail, String.valueOf(sec.getSectionID()));
                         //from section we got the pre of the course in question
                         pre = dataBaseHelper.checkPrerquesite(sec.getSectionID());
-                        history.getHistoryOfcourse(dataBaseHelper, preReqList, false);//Check tmw
+                        preReqList = dataBaseHelper.getPreTrainee(TraineeActivites.getEmail());
+                       // history.getHistoryOfcourse(dataBaseHelper, preReqList, false);//Check tmw
 
-                        if (pre != null)
-                            if(!pre.equals(preReqList)) {//checktmw
-                                Toast.makeText(v.getContext(), "You have not completed the prerequisites", Toast.LENGTH_SHORT).show();
-                                return;
+                        System.out.println("PreReqList: " + preReqList);
+                        System.out.println("Pre: " + pre);
+
+                        if (pre != null && preReqList != null)  {
+                            for (String item : pre) {
+                                if (!preReqList.contains(item)) {
+                                    Toast.makeText(v.getContext(), "You have not completed the prerequisites", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
                             }
+                        }
 
                         int count = dataBaseHelper.getTraineeCount(String.valueOf(sec.getSectionID()));
 
@@ -117,7 +125,6 @@ public class Trainee_Reg_withraw extends RecyclerView.Adapter<Trainee_Reg_withra
                                     return;
 
                                 }
-//
 
                                 TraineeToSection t1 = new TraineeToSection(-1, sec.getSectionID() ,Temail, 0);
                                 dataBaseHelper.insertTraineeSection(t1);

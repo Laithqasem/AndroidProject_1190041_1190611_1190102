@@ -2,7 +2,11 @@ package com.example.finalproject;
 
 import static com.example.finalproject.TraineeActivites.fragmentManagerTrainee;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -82,9 +88,9 @@ public class Trainee_Profile_Fragment extends Fragment {
         textViewAddress =  rootView.findViewById(R.id.textViewAddress);
         buttonEdit = rootView.findViewById(R.id.buttonEdit);
         String email = null, firstName = null, lastName = null, mobileNumber = null, address = null;
-        byte[] image;
-        
-        Cursor cursor = dataBaseHelper.getOneTrainee("big@email.com");
+        byte[] image = new byte[0];
+        System.out.println(TraineeActivites.getEmail() + "email in trainee profile");
+        Cursor cursor = dataBaseHelper.getOneTrainee(TraineeActivites.getEmail());
 
         while (cursor.moveToNext()){
                     email = cursor.getString(0);
@@ -94,19 +100,33 @@ public class Trainee_Profile_Fragment extends Fragment {
                     address = cursor.getString(5);
                     image = cursor.getBlob(6);
 
-            //System.out.println(t1.toString());
         }
+
+        byte[] array = image;
+        Bitmap bitmap = BitmapFactory.decodeByteArray(array, 0, array.length);
+        ImageView imageView = (ImageView) rootView.findViewById(R.id.imageViewTraineeProfile);
+        imageView.setImageBitmap(bitmap);
 
         textViewEmail.setText(email);
         textViewFirstName.setText(firstName);
         textViewLastName.setText(lastName);
         textViewMobileNumber.setText(mobileNumber);
         textViewAddress.setText(address);
-        //do the image
 
 
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
+        Button logout = rootView.findViewById(R.id.buttonExit);
 
+        //when click on logout button go back to login page
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Inside your fragment's code
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
 
+            }
+        });
         buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
