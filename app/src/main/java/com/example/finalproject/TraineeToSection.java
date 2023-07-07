@@ -49,4 +49,14 @@ public class TraineeToSection {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "TraineeToSection{" +
+                "traineeToSectionID=" + traineeToSectionID +
+                ", sectionID=" + sectionID +
+                ", traineeEmail='" + traineeEmail + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }

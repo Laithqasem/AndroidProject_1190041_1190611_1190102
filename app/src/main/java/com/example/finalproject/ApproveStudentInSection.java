@@ -74,10 +74,8 @@ public class ApproveStudentInSection extends Fragment {
         View view = inflater.inflate(R.layout.fragment_approve_student_in_section, container, false);
         Bundle bundle = getArguments();
         int sectionID = -1;
-        int[] canApproveCount = {0};
         if (bundle != null){
             sectionID = Integer.parseInt(bundle.getString("sectionID"));
-            canApproveCount = new int[]{Integer.parseInt(bundle.getString("canApproveCount"))};
       }
 
 
@@ -87,15 +85,20 @@ public class ApproveStudentInSection extends Fragment {
 
         Cursor cursor = dataBaseHelper.getTraineesInSection(String.valueOf(sectionID));
         ArrayList<TraineeToSection> arrayList = new ArrayList<>();
+        ArrayList<CheckBox> checkBoxes = new ArrayList<>();
         while(cursor.moveToNext()){
+            String email = cursor.getString(2);
+            String name = dataBaseHelper.getTrainee(email);
+            int status = cursor.getInt(3);
+            TraineeToSection traineeToSection = new TraineeToSection();
+            traineeToSection.setSectionID(sectionID);
+            traineeToSection.setTraineeEmail(email);
+            traineeToSection.setStatus(status);
+
             LinearLayout horizontalLayout = new LinearLayout(getContext());
             horizontalLayout.setOrientation(LinearLayout.VERTICAL);
 
             horizontalLayout.setBackgroundColor(Color.DKGRAY);
-
-            String email = cursor.getString(2);
-            String name = dataBaseHelper.getTrainee(email);
-            int status = cursor.getInt(3);
 
             TextView textView = new TextView(getContext());
             textView.setText("Trainee's Name: " + name);
@@ -131,25 +134,9 @@ public class ApproveStudentInSection extends Fragment {
             horizontalLayout.addView(checkBox);
             layout.addView(horizontalLayout);
 
-            TraineeToSection traineeToSection = new TraineeToSection();
-            traineeToSection.setSectionID(sectionID);
-            traineeToSection.setTraineeEmail(email);
-            traineeToSection.setStatus(status);
-            int i = arrayList.size();
+
             arrayList.add(traineeToSection);
-            checkBox.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(!checkBox.isEnabled()){
-                        return;
-                    }
-                    if (checkBox.isChecked()) {
-                        arrayList.get(i).setStatus(2);
-                    } else {
-                        arrayList.get(i).setStatus(0);
-                    }
-                }
-            });
+            checkBoxes.add(checkBox);
         }
         Button button = new Button(getContext());
         button.setText("Approve");
@@ -158,16 +145,14 @@ public class ApproveStudentInSection extends Fragment {
         button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
 
-        int[] finalCanApproveCount = canApproveCount;
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for(int i = 0; i < arrayList.size() && finalCanApproveCount[0] > 0; i++){
-                    if(arrayList.get(i).getStatus() == 2){
+                for(int i = 0; i < arrayList.size(); i++){
+                    if(arrayList.get(i).getStatus() == 0 && checkBoxes.get(i).isChecked()){
                         String email = arrayList.get(i).getTraineeEmail();
                         dataBaseHelper.updateTraineeInSection(arrayList.get(i).getSectionID(),
                                 arrayList.get(i).getTraineeEmail());
-                        finalCanApproveCount[0]--;
 
                         Notification notification = new Notification();
                         notification.setNotText("You have been approved in section " + arrayList.get(i).getSectionID());
@@ -179,7 +164,6 @@ public class ApproveStudentInSection extends Fragment {
                 }
 
                 Toast.makeText(getContext(), "Approved Students", Toast.LENGTH_SHORT).show();
-
                 replaceFragment(new ApproveStudent());
             }
         });

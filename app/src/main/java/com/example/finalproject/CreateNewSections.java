@@ -37,6 +37,7 @@ public class CreateNewSections extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    boolean last = false;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -91,36 +92,9 @@ public class CreateNewSections extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_new_sections, container, false);
 
-        String COURSE_ID = "-1";
-        String START_DATE = "-1";
-        String END_DATE = "-1";
-        Bundle extras = getArguments();
-        if (extras != null) {
-            COURSE_ID = extras.getString("COURSE_ID");
-            START_DATE = extras.getString("START_DATE");
-            END_DATE = extras.getString("END_DATE");
-        }
 
         start_time = view.findViewById(R.id.start_time);
         end_time = view.findViewById(R.id.end_time);
-
-        instructortv = view.findViewById(R.id.instructortv);
-        maxtv = view.findViewById(R.id.maxtv);
-        starttimetv = view.findViewById(R.id.starttimetv);
-        endtimetv = view.findViewById(R.id.eendtimetv);
-        daystv = view.findViewById(R.id.daystv);
-        roomtv = view.findViewById(R.id.roomtv);
-        email = view.findViewById(R.id.instructor_email);
-        max = view.findViewById(R.id.max_trainees);
-        days = view.findViewById(R.id.days_list);
-        room = view.findViewById(R.id.room_list);
-
-        add = view.findViewById(R.id.add_the_section);
-        selectDay = new boolean[weekDays.length];
-
-        String finalCOURSE_ID = COURSE_ID;
-        String finalSTART_DATE = START_DATE;
-        String finalEND_DATE = END_DATE;
 
         start_time.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +118,7 @@ public class CreateNewSections extends Fragment {
                         else {
                             start_time.setText(String.valueOf(hour1) + ":" + String.valueOf(minute1));
                         }
+                        last = false;
                     }
                 };
 
@@ -178,6 +153,7 @@ public class CreateNewSections extends Fragment {
                         else {
                             end_time.setText(String.valueOf(hour2) + ":" + String.valueOf(minute2));
                         }
+                        last = false;
                     }
                 };
 
@@ -190,9 +166,42 @@ public class CreateNewSections extends Fragment {
             }
         });
 
+        String COURSE_ID = "-1";
+        String START_DATE = "-1";
+        String END_DATE = "-1";
+        Bundle extras = getArguments();
+        if (extras != null) {
+            COURSE_ID = extras.getString("COURSE_ID");
+            START_DATE = extras.getString("START_DATE");
+            END_DATE = extras.getString("END_DATE");
+        }
+
+        instructortv = view.findViewById(R.id.instructortv);
+        maxtv = view.findViewById(R.id.maxtv);
+        starttimetv = view.findViewById(R.id.starttimetv);
+        endtimetv = view.findViewById(R.id.eendtimetv);
+        daystv = view.findViewById(R.id.daystv);
+        roomtv = view.findViewById(R.id.roomtv);
+
+        email = view.findViewById(R.id.instructor_email);
+        max = view.findViewById(R.id.max_trainees);
+        days = view.findViewById(R.id.days_list);
+        room = view.findViewById(R.id.room_list);
+
+        add = view.findViewById(R.id.add_the_section);
+        selectDay = new boolean[weekDays.length];
+
+        String finalCOURSE_ID = COURSE_ID;
+        String finalSTART_DATE = START_DATE;
+        String finalEND_DATE = END_DATE;
+
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!last){
+                    Toast.makeText(getContext(), "Select a room first", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 boolean error = false;
                 String EMAIL = email.getText().toString();
                 if(EMAIL.isEmpty()){
@@ -249,12 +258,6 @@ public class CreateNewSections extends Fragment {
 
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(
                         getContext(),"TRAINING_CENTER",null,1);
-
-                if(!dataBaseHelper.checkInstructor(EMAIL)){
-                    Toast toast =Toast.makeText(getContext(), "The Instructor Doesn't Exist", Toast.LENGTH_SHORT);
-                    toast.show();
-                    return;
-                }
 
                 Cursor cursor = dataBaseHelper.getSections();
 
@@ -329,6 +332,7 @@ public class CreateNewSections extends Fragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(
                         getContext()
                 );
+                last = false;
 
                 builder.setTitle("Select Days");
                 builder.setCancelable(false);
@@ -389,6 +393,7 @@ public class CreateNewSections extends Fragment {
         email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                last = false;
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(
                         getContext(),"TRAINING_CENTER",null,1);
 
@@ -478,7 +483,7 @@ public class CreateNewSections extends Fragment {
                 if(start_time.getText().toString().isEmpty() || end_time.getText().toString().isEmpty() ||
                         days.getText().toString().isEmpty() || email.getText().toString().isEmpty() ||
                         max.getText().toString().isEmpty()){
-                    Toast toast =Toast.makeText(getContext(), "Select the previous data first", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getContext(), "Select the previous data first", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
                 }
@@ -528,6 +533,7 @@ public class CreateNewSections extends Fragment {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             room.setText(items[i]);
+                            last = true;
                             dialogInterface.dismiss();
                         }
                     });

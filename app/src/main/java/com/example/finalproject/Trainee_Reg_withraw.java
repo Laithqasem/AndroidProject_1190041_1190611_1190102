@@ -52,18 +52,12 @@ public class Trainee_Reg_withraw extends RecyclerView.Adapter<Trainee_Reg_withra
         Section section = SectionList.get(position);
         holder.bind(section);
 
-
-       // DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(), "TRAINING_CENTER",null,1);
         DataBaseHelper dataBaseHelper = new DataBaseHelper(holder.itemView.getContext(), "TRAINING_CENTER",null,1);
         Cursor cursor = dataBaseHelper.checkExistence(Temail, String.valueOf(section.getSectionID()));
         int count = dataBaseHelper.getTraineeCount(String.valueOf(section.getSectionID()));
 
         if(cursor.getCount() == 0) {
-            if (count < section.getMaxTrainees()){
-                holder.RegisterButton.setText("Register");
-            } else {
-                holder.RegisterButton.setText("Waitlist");
-            }
+            holder.RegisterButton.setText("Register");
 
         } else {
             cursor.moveToFirst();
@@ -104,8 +98,6 @@ public class Trainee_Reg_withraw extends RecyclerView.Adapter<Trainee_Reg_withra
                         preReqList = dataBaseHelper.getPreTrainee(TraineeActivites.getEmail());
                        // history.getHistoryOfcourse(dataBaseHelper, preReqList, false);//Check tmw
 
-                        System.out.println("PreReqList: " + preReqList);
-                        System.out.println("Pre: " + pre);
 
                         if (pre != null && preReqList != null)  {
                             for (String item : pre) {
@@ -117,13 +109,12 @@ public class Trainee_Reg_withraw extends RecyclerView.Adapter<Trainee_Reg_withra
                         }
 
                         int count = dataBaseHelper.getTraineeCount(String.valueOf(sec.getSectionID()));
-
                         if(cursor.getCount() == 0) {
                             if (count < sec.getMaxTrainees()){
 
                                 if(checkConflicts(Temail, String.valueOf(sec.getSectionID()))){
+                                    Toast.makeText(v.getContext(), "You have a time conflict", Toast.LENGTH_SHORT).show();
                                     return;
-
                                 }
 
                                 TraineeToSection t1 = new TraineeToSection(-1, sec.getSectionID() ,Temail, 0);
@@ -131,8 +122,13 @@ public class Trainee_Reg_withraw extends RecyclerView.Adapter<Trainee_Reg_withra
                                 Toast.makeText(v.getContext(), "You have been registered for the course", Toast.LENGTH_SHORT).show();
                                 RegisterButton.setText("Withdraw");
                             }
+                            else{
+                                Toast.makeText(v.getContext(), "The course is full right now", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
 
                         } else {
+                            System.out.println("In else");
                             cursor.moveToFirst();
                             dataBaseHelper.deleteTraineeFromSection(Temail, String.valueOf(sec.getSectionID()));
                             Toast.makeText(v.getContext(), "You have been removed from the course", Toast.LENGTH_SHORT).show();

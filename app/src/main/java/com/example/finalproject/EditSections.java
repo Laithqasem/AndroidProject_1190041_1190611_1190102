@@ -25,6 +25,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.TreeSet;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,10 +53,11 @@ public class EditSections extends Fragment {
 
     Button start_time;
     Button end_time;
-    Button days, room;
+    Button days, room, email;
     final String[] finalSTART_DATE = {"-1"};
     final String[] finalEND_DATE = { "-1" };
     final String[] finalCourse_ID = {"-1"};
+    boolean last = false;
 
     public EditSections() {
         // Required empty public constructor
@@ -118,6 +120,7 @@ public class EditSections extends Fragment {
                         else {
                             start_time.setText(String.valueOf(hour1) + ":" + String.valueOf(minute1));
                         }
+                        last = false;
                     }
                 };
 
@@ -152,6 +155,7 @@ public class EditSections extends Fragment {
                         else {
                             end_time.setText(String.valueOf(hour2) + ":" + String.valueOf(minute2));
                         }
+                        last = false;
                     }
                 };
 
@@ -173,11 +177,102 @@ public class EditSections extends Fragment {
         }
         selectDay = new boolean[weekDays.length];
         int ID = Integer.parseInt(SECTION_ID);
-        EditText instructor = view.findViewById(R.id.instructor_email);
         EditText max_students = view.findViewById(R.id.max_trainees);
 
         days = view.findViewById(R.id.days_list);
         room = view.findViewById(R.id.room_list);
+        email = view.findViewById(R.id.instructor_email);
+
+        String finalSECTION_ID = SECTION_ID;
+        email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                last = false;
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(
+                        getContext(),"TRAINING_CENTER",null,1);
+
+                Cursor cursor1 = dataBaseHelper.getAllInstructors();
+                int sz = cursor1.getCount();
+                if(sz == 0){
+                    Toast toast =Toast.makeText(getContext(), "There is no instructor", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+                boolean[] can = new boolean[sz];
+                String[] emails = new String[sz];
+                String[] canTeach = new String[sz];
+                int j = 0;
+                while(cursor1.moveToNext()){
+                    can[j] = true;
+                    emails[j] = cursor1.getString(0);
+                    canTeach[j] = cursor1.getString(8);
+                    if(canTeach[j].isEmpty()){
+                        can[j] = false;
+                        continue;
+                    }
+                    canTeach[j] = canTeach[j].substring(2);
+                    j++;
+                }
+
+                int courseID = dataBaseHelper.getCourseIDForSection(Integer.parseInt(finalSECTION_ID));
+
+                Cursor cursor = dataBaseHelper.getTopics(String.valueOf(courseID));
+                while(cursor.moveToNext()){
+                    Topic topic = new Topic(
+                            cursor.getInt(0),
+                            cursor.getString(1),
+                            cursor.getString(2));
+
+
+                    for(int i = 0; i < sz; i++){
+                        if(canTeach[i].isEmpty()){
+                            can[i] = false;
+                            continue;
+                        }
+                        String[] topics = canTeach[i].split(", ");
+                        TreeSet<String> set = new TreeSet<>();
+                        Collections.addAll(set, topics);
+                        if (!set.contains(topic.getTopicName())) {
+                            can[i] = false;
+                        }
+                    }
+                }
+                int sz2 = 0;
+                for (boolean b : can) {
+                    if (b) sz2++;
+                }
+                if(sz2 == 0){
+                    Toast toast =Toast.makeText(getContext(), "There is no instructor can teach this course", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+                String[] items = new String[sz2];
+                j = 0;
+                for(int i = 0; i < sz; i++){
+                    if(can[i]){
+                        items[j++] = emails[i];
+                    }
+                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Choose Instructor");
+                builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        email.setText(items[i]);
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                builder.show();
+            }
+        });
+
 
         TextView instructor_text = view.findViewById(R.id.instructortv);
         TextView max_students_text = view.findViewById(R.id.maxtv);
@@ -202,7 +297,7 @@ public class EditSections extends Fragment {
                         cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7),
                         cursor.getString(8), cursor.getString(9));
 
-                instructor.setText(section.getInstructorEmail());
+                email.setText(section.getInstructorEmail());
                 max_students.setText(String.valueOf(section.getMaxTrainees()));
                 start_time.setText(section.getStartTime());
                 end_time.setText(section.getEndTime());
@@ -232,8 +327,12 @@ public class EditSections extends Fragment {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!last){
+                    Toast.makeText(getContext(), "Select a room first", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 boolean error = false;
-                String EMAIL = instructor.getText().toString();
+                String EMAIL = email.getText().toString();
                 if(EMAIL.isEmpty()){
                     error = true;
                     instructor_text.setTextColor(Color.RED);
@@ -356,6 +455,7 @@ public class EditSections extends Fragment {
         days.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                last = false;
                 AlertDialog.Builder builder = new AlertDialog.Builder(
                         getContext()
                 );
@@ -419,8 +519,9 @@ public class EditSections extends Fragment {
             @Override
             public void onClick(View view) {
                 if(start_time.getText().toString().isEmpty() || end_time.getText().toString().isEmpty() ||
-                        days.getText().toString().isEmpty()) {
-                    Toast toast =Toast.makeText(getContext(), "Select Time and Day First", Toast.LENGTH_SHORT);
+                        days.getText().toString().isEmpty() || email.getText().toString().isEmpty() ||
+                        max_students.getText().toString().isEmpty()){
+                    Toast toast = Toast.makeText(getContext(), "Select the previous data first", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
                 }
@@ -473,6 +574,7 @@ public class EditSections extends Fragment {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             room.setText(items[i]);
+                            last = true;
                             dialogInterface.dismiss();
                         }
                     });
