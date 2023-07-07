@@ -213,12 +213,12 @@ public class Instructor_Activity extends AppCompatActivity {
 
 
 
-        Button btt = (Button) findViewById(R.id.button4);
-
-        btt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DataBaseHelper dataBaseHelper = new DataBaseHelper(Instructor_Activity.this, "TRAINING_CENTER", null, 1);
+//        Button btt = (Button) findViewById(R.id.button4);
+//
+//        btt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                DataBaseHelper dataBaseHelper = new DataBaseHelper(Instructor_Activity.this, "TRAINING_CENTER", null, 1);
 
 //                dataBaseHelper.deleteALLSections();
 
@@ -275,8 +275,8 @@ public class Instructor_Activity extends AppCompatActivity {
 //                System.out.println("YEEEEEEEEEES");
 
 //
-            }
-        });
+//            }
+//        });
 
 
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -410,7 +411,26 @@ public class InstructorEditProfile extends AppCompatActivity {
                 }else if(valid_password ){
                     boolean done = dataBaseHelper.updateInstructor("PASSWORD",password_string,user_email);
                     System.out.println(password_string);
+                    System.out.println(user_email);
                     System.out.println(done);
+                    Cursor c = dataBaseHelper.getInstructorData(user_email);
+
+                    while (c.moveToNext()){
+
+                        if(c.getString(0).equals(user_email) ){
+                            System.out.println(c.getBlob(9));
+                            System.out.println(c.getString(1));
+                            System.out.println(c.getString(2));
+                            System.out.println(c.getString(3));
+                            System.out.println(c.getString(4));
+                            System.out.println( c.getString(5));
+                            System.out.println(c.getString(6));
+                            System.out.println(c.getString(7));
+                            System.out.println(c.getString(8));
+
+                        }
+                    }
+
 
                 }
 
@@ -522,7 +542,7 @@ public class InstructorEditProfile extends AppCompatActivity {
 
             byte[] image_in_bytes= new byte[1024];
             image_in_bytes = new ImageHandler().getByteArray(imageView);
-            boolean done = dataBaseHelper.updateInstructor("PERSONAL_PHOTO",image_in_bytes.toString(),emailString);
+            boolean done = dataBaseHelper.updateInstructorProfile("IMAGE",image_in_bytes,emailString);
             System.out.println(done);
 
 

@@ -177,7 +177,16 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
 
     public boolean updateInstructor(String column,String value, String Email) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-        sqLiteDatabase.rawQuery("UPDATE INSTRUCTOR SET " +column+" = '"+ value + "' WHERE EMAIL = '" + Email + "'", null);
+        ContentValues cv = new ContentValues();
+        cv.put(column,value);
+        sqLiteDatabase.update("INSTRUCTOR", cv, "EMAIL = ?", new String[]{Email});
+        return true;
+    }
+    public boolean updateInstructorProfile(String column,byte[] value, String Email) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(column,value);
+        sqLiteDatabase.update("INSTRUCTOR", cv, "EMAIL = ?", new String[]{Email});
         return true;
     }
     public Cursor getAllTrainee() {

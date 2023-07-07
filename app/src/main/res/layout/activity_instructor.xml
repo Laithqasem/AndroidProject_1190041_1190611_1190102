@@ -81,18 +81,6 @@
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="83dp"
-        android:layout_height="16dp"
-        android:text="insert copurses"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigation2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.109"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.928" />
-
     <View
         android:id="@+id/view9"
         android:layout_width="370dp"
