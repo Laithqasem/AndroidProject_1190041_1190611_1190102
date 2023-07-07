@@ -106,7 +106,7 @@ public class ViewTrainees extends Fragment {
             String s = trainee.toString();
             TextView textView1 = new TextView(getContext());
             textView1.setText(s);
-            textView1.setTextColor(Color.BLACK);
+            textView1.setTextColor(Color.WHITE);
             textView1.setTextSize(20);
             textView1.setGravity(Gravity.CENTER_HORIZONTAL);
 
@@ -114,6 +114,9 @@ public class ViewTrainees extends Fragment {
             layout1.addView(textView1);
             cardView.addView(layout1);
             layout.addView(cardView);
+            TextView textView = new TextView(getContext());
+            textView.setText("\n\n");
+            layout.addView(textView);
         }
         return view;
     }

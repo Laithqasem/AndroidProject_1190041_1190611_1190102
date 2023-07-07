@@ -78,7 +78,7 @@ public class Trainee_editProfile_Fragment extends Fragment {
         textViewAddress = rootView.findViewById(R.id.editTextAddress);
         buttonSave = rootView.findViewById(R.id.buttonSave);
         DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(),"TRAINING_CENTER",null,1);
-        Cursor cursor = dataBaseHelper.getOneTrainee("rami@gmail.com");
+        Cursor cursor = dataBaseHelper.getOneTrainee("ahmad@gmail.com");
 
         String email = null;
         String firstName = null;
