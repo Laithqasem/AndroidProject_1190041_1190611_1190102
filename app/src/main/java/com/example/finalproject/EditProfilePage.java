@@ -83,6 +83,7 @@ public class EditProfilePage extends Fragment {
         EditText lastName = view.findViewById(R.id.last_name_edittext);
         EditText email = view.findViewById(R.id.email_edittext);
         EditText password = view.findViewById(R.id.password_edittext);
+        EditText confirmPassword = view.findViewById(R.id.confirm_password_edittext);
         Button changePhoto = view.findViewById(R.id.change_photo_button);
         Button save = view.findViewById(R.id.save_button);
 
@@ -99,6 +100,7 @@ public class EditProfilePage extends Fragment {
         password.setText(cursor.getString(1));
         firstName.setText(cursor.getString(2));
         lastName.setText(cursor.getString(3));
+        confirmPassword.setText(cursor.getString(1));
 
         byte[] array = cursor.getBlob(4);
         Bitmap bitmap = BitmapFactory.decodeByteArray(array, 0, array.length);
@@ -116,22 +118,59 @@ public class EditProfilePage extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String emailString = email.getText().toString();
-                String passwordString = password.getText().toString();
-                String firstNameString = firstName.getText().toString();
-                String lastNameString = lastName.getText().toString();
-                byte[] array = new ImageHandler().getByteArray(profilePhoto);
-
-                if (!dataBaseHelper.check(emailString, passwordString)) {
-                    Toast.makeText(getContext(), "Please Check Your Data", Toast.LENGTH_SHORT).show();
+                if(email.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "Email cannot be empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                dataBaseHelper.updateAdmin(origin, emailString, passwordString, firstNameString, lastNameString, array);
-                Toast.makeText(getContext(), "Data Updated", Toast.LENGTH_SHORT).show();
+                if(password.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "Password cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(firstName.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "First name cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(lastName.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "Last name cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(confirmPassword.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "Confirm password cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!password.getText().toString().equals(confirmPassword.getText().toString())) {
+                    Toast.makeText(getContext(), "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!password.getText().toString().matches(".*[A-Z].*")) {
+                    Toast.makeText(getContext(), "Password must contain at least one upper case letter", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!password.getText().toString().matches(".*[a-z].*")) {
+                    Toast.makeText(getContext(), "Password must contain at least one lower case letter", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!password.getText().toString().matches(".*[0-9].*")) {
+                    Toast.makeText(getContext(), "Password must contain at least one number", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(password.getText().toString().length() < 8 || password.getText().toString().length() > 15) {
+                    Toast.makeText(getContext(), "Password must be between 8 and 15 characters", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!email.getText().toString().equals(origin)) {
+                    boolean ok = dataBaseHelper.getUsers(email.getText().toString());
+                    if(!ok) {
+                        Toast.makeText(getContext(), "Email already exists", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                dataBaseHelper.updateAdmin(origin, email.getText().toString(), password.getText().toString(),
+                        firstName.getText().toString(), lastName.getText().toString(), new ImageHandler().getByteArray(profilePhoto));
+                Toast.makeText(getContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getContext(), AdminPage.class);
-                intent.putExtra("EMAIL", emailString);
+                intent.putExtra("EMAIL", email.getText().toString());
                 startActivity(intent);
             }
         });

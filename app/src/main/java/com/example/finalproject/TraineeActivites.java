@@ -18,7 +18,9 @@ import android.widget.Toast;
 
 public class TraineeActivites extends AppCompatActivity {
 
+
     public static String email;//fix to send from login.
+
     public static FragmentManager fragmentManagerTrainee;
     private Fragment currentFragment;
 

@@ -97,6 +97,7 @@ public class Trainee_editProfile_Fragment extends Fragment {
         buttonPhoto = rootView.findViewById(R.id.buttonpfp);
 
         DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(),"TRAINING_CENTER",null,1);
+
         Cursor cursor = dataBaseHelper.getOneTrainee(TraineeActivites.getEmail());
 
         String email = null;
