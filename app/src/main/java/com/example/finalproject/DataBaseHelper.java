@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
     public DataBaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
-        // context.deleteDatabase(name);
+//        context.deleteDatabase(name);
     }
 
     @Override
@@ -391,7 +391,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
     public void updateTraineeInSection(int sectionID, String traineeEmail) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("status", "1");
+        contentValues.put("status", 1);
         sqLiteDatabase.update("TraineeToSection", contentValues, "sectionID = ? AND traineeEmail = ?", new String[]{String.valueOf(sectionID), traineeEmail});
     }
 

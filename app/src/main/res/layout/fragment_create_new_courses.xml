@@ -252,7 +252,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="40dp"
-                    android:text="Uplaod Photo"
+                    android:text="Upload Photo"
                     android:layout_marginVertical="20dp" />
 
                 <ImageView
