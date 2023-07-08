@@ -27,6 +27,14 @@
         <activity android:name=".ApproveStudentInSection"/>
 
 
+        <activity android:name=".SectionStudents"></activity>
+        <activity android:name=".Instructor_Activity" />
+        <activity android:name=".InstructorEditProfile" />
+        <activity android:name=".InstructorCoursesActivity" />
+        <activity android:name=".InstructorStudentsActivity" />
+        <activity android:name=".InstructorScheduleActivity" />
+
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

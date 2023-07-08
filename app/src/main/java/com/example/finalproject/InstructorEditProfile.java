@@ -1,9 +1,8 @@
 package com.example.finalproject;
 
 import android.app.Activity;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,10 +21,6 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class InstructorEditProfile extends AppCompatActivity {
 
@@ -410,7 +405,26 @@ public class InstructorEditProfile extends AppCompatActivity {
                 }else if(valid_password ){
                     boolean done = dataBaseHelper.updateInstructor("PASSWORD",password_string,user_email);
                     System.out.println(password_string);
+                    System.out.println(user_email);
                     System.out.println(done);
+                    Cursor c = dataBaseHelper.getInstructorData(user_email);
+
+                    while (c.moveToNext()){
+
+                        if(c.getString(0).equals(user_email) ){
+                            System.out.println(c.getBlob(9));
+                            System.out.println(c.getString(1));
+                            System.out.println(c.getString(2));
+                            System.out.println(c.getString(3));
+                            System.out.println(c.getString(4));
+                            System.out.println( c.getString(5));
+                            System.out.println(c.getString(6));
+                            System.out.println(c.getString(7));
+                            System.out.println(c.getString(8));
+
+                        }
+                    }
+
 
                 }
 
@@ -479,14 +493,15 @@ public class InstructorEditProfile extends AppCompatActivity {
             }
         });
 
-        Button back_button = findViewById(R.id.back_button_edit);
+        Button back_button2 = findViewById(R.id.button5);
         Drawable icon = getResources().getDrawable(R.drawable.ic_baseline_arrow_back_24_2);
-        back_button.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null);
-        back_button.setPaddingRelative(20,0,0,0);
-        back_button.setOnClickListener(new View.OnClickListener() {
+        back_button2.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null);
+        back_button2.setPaddingRelative(20,0,0,0);
+        back_button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(InstructorEditProfile.this, Instructor_Activity.class);
+                intent.putExtra("EMAIL", user_email);
                 startActivity(intent);
                 finish();
 
@@ -521,7 +536,7 @@ public class InstructorEditProfile extends AppCompatActivity {
 
             byte[] image_in_bytes= new byte[1024];
             image_in_bytes = new ImageHandler().getByteArray(imageView);
-            boolean done = dataBaseHelper.updateInstructor("PERSONAL_PHOTO",image_in_bytes.toString(),emailString);
+            boolean done = dataBaseHelper.updateInstructorProfile("IMAGE",image_in_bytes,emailString);
             System.out.println(done);
 
 
@@ -569,4 +584,4 @@ public class InstructorEditProfile extends AppCompatActivity {
 
 
 
-}
+    }

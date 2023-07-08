@@ -180,12 +180,20 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
         sqLiteDatabase.insert("INSTRUCTOR", null, contentValues);
     }
 
-    public boolean updateInstructor(String column, String value, String Email) {
+    public boolean updateInstructor(String column,String value, String Email) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-        sqLiteDatabase.rawQuery("UPDATE INSTRUCTOR SET " + column + " = '" + value + "' WHERE EMAIL = '" + Email + "'", null);
+        ContentValues cv = new ContentValues();
+        cv.put(column,value);
+        sqLiteDatabase.update("INSTRUCTOR", cv, "EMAIL = ?", new String[]{Email});
         return true;
     }
-
+    public boolean updateInstructorProfile(String column,byte[] value, String Email) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(column,value);
+        sqLiteDatabase.update("INSTRUCTOR", cv, "EMAIL = ?", new String[]{Email});
+        return true;
+    }
     public Cursor getAllTrainee() {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         return sqLiteDatabase.rawQuery("SELECT * FROM TRAINEE", null);
@@ -259,11 +267,29 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         return sqLiteDatabase.rawQuery("SELECT * FROM COURSES", null);
     }
+    public String getCourseName(int course_id) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        String res="asd";
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM COURSES", null);
 
+        while (cursor.moveToNext()){
+
+            if(cursor.getInt(0) == course_id){
+                return cursor.getString(2) ;
+            }
+
+            return "Course";
+
+        }
+
+
+        return res;
+    }
     public Cursor getAllTrainees() {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         return sqLiteDatabase.rawQuery("SELECT * FROM TRAINEE", null);
     }
+
 
     public Cursor getOneTrainee(String Email) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();

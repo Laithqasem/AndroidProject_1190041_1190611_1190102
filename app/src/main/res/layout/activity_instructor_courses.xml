@@ -45,7 +45,7 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation2"
-        android:layout_width="390dp"
+        android:layout_width="370dp"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/bottom_background"
@@ -54,13 +54,17 @@
         app:itemIconTint="@drawable/item_selection"
         app:itemRippleColor="@android:color/transparent"
         app:labelVisibilityMode="unlabeled"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:menu="@menu/bottom_nav_bar_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.974"
-        app:menu="@menu/bottom_nav_bar_menu" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.961"
+
+
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"

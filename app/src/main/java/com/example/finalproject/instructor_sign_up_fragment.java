@@ -1,8 +1,6 @@
 package com.example.finalproject;
 
 import android.app.Activity;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -28,10 +26,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 
 public class instructor_sign_up_fragment extends Fragment {
@@ -101,12 +95,12 @@ public class instructor_sign_up_fragment extends Fragment {
 
 
 
-        email.setShowSoftInputOnFocus(false);
-        first_name.setShowSoftInputOnFocus(false);
-        last_name.setShowSoftInputOnFocus(false);
-        password.setShowSoftInputOnFocus(false);
-        confirm_password.setShowSoftInputOnFocus(false);
-        address.setShowSoftInputOnFocus(false);
+//        email.setShowSoftInputOnFocus(false);
+//        first_name.setShowSoftInputOnFocus(false);
+//        last_name.setShowSoftInputOnFocus(false);
+//        password.setShowSoftInputOnFocus(false);
+//        confirm_password.setShowSoftInputOnFocus(false);
+//        address.setShowSoftInputOnFocus(false);
 
         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         confirm_password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -472,6 +466,7 @@ public class instructor_sign_up_fragment extends Fragment {
                     instructor.setAddress(address_string);
                     instructor.setSpecialization(selected_specialization);
                     instructor.setDegree(chosen_specialization);
+
                     instructor.setCanTeach(canTeach);
 
 //                    String databaseName = "TRAINING_CENTER";
@@ -483,6 +478,31 @@ public class instructor_sign_up_fragment extends Fragment {
                     boolean validSignUp = dataBaseHelper.vaildSignUp(email_string);
                     if(validSignUp){
                         dataBaseHelper.insertInstructor(instructor);
+                        email.getText().clear();
+                        first_name.getText().clear();
+                        last_name.getText().clear();
+                        password.getText().clear();
+                        confirm_password.getText().clear();
+                        mobileNo.getText().clear();
+                        address.getText().clear();
+                        bsc_option.setChecked(false);
+                        msc_option.setChecked(false);
+                        phd_option.setChecked(false);
+                        tech_option.setChecked(false);
+                        business_option.setChecked(false);
+                        marketing_option.setChecked(false);
+                        literature_option.setChecked(false);
+                        engineering_option.setChecked(false);
+                        physics_option.setChecked(false);
+                        math_option.setChecked(false);
+                        biology_option.setChecked(false);
+                        pharmacy_option.setChecked(false);
+                        medicine_option.setChecked(false);
+                        law_option.setChecked(false);
+                        accountant_option.setChecked(false);
+
+                        Toast.makeText(getContext(),"The User Inserted Successfully" , Toast.LENGTH_LONG).show();
+
                     }else{
                         Toast.makeText(getContext(),"the email is used" , Toast.LENGTH_SHORT).show();
                     }
