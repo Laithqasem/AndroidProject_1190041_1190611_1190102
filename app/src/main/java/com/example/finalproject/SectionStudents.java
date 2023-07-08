@@ -41,19 +41,22 @@ public class SectionStudents extends AppCompatActivity implements SelectListener
 
         List<TraineeInSection> items = new ArrayList<TraineeInSection>();
 
-        Cursor cursor = dataBaseHelper.getAllTrainee();
+        Cursor cursor = dataBaseHelper.getTraineesInSection2(sectionId);
+
         System.out.println(cursor);
         if (cursor.moveToFirst()) {
             do {
 
+                String email = cursor.getString(2);
+                Cursor cursor2 = dataBaseHelper.getTraineeAll(email);
 
-                String email = cursor.getString(0);
-                String name = cursor.getString(2) + " " +  cursor.getString(3);
-                String mobileNumber = cursor.getString(4);
-                String address = cursor.getString(5);
+                cursor2.moveToFirst();
+                String name = cursor2.getString(2) + " " +  cursor2.getString(3);
+                String mobileNumber = cursor2.getString(4);
+                String address = cursor2.getString(5);
+                byte [] image = cursor2.getBlob(6);
 
-
-                items.add( new TraineeInSection(email,name,mobileNumber,address,new byte[1024]));
+                items.add( new TraineeInSection(email,name,mobileNumber,address,image));
 
             } while (cursor.moveToNext());
 

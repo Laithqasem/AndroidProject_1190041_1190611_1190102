@@ -362,7 +362,11 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
         return sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
                 "sectionID = " + sectionId, null);
     }
-
+    public Cursor getTraineesInSection2(String sectionId) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
+                "sectionID = " + sectionId +  " and status = 1", null);
+    }
     public Cursor getTraineeSections(String email) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         return sqLiteDatabase.rawQuery("SELECT * FROM TraineeToSection WHERE " +
@@ -413,7 +417,12 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
         }
         return name;
     }
-
+    public Cursor getTraineeAll(String email) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM TRAINEE WHERE " +
+                "EMAIL = \"" + email + "\"", null);
+        return cursor;
+    }
     public void updateTraineeInSection(int sectionID, String traineeEmail) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
