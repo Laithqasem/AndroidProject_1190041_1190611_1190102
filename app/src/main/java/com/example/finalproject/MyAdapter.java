@@ -1,6 +1,8 @@
 package com.example.finalproject;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,8 +55,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 //            } while (Course.moveToNext());
 //        }
 
+        byte[] image = dataBaseHelper.getCourseImage(items.get(position).getCourseID());
 
-
+        Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+        holder.imageView.setImageBitmap(bitmap);
         holder.courseName.setText(CourseName);
         holder.maxTrainees.setText(String.valueOf(items.get(position).getMaxTrainees()));
         holder.days.setText(items.get(position).getDays());

@@ -22,7 +22,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 //        private String days;
 //        private String room, startDate, endDate;
 
-//        imageView = itemView.findViewById(R.id.imageview);
+        imageView = itemView.findViewById(R.id.imageview);
         course_id = itemView.findViewById(R.id.Course_ID2);
         courseName = itemView.findViewById(R.id.Course_Name);
         maxTrainees = itemView.findViewById(R.id.Section_max_trainees);

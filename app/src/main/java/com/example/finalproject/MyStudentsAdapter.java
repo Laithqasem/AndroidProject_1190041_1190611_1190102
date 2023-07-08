@@ -1,6 +1,8 @@
 package com.example.finalproject;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +39,12 @@ public class MyStudentsAdapter extends RecyclerView.Adapter<MyViewHolderStudents
         holder.name.setText(items.get(position).getName());
         holder.mobileNumber.setText(items.get(position).getMobileNumber());
         holder.address.setText(items.get(position).getAddress());
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context.getApplicationContext(), "TRAINING_CENTER", null, 1);
+//        byte[] image2 = dataBaseHelper.getStudentImage(items.get(position).getEmail());
+        byte[] image = dataBaseHelper.getStudentImage(items.get(position).getEmail());
 
-//        DataBaseHelper dataBaseHelper = new DataBaseHelper(context.getApplicationContext(), "TRAINING_CENTER", null, 1);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+        holder.imageView.setImageBitmap(bitmap);
 //
 //        String CourseName = dataBaseHelper.getCourseName(items.get(position).getCourseID());
 ////        String CourseName = Course.getString(2);
