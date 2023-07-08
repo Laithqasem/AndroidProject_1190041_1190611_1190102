@@ -66,11 +66,11 @@ public class admin_sign_up_fragment extends Fragment {
         last_name = view.findViewById(R.id.edit_last_name_text);
         password = view.findViewById(R.id.edit_password_text);
         confirm_password =view.findViewById(R.id.confirm_password);
-        email.setShowSoftInputOnFocus(false);
-        first_name.setShowSoftInputOnFocus(false);
-        last_name.setShowSoftInputOnFocus(false);
-        password.setShowSoftInputOnFocus(false);
-        confirm_password.setShowSoftInputOnFocus(false);
+        email.setShowSoftInputOnFocus(true);
+        first_name.setShowSoftInputOnFocus(true);
+        last_name.setShowSoftInputOnFocus(true);
+        password.setShowSoftInputOnFocus(true);
+        confirm_password.setShowSoftInputOnFocus(true);
 
         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         confirm_password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -256,6 +256,15 @@ public class admin_sign_up_fragment extends Fragment {
                     boolean validSignUp = dataBaseHelper.vaildSignUp(email_string);
                     if(validSignUp){
                         dataBaseHelper.insertAdmin(admin);
+                        email.getText().clear();
+                        first_name.getText().clear();
+                        last_name.getText().clear();
+                        password.getText().clear();
+                        confirm_password.getText().clear();
+
+                        Toast.makeText(getContext(),"The User Inserted Successfully" , Toast.LENGTH_LONG).show();
+
+
                     }else{
                         Toast.makeText(getContext(),"the email is used" , Toast.LENGTH_SHORT).show();
                     }

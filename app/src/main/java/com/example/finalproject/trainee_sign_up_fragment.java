@@ -283,9 +283,18 @@ public class trainee_sign_up_fragment extends Fragment {
                     boolean validSignUp = dataBaseHelper.vaildSignUp(email_string);
                     if(validSignUp){
                         dataBaseHelper.insertTrainee(trainee);
-                        Intent intent = new Intent(getActivity(), TraineeActivites.class);
-                        intent.putExtra("email", email_string); // Replace "example@example.com" with the actual email
-                        startActivity(intent);
+                        email.getText().clear();
+                        first_name.getText().clear();
+                        last_name.getText().clear();
+                        password.getText().clear();
+                        confirm_password.getText().clear();
+                        mobileNo.getText().clear();
+                        address.getText().clear();
+
+                        Toast.makeText(getContext(),"The User Inserted Successfully" , Toast.LENGTH_LONG).show();
+
+
+
 
                     }else{
                         Toast.makeText(getContext(),"the email is used" , Toast.LENGTH_SHORT).show();
@@ -363,3 +372,4 @@ public class trainee_sign_up_fragment extends Fragment {
     }
 
 }
+
