@@ -142,11 +142,12 @@ public class Fragment_Notifications_trainee extends Fragment {
                         int nots = Integer.parseInt(not.substring(not.indexOf("(") + 1, not.indexOf(")")));
                         nots--;
 
-                        if(nots > 0)
-                            TraineeActivites.notificationsText.setText("(" + (nots) + ")");
-                        else
-                            TraineeActivites.notificationsText.setText("");
+                        if(nots > 0) {
 
+                            TraineeActivites.notificationsText.setText("(" + (nots) + ")");
+                        } else{
+                                TraineeActivites.notificationsText.setText("");
+                        }
 
                         replaceFragment(new Fragment_Notifications_trainee());
 
