@@ -151,16 +151,7 @@ public class Login extends AppCompatActivity {
                         } while (user_data.moveToNext());
                     }
                     intent.putExtra("EMAIL", user_email);
-                    intent.putExtra("FROM", "LOGIN");
-                    intent.putExtra("PASSWORD", user_password);
-                    intent.putExtra("FIRST_NAME", user_first_name);
-                    intent.putExtra("LAST_NAME", user_last_name);
-                    intent.putExtra("PERSONAL_PHOTO",user_personal_photo);
-                    intent.putExtra("MOBILE_NUMBER", user_mobile);
-                    intent.putExtra("ADDRESS", user_address);
-                    intent.putExtra("SPECIALIZATION",user_specialization);
-                    intent.putExtra("DEGREE",user_degree);
-                    intent.putExtra("canTeach",user_canTeach);
+
                     if(remember_me_check_box){
 
                         SharedPreferences.Editor editor = sharedPreferences.edit();
