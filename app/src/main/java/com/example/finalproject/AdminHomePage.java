@@ -89,10 +89,6 @@ public class AdminHomePage extends Fragment {
         view_offering_history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-//                Intent intent = new Intent(getActivity(), TraineeActivites.class);
-//                startActivity(intent);
-
                 replaceFragment(new ViewOfferingsHistory());
             }
         });

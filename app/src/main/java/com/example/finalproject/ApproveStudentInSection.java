@@ -110,7 +110,6 @@ public class ApproveStudentInSection extends Fragment {
             params.setMargins(0, 0, 0, 0);
             horizontalLayout.addView(textView);
 
-            // now for the email
             TextView textView1 = new TextView(getContext());
             textView1.setText("Trainee's Email: " + email);
             textView1.setTextSize(20);
@@ -138,6 +137,7 @@ public class ApproveStudentInSection extends Fragment {
             arrayList.add(traineeToSection);
             checkBoxes.add(checkBox);
         }
+
         Button button = new Button(getContext());
         button.setText("Approve");
         button.setTextSize(20);
@@ -162,7 +162,6 @@ public class ApproveStudentInSection extends Fragment {
 
                     }
                 }
-
                 Toast.makeText(getContext(), "Approved Students", Toast.LENGTH_SHORT).show();
                 replaceFragment(new ApproveStudent());
             }

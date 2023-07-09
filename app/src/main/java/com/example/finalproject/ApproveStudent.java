@@ -166,7 +166,7 @@ public class ApproveStudent extends Fragment {
                                     ViewGroup.LayoutParams.MATCH_PARENT,
                                     ViewGroup.LayoutParams.WRAP_CONTENT
                             );
-                            cardParams.setMargins(0, 0, 0, 16); // Set spacing between card views
+                            cardParams.setMargins(0, 0, 0, 16);
                             cardView.setLayoutParams(cardParams);
                             cardView.setRadius(8);
                             cardView.setCardElevation(4);

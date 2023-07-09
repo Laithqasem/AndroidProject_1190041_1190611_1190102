@@ -63,28 +63,19 @@ public class Ccourse_desc_Frag_Trainee extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View rootView =  inflater.inflate(R.layout.fragment_ccourse_desc__frag__trainee, container, false);
 
         TextView textViewCourseName = rootView.findViewById(R.id.textViewCourseName);
         TextView textViewCourseDescription = rootView.findViewById(R.id.textViewCourseDescription);
         Button buttonBack = rootView.findViewById(R.id.buttonBack);
         int courseId = 0;
-        String courseName = null;
 
-        //got from course adapter
         Bundle args = getArguments();
         if (args != null) {
-            // Get the course name from the arguments
             courseId = args.getInt("courseId");
-            //courseName = args.getString("courseDescription");
-
             DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(),
                     "TRAINING_CENTER",null,1);
-
             Cursor cursor = dataBaseHelper.getCourseId(courseId);
-
-
             if(cursor.moveToNext()){
                 Course course = new Course(
                 cursor.getInt(0),
@@ -96,23 +87,19 @@ public class Ccourse_desc_Frag_Trainee extends Fragment {
                 cursor.getString(6),
                 cursor.getString(7),
                 cursor.getBlob(8));
-
                 textViewCourseName.setText(course.getCourseName());
                 textViewCourseDescription.setText(course.toString());
-
             }
-
         }
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate back to the previous fragment
                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                 fragmentManager.popBackStack();
             }
         });
 
-    return rootView;
+        return rootView;
     }
 }

@@ -22,8 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder>
-{
+public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder> {
     private List<Course> courseList;
     private String email;
 
@@ -62,14 +61,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         private Button buttonRegister;
 
         public ViewHolder(@NonNull View itemView) {
-
             super(itemView);
             courseNameTextView = itemView.findViewById(R.id.textViewCourseName);
             courseDescriptionTextView = itemView.findViewById(R.id.textViewCourseDescription);
             buttonView = itemView.findViewById(R.id.buttonView);
             buttonRegister = itemView.findViewById(R.id.buttonRegister);
-            //final Trainee_Search_Fragment currentfragment = new Trainee_Search_Fragment();
-            //final FragmentManager fragmentManager = ((FragmentActivity) itemView.getContext()).getSupportFragmentManager();
 
             buttonView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -80,7 +76,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                         Ccourse_desc_Frag_Trainee fragment = new Ccourse_desc_Frag_Trainee();
 
                         Bundle args = new Bundle();
-                        args.putInt("courseId", course.getID());//send to fragment_Course_Registration
+                        args.putInt("courseId", course.getID());
                         args.putString("email", email);
                         fragment.setArguments(args);
 
@@ -88,15 +84,13 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                         Fragment currentFragment = fragmentManager.findFragmentById(R.id.FirstFragment);
-                        if (currentFragment != null) {
+                        if(currentFragment != null){
                             fragmentTransaction.replace(R.id.content_frame, fragment);
-                        } else {
+                        }
+                        else{
                             fragmentTransaction.add(R.id.content_frame, fragment);
                         }
-
                         fragmentTransaction.addToBackStack(null);
-
-                        // Commit the transaction
                         fragmentTransaction.commit();
                     }
                 }
@@ -115,11 +109,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                         Bundle args = new Bundle();
-                        args.putInt("courseId", course.getID());//send to fragment_Course_Registration
+                        args.putInt("courseId", course.getID());
                         args.putString("email", email);
                         fragment.setArguments(args);
 
-                        //display the fragment
                         Fragment currentFragment = fragmentManager.findFragmentById(R.id.FirstFragment);
                         if (currentFragment != null) {
                             fragmentTransaction.replace(R.id.content_frame, fragment);
@@ -128,8 +121,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                         }
 
                         fragmentTransaction.addToBackStack(null);
-
-                        // Commit the transaction
                         fragmentTransaction.commit();
 
                     }
@@ -139,10 +130,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
         public void bind(Course course) {
             courseNameTextView.setText(course.getCourseName());
-            //courseDescriptionTextView.setText("Starts on: " + course.getStartDate());
         }
-
-
-
     }
 }

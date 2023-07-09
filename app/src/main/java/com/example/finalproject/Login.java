@@ -60,8 +60,8 @@ public class Login extends AppCompatActivity {
         password = findViewById(R.id.login_password);
         rememberMe = findViewById(R.id.remember_user);
         Button login = findViewById(R.id.login_page_button);
-        email.setShowSoftInputOnFocus(false);
-        password.setShowSoftInputOnFocus(false);
+        email.setShowSoftInputOnFocus(true);
+        password.setShowSoftInputOnFocus(true);
         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         email.setText(email_Shared_value);
         password.setText(password_Shared_value);
@@ -123,12 +123,11 @@ public class Login extends AppCompatActivity {
                     Intent intent = new Intent(Login.this, Instructor_Activity.class);
 
                     Cursor user_data = dataBaseHelper.getInstructorData(entered_email);
-                    System.out.println("EMAIL ASNDIH HD : " +user_data);
                     String user_email ="";
                     String user_password="" ;
                     String user_first_name="";
                     String user_last_name="";
-                    byte[] user_personal_photo = new byte[1024];
+                    byte[] user_personal_photo = null;
                     String user_mobile="" ;
                     String user_address="";
                     String user_specialization="";
@@ -171,6 +170,7 @@ public class Login extends AppCompatActivity {
 
                     }
                     startActivity(intent);
+                    finish();
                 }
                 else if(isValid.equals("TRAINEE")){
                     if(remember_me_check_box){

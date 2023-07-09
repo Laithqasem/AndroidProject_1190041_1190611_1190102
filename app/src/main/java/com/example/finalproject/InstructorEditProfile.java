@@ -81,16 +81,16 @@ public class InstructorEditProfile extends AppCompatActivity {
         accountant_option = findViewById(R.id.AccountingCheckBox);
 
 
-        first_name.setShowSoftInputOnFocus(false);
-        last_name.setShowSoftInputOnFocus(false);
-        password.setShowSoftInputOnFocus(false);
-        address.setShowSoftInputOnFocus(false);
+        first_name.setShowSoftInputOnFocus(true);
+        last_name.setShowSoftInputOnFocus(true);
+        password.setShowSoftInputOnFocus(true);
+        address.setShowSoftInputOnFocus(true);
 
         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        first_name.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
-        last_name.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+        first_name.setInputType(InputType.TYPE_CLASS_TEXT);
+        last_name.setInputType(InputType.TYPE_CLASS_TEXT);
         mobileNo.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_PHONE);
-        address.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+        address.setInputType(InputType.TYPE_CLASS_TEXT);
 
         first_name.addTextChangedListener(new TextWatcher() {
             @Override
@@ -207,8 +207,6 @@ public class InstructorEditProfile extends AppCompatActivity {
         specialization_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                mobileNo.setError("Please enter a valid mobile Number");
-//                valid_mobile_no = false;
 
 
                 switch (checkedId) {
@@ -534,7 +532,7 @@ public class InstructorEditProfile extends AppCompatActivity {
             selectedImageUri = data.getData();
             imageView.setImageURI(selectedImageUri);
 
-            byte[] image_in_bytes= new byte[1024];
+            byte[] image_in_bytes;
             image_in_bytes = new ImageHandler().getByteArray(imageView);
             boolean done = dataBaseHelper.updateInstructorProfile("IMAGE",image_in_bytes,emailString);
             System.out.println(done);

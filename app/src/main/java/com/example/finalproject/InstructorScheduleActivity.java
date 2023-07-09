@@ -49,14 +49,12 @@ public class InstructorScheduleActivity extends AppCompatActivity implements Sel
                     intent.putExtra("EMAIL", user_email);
                     startActivity(intent);
                     finish();
-                    System.out.println("1");
                     return true;
                 case R.id.course_navbar:
                     Intent intent3 = new Intent(InstructorScheduleActivity.this, InstructorCoursesActivity.class);
                     intent3.putExtra("EMAIL", user_email);
                     startActivity(intent3);
                     finish();
-                    System.out.println("2");
                     return true;
                 case R.id.student_navbar:
                     Intent intent2 = new Intent(InstructorScheduleActivity.this, InstructorStudentsActivity.class);
@@ -64,11 +62,9 @@ public class InstructorScheduleActivity extends AppCompatActivity implements Sel
 
                     startActivity(intent2);
                     finish();
-                    System.out.println("3");
                     return true;
                 case R.id.schedule_navbar:
 
-                    System.out.println("4");
                     return true;
             }
             return false;
@@ -82,21 +78,7 @@ public class InstructorScheduleActivity extends AppCompatActivity implements Sel
             @Override
             public void onClick(View view) {
                 datePickerDialog1.show();
-
                 schedule.clear();
-
-//                MyAdapter adapter = new MyAdapter(InstructorScheduleActivity.this, schedule, new SelectListener() {
-//                    @Override
-//                    public void onItemClicked(Section section) {
-//
-//                    }
-//                });
-//                recyclerView.setAdapter(adapter);
-//
-//// To reload the RecyclerView
-//                adapter.notifyDataSetChanged();
-
-
             }
         });
         DatePicker.setText(getTodaysDate());
@@ -113,15 +95,6 @@ public class InstructorScheduleActivity extends AppCompatActivity implements Sel
         else{
             DateTextView.setTextColor(Color.WHITE);
         }
-
-
-
-
-
-
-
-
-
     }
 
 

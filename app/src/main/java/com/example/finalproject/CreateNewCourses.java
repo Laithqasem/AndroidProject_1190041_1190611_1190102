@@ -513,7 +513,6 @@ public class CreateNewCourses extends Fragment {
 
                 Toast toast = Toast.makeText(getContext(), "Course added successfully", Toast.LENGTH_SHORT);
                 toast.show();
-
                 replaceFragment(new AdminHomePage());
             }
         });
@@ -666,7 +665,6 @@ public class CreateNewCourses extends Fragment {
         if(month == 12)
             return "DEC";
 
-        //default should never happen
         return "JAN";
     }
 

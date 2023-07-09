@@ -150,7 +150,6 @@ public class Trainee_Schedule_Fragment extends Fragment {
     void showDatePicker() {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
-        month++;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
@@ -174,18 +173,16 @@ public class Trainee_Schedule_Fragment extends Fragment {
         System.out.println("here");
         System.out.println("selected date: " + selectedDate.getTime());
         String dayOfWeekS = String.valueOf(selectedDate.get(Calendar.DAY_OF_MONTH));
-        String monthS = String.valueOf(selectedDate.get(Calendar.MONTH));
+        String monthS = String.valueOf(selectedDate.get(Calendar.MONTH) + 1);
         String yearS = String.valueOf(selectedDate.get(Calendar.YEAR));
         lectureInfoTextView.setText(yearS + " " + monthS + " " + dayOfWeekS);
         addme.removeAllViews();
 
         DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(),
                 "TRAINING_CENTER", null, 1);
-        //search for courses the user is enrolled in
         Cursor cursor = dataBaseHelper.getSecId(TraineeActivites.getEmail());
 
         while (cursor.moveToNext()) {
-            //get the section id of the sections the user is enrolled in
             int secId = cursor.getInt(1);
 
             Cursor cursor1 = dataBaseHelper.getSecInfo(secId);
@@ -217,10 +214,10 @@ public class Trainee_Schedule_Fragment extends Fragment {
                 }
 
                 Calendar startDateCalendar = Calendar.getInstance();
-                startDateCalendar.set(year1, month1, day1);
+                startDateCalendar.set(year1, month1 - 1, day1);
 
                 Calendar endDateCalendar = Calendar.getInstance();
-                endDateCalendar.set(year2, month2, day2);
+                endDateCalendar.set(year2, month2 - 1, day2);
 
                 if (selectedDate.compareTo(startDateCalendar) >= 0 && selectedDate.compareTo(endDateCalendar) <= 0) {
 

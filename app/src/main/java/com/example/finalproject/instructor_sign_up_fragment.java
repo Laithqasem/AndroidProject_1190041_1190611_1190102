@@ -93,37 +93,25 @@ public class instructor_sign_up_fragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Specialization.setAdapter(adapter);
 
-
-
-//        email.setShowSoftInputOnFocus(false);
-//        first_name.setShowSoftInputOnFocus(false);
-//        last_name.setShowSoftInputOnFocus(false);
-//        password.setShowSoftInputOnFocus(false);
-//        confirm_password.setShowSoftInputOnFocus(false);
-//        address.setShowSoftInputOnFocus(false);
-
         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         confirm_password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         email.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-        first_name.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
-        last_name.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+        first_name.setInputType(InputType.TYPE_CLASS_TEXT);
+        last_name.setInputType(InputType.TYPE_CLASS_TEXT);
         mobileNo.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_PHONE);
-        address.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+        address.setInputType(InputType.TYPE_CLASS_TEXT);
 
         email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // No action needed
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // No action needed
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // Validate character length
                 String email_string = s.toString();
                 if (!Patterns.EMAIL_ADDRESS.matcher(email_string).matches()) {
                     email.setError("Please enter a valid email address");
@@ -137,17 +125,14 @@ public class instructor_sign_up_fragment extends Fragment {
         first_name.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // No action needed
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // No action needed
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // Validate character length
                 boolean containsNumbers = containsNumbers(s.toString());
 
                 if (containsNumbers) {
@@ -166,17 +151,14 @@ public class instructor_sign_up_fragment extends Fragment {
         last_name.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // No action needed
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // No action needed
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // Validate character length
                 boolean containsNumbers = containsNumbers(s.toString());
 
                 if (containsNumbers) {
@@ -195,12 +177,10 @@ public class instructor_sign_up_fragment extends Fragment {
         password.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // No action needed
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // No action needed
             }
 
             @Override
@@ -225,17 +205,14 @@ public class instructor_sign_up_fragment extends Fragment {
         confirm_password.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // No action needed
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // No action needed
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // Validate character length
                 if (!(password.getText().toString().equals(confirm_password.getText().toString()))) {
                     confirm_password.setError("the confirm password field is different");
                     valid_confirm_password = false;
@@ -248,17 +225,14 @@ public class instructor_sign_up_fragment extends Fragment {
         mobileNo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // No action needed
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // No action needed
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // Validate character length
                 String mobile = s.toString();
                 if (!isValidMobileNO(mobile)) {
                     mobileNo.setError("Please enter a valid mobile Number");
@@ -272,10 +246,6 @@ public class instructor_sign_up_fragment extends Fragment {
         specialization_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                mobileNo.setError("Please enter a valid mobile Number");
-//                valid_mobile_no = false;
-
-
                 switch (checkedId) {
                     case R.id.BSc:
                         chosen_specialization="BSc";
@@ -295,7 +265,6 @@ public class instructor_sign_up_fragment extends Fragment {
         tech_option.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // Handle the checkbox state
                 if (isChecked) {
                     canTeach+=", Technology";
                 }
@@ -403,7 +372,6 @@ public class instructor_sign_up_fragment extends Fragment {
         Specialization.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Retrieve the selected item
                 selected_specialization = parent.getItemAtPosition(position).toString();
                 if (selected_specialization.equals("")) {
                     validSpecialization = false;
@@ -442,16 +410,6 @@ public class instructor_sign_up_fragment extends Fragment {
                 ){
                     Toast.makeText(getContext(),"check some of Teachable Fields" , Toast.LENGTH_SHORT).show();
                 }else if(validSpecialization &&valid_Specialization &&valid_mobile_no && valid_email && valid_confirm_password && valid_first_name && valid_last_name && valid_password){
-                    System.out.println(email_string);
-                    System.out.println(first_name_string);
-                    System.out.println(last_name_string);
-                    System.out.println(password_string);
-                    System.out.println(confirm_password_string);
-                    System.out.println(selectedImageUri);
-                    System.out.println(mobile_string);
-                    System.out.println(address_string);
-                    System.out.println(chosen_specialization);
-                    System.out.println(canTeach);
 
 
                     Instructor instructor = new Instructor();
@@ -466,11 +424,7 @@ public class instructor_sign_up_fragment extends Fragment {
                     instructor.setAddress(address_string);
                     instructor.setSpecialization(selected_specialization);
                     instructor.setDegree(chosen_specialization);
-
                     instructor.setCanTeach(canTeach);
-
-//                    String databaseName = "TRAINING_CENTER";
-//                    getContext().deleteDatabase(databaseName);
 
                     DataBaseHelper dataBaseHelper = new DataBaseHelper(
                             getContext(),"TRAINING_CENTER",null,1);
@@ -506,22 +460,6 @@ public class instructor_sign_up_fragment extends Fragment {
                     }else{
                         Toast.makeText(getContext(),"the email is used" , Toast.LENGTH_SHORT).show();
                     }
-
-                    Cursor res3 = dataBaseHelper.getAllInstructor();
-                    System.out.println("INSTRUCTORS:");
-                    while (res3.moveToNext()){
-
-                        System.out.println(
-                                "Email= "+res3.getString(0)
-                                        +"\nPassword= "+res3.getString(1)
-                                        +"\nFirstName= "+res3.getString(2)
-                                        +"\nLastName= "+res3.getString(3)
-                                        +"\nPersonalPhoto= "+res3.getBlob(4)
-                                        +"\n\n"
-                        );
-                    }
-
-
 
                 }else{
                     Toast.makeText(getContext(),TOAST_TEXT , Toast.LENGTH_SHORT).show();

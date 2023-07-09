@@ -182,6 +182,16 @@ public class Trainee_editProfile_Fragment extends Fragment {
                     String alteredAddress = textViewAddress.getText().toString();
                     String alteredPassword = textViewPassword.getText().toString();
 
+                    // check if altered first or altered lsat lenght is between 3 and 20
+                    if(alteredFirst.length() < 3 || alteredFirst.length() > 20){
+                        textViewFirstName.setError("First name must be between 3 and 20 characters");
+                        return;
+                    }
+                    if(alteredLast.length() < 3 || alteredLast.length() > 20){
+                        textViewLastName.setError("Last name must be between 3 and 20 characters");
+                        return;
+                    }
+
                     Trainee trainee = new Trainee(TraineeActivites.getEmail(),alteredPassword,alteredFirst,alteredLast,alteredMobile,alteredAddress, new ImageHandler().getByteArray(imageViewProfilePicture));
 
                     dataBaseHelper.UpdatesTrainee(trainee);

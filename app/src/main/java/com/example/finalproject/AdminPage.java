@@ -49,6 +49,5 @@ public class AdminPage extends AppCompatActivity {
                     finish();
                 }
             });
-
         }
 }
