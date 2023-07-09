@@ -88,12 +88,13 @@ android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textViewNotifications"
-            android:layout_width="10dp"
+            android:layout_width="12dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginTop="5dp"
             android:text=""
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textSize="10sp"/>
 
     </LinearLayout>
 
