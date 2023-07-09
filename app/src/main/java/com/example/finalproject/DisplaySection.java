@@ -139,6 +139,9 @@ public class DisplaySection extends Fragment {
                 layout.addView(createVerticalLayout("Room:  ", section.getRoom()));
                 layout.addView(createVerticalLayout("Start Date:  ", section.getStartDate()));
                 layout.addView(createVerticalLayout("End Date:  ", section.getEndDate()));
+                String has  = String.valueOf(dataBaseHelper.countStudentsInSection(String.valueOf(section.getSectionID())));
+                String mx = String.valueOf(section.getMaxTrainees());
+                layout.addView(createVerticalLayout("Students count:  ", has + "/" + mx));
 
                 Button button = new Button(getContext());
                 button.setText("Edit Section " + String.valueOf(cursor.getInt(0)));

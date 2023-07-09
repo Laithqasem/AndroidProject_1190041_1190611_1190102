@@ -16,12 +16,6 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
-//        private String courseID;
-//        private int maxTrainees;
-//        private String startTime, endTime;
-//        private String days;
-//        private String room, startDate, endDate;
-
         imageView = itemView.findViewById(R.id.imageview);
         course_id = itemView.findViewById(R.id.Course_ID2);
         courseName = itemView.findViewById(R.id.Course_Name);
@@ -33,11 +27,6 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         startDate = itemView.findViewById(R.id.Section_startDate);
         endDate = itemView.findViewById(R.id.Section_endtDate);
         cardView = itemView.findViewById(R.id.cardView);
-
-
-
-
-
     }
 
 

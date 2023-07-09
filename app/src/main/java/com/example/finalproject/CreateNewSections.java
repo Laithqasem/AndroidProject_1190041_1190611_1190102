@@ -122,10 +122,7 @@ public class CreateNewSections extends Fragment {
                     }
                 };
 
-                // int style = AlertDialog.THEME_HOLO_DARK;
-
-                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), /*style,*/ onTimeSetListener, hour1, minute1, true);
-
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), onTimeSetListener, hour1, minute1, true);
                 timePickerDialog.setTitle("Select Time");
                 timePickerDialog.show();
             }
@@ -157,10 +154,7 @@ public class CreateNewSections extends Fragment {
                     }
                 };
 
-                // int style = AlertDialog.THEME_HOLO_DARK;
-
-                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), /*style,*/ onTimeSetListener, hour2, minute2, true);
-
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), onTimeSetListener, hour2, minute2, true);
                 timePickerDialog.setTitle("Select Time");
                 timePickerDialog.show();
             }
@@ -320,8 +314,6 @@ public class CreateNewSections extends Fragment {
 
                 Toast toast = Toast.makeText(getContext(), "Section Added Successfully", Toast.LENGTH_SHORT);
                 toast.show();
-
-
                 replaceFragment(new AdminHomePage());
             }
         });
@@ -446,7 +438,7 @@ public class CreateNewSections extends Fragment {
                     if (b) sz2++;
                 }
                 if(sz2 == 0){
-                    Toast toast =Toast.makeText(getContext(), "There is no instructor can teach this course", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getContext(), "There is no instructor can teach this course", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
                 }
@@ -547,7 +539,7 @@ public class CreateNewSections extends Fragment {
                     builder.show();
                 }
                 else{
-                    Toast toast =Toast.makeText(getContext(), "No available rooms for your selection", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getContext(), "No available rooms for your selection", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }

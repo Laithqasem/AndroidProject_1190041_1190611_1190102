@@ -31,9 +31,9 @@ public class admin_sign_up_fragment extends Fragment {
 
 
 
-    private EditText personal,email,first_name,last_name,password,confirm_password;
+    private EditText email,first_name,last_name,password,confirm_password;
     boolean valid_email,valid_last_name,valid_first_name,valid_confirm_password,valid_password;
-    private static final String TOAST_TEXT = "check the wrong fields";
+    private static final String TOAST_TEXT = "Check the wrong fields";
     Uri selectedImageUri;
     private static final int REQUEST_CODE_IMAGE_PICKER = 100;
 
@@ -44,13 +44,7 @@ public class admin_sign_up_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.admin_sign_up_fragment, container, false);
-//        editTextData = view.findViewById(R.id.email);
-
-//                            String databaseName = "TRAINING_CENTER"; // Replace with the actual database name
-//                    getContext().deleteDatabase(databaseName);
-
         imageView = view.findViewById(R.id.imageView);
         chooseImageButton = view.findViewById(R.id.chooseImageButton);
 
@@ -75,24 +69,21 @@ public class admin_sign_up_fragment extends Fragment {
         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         confirm_password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         email.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-        first_name.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
-        last_name.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+        first_name.setInputType(InputType.TYPE_CLASS_TEXT);
+        last_name.setInputType(InputType.TYPE_CLASS_TEXT);
 
 
         email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // No action needed
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // No action needed
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // Validate character length
                 String email_string = s.toString();
                 if (!Patterns.EMAIL_ADDRESS.matcher(email_string).matches()) {
                     email.setError("Please enter a valid email address");
@@ -107,17 +98,14 @@ public class admin_sign_up_fragment extends Fragment {
         first_name.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // No action needed
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // No action needed
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // Validate character length
                 boolean containsNumbers = containsNumbers(s.toString());
 
                 if (containsNumbers) {
@@ -136,17 +124,14 @@ public class admin_sign_up_fragment extends Fragment {
         last_name.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // No action needed
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // No action needed
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // Validate character length
                 boolean containsNumbers = containsNumbers(s.toString());
 
                 if (containsNumbers) {
@@ -165,17 +150,14 @@ public class admin_sign_up_fragment extends Fragment {
         password.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // No action needed
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // No action needed
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // Validate character length
                 boolean containsNumbers = containsNumbers(s.toString());
                 boolean contains_lower = containsLowercase(s.toString());
                 boolean contains_upper = containsUppercase(s.toString());
@@ -195,17 +177,14 @@ public class admin_sign_up_fragment extends Fragment {
         confirm_password.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // No action needed
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // No action needed
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // Validate character length
                 if (!(password.getText().toString().equals(confirm_password.getText().toString()))) {
                     confirm_password.setError("the confirm password field is different");
                     valid_confirm_password = false;
@@ -228,20 +207,12 @@ public class admin_sign_up_fragment extends Fragment {
                 String confirm_password_string = confirm_password.getText().toString();
 
 
-                if(email_string.equals("")||last_name_string.equals("")||first_name_string.equals("")||password_string.equals("")||confirm_password_string.equals("")){
+                if(email_string.equals("")||last_name_string.equals("")||first_name_string.equals("")||password_string.equals("")
+                        ||confirm_password_string.equals("")){
                     Toast.makeText(getContext(),"There is an Empty Fields" , Toast.LENGTH_SHORT).show();
 
-                }else if(valid_email && valid_confirm_password && valid_first_name && valid_last_name && valid_password){
-                    System.out.println(email_string);
-                    System.out.println(first_name_string);
-                    System.out.println(last_name_string);
-                    System.out.println(password_string);
-                    System.out.println(confirm_password_string);
-
-//                    String databaseName = "TRAINING_CENTER"; // Replace with the actual database name
-//                    getContext().deleteDatabase(databaseName);
-
-
+                }
+                else if(valid_email && valid_confirm_password && valid_first_name && valid_last_name && valid_password){
                     Admin admin = new Admin();
                     admin.setEmail(email_string);
                     admin.setFirstName(first_name_string);
@@ -252,7 +223,6 @@ public class admin_sign_up_fragment extends Fragment {
                     DataBaseHelper dataBaseHelper = new DataBaseHelper(
                             getContext(),"TRAINING_CENTER",null,1);
 
-
                     boolean validSignUp = dataBaseHelper.vaildSignUp(email_string);
                     if(validSignUp){
                         dataBaseHelper.insertAdmin(admin);
@@ -261,41 +231,20 @@ public class admin_sign_up_fragment extends Fragment {
                         last_name.getText().clear();
                         password.getText().clear();
                         confirm_password.getText().clear();
-
-                        Toast.makeText(getContext(),"The User Inserted Successfully" , Toast.LENGTH_LONG).show();
-
-
-                    }else{
-                        Toast.makeText(getContext(),"the email is used" , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),"The User Inserted Successfully" , Toast.LENGTH_SHORT).show();
                     }
-                    Cursor res = dataBaseHelper.getAllAdmin();
-                    System.out.println("ADMIN");
-                    while (res.moveToNext()){
-
-                        System.out.println(
-                                "Email= "+res.getString(0)
-                                        +"\nPassword= "+res.getString(1)
-                                        +"\nFirstName= "+res.getString(2)
-                                        +"\nLastName= "+res.getString(3)
-                                        +"\nPersonalPhoto= "+res.getBlob(4)
-                                        +"\n\n"
-                        );
+                    else{
+                        Toast.makeText(getContext(),"The Email is used" , Toast.LENGTH_SHORT).show();
                     }
-
-
-
-
-
-
-                }else{
+                }
+                else{
                     Toast.makeText(getContext(),TOAST_TEXT , Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
-
         return view;
     }
+
     private void openImagePicker() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, REQUEST_CODE_IMAGE_PICKER);
@@ -304,7 +253,6 @@ public class admin_sign_up_fragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == REQUEST_CODE_IMAGE_PICKER && resultCode == Activity.RESULT_OK && data != null) {
             selectedImageUri = data.getData();
             imageView.setImageURI(selectedImageUri);
@@ -334,24 +282,5 @@ public class admin_sign_up_fragment extends Fragment {
             }
         }
         return false;
-    }
-    public byte[] uriToByteArray(Context context, Uri uri) throws IOException {
-        ContentResolver contentResolver = context.getContentResolver();
-        InputStream inputStream = contentResolver.openInputStream(uri);
-
-        // Read the input stream and convert it to a byte array
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int bytesRead;
-        while ((bytesRead = inputStream.read(buffer)) != -1) {
-            byteArrayOutputStream.write(buffer, 0, bytesRead);
-        }
-        byte[] byteArray = byteArrayOutputStream.toByteArray();
-
-        // Close the input stream and the output stream
-        inputStream.close();
-        byteArrayOutputStream.close();
-
-        return byteArray;
     }
 }

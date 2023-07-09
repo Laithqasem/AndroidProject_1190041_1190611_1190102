@@ -130,8 +130,16 @@ public class EditProfilePage extends Fragment {
                     Toast.makeText(getContext(), "First name cannot be empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if(firstName.getText().toString().length() < 3 || firstName.getText().toString().length() > 20) {
+                    Toast.makeText(getContext(), "First name must be between 3 and 20 characters", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if(lastName.getText().toString().isEmpty()) {
                     Toast.makeText(getContext(), "Last name cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(lastName.getText().toString().length() < 3 || lastName.getText().toString().length() > 20) {
+                    Toast.makeText(getContext(), "Last name must be between 3 and 20 characters", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(confirmPassword.getText().toString().isEmpty()) {

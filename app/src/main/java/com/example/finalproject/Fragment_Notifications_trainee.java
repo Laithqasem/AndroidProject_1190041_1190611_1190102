@@ -97,7 +97,6 @@ public class Fragment_Notifications_trainee extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View rootView =  inflater.inflate(R.layout.fragment__notifications_trainee, container, false);
         ListView listV = (ListView) rootView.findViewById(R.id.listView);
         ArrayList<Pair> list = new ArrayList<>();
@@ -105,17 +104,10 @@ public class Fragment_Notifications_trainee extends Fragment {
         DataBaseHelper db = new DataBaseHelper(getContext(), "TRAINING_CENTER", null, 1);
         Cursor cursor = db.getNotificationsForTrainee(TraineeActivites.getEmail());
 
-        int nots = cursor.getCount();
-
-        if(nots > 0){
-            //notificationsButton.setText("Notifications (" + nots + ")");
-        }
 
         while(cursor.moveToNext()){
-
             String not = cursor.getString(1);
             list.add(new Pair(cursor.getInt(0), not));
-
         }
 
         ArrayAdapter<Pair> adapter = new ArrayAdapter<Pair>(requireContext(), R.layout.for_fragment_notfication,R.id.textViewTitle ,list) {
@@ -155,7 +147,7 @@ public class Fragment_Notifications_trainee extends Fragment {
                 });
 
         return rootView;
-        }
+    }
 
     private void replaceFragment(Fragment newFragment){
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();

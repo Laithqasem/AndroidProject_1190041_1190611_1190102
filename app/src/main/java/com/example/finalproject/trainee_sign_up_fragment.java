@@ -61,20 +61,20 @@ public class trainee_sign_up_fragment extends Fragment {
         address = view.findViewById(R.id.edit_address_text);
 
 
-        email.setShowSoftInputOnFocus(false);
-        first_name.setShowSoftInputOnFocus(false);
-        last_name.setShowSoftInputOnFocus(false);
-        password.setShowSoftInputOnFocus(false);
-        confirm_password.setShowSoftInputOnFocus(false);
-        address.setShowSoftInputOnFocus(false);
+        email.setShowSoftInputOnFocus(true);
+        first_name.setShowSoftInputOnFocus(true);
+        last_name.setShowSoftInputOnFocus(true);
+        password.setShowSoftInputOnFocus(true);
+        confirm_password.setShowSoftInputOnFocus(true);
+        address.setShowSoftInputOnFocus(true);
 
         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         confirm_password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         email.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-        first_name.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
-        last_name.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+        first_name.setInputType(InputType.TYPE_CLASS_TEXT);
+        last_name.setInputType(InputType.TYPE_CLASS_TEXT);
         mobileNo.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_PHONE);
-        address.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+        address.setInputType(InputType.TYPE_CLASS_TEXT);
 
         email.addTextChangedListener(new TextWatcher() {
             @Override

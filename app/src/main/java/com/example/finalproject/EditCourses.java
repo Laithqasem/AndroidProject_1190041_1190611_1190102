@@ -89,10 +89,10 @@ public class EditCourses extends Fragment {
         while (cursor.moveToNext()) {
             CardView cardView = new CardView(getContext());
             LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            cardParams.setMargins(0, 0, 0, 16); // Add bottom margin between cards
+            cardParams.setMargins(0, 0, 0, 16);
             cardView.setLayoutParams(cardParams);
-            cardView.setCardElevation(8); // Add elevation to create a shadow effect
-            cardView.setRadius(16); // Round the corners of the card
+            cardView.setCardElevation(8);
+            cardView.setRadius(16);
 
             LinearLayout innerLayout = new LinearLayout(getContext());
             innerLayout.setOrientation(LinearLayout.VERTICAL);
@@ -110,7 +110,7 @@ public class EditCourses extends Fragment {
             TextView textView = new TextView(getContext());
             textView.setText(cursor.getString(2));
             textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            textView.setTextSize(18); // Set the text size
+            textView.setTextSize(18);
             innerLayout.addView(textView);
 
             cardView.addView(innerLayout);

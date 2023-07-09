@@ -98,6 +98,7 @@ public class ViewInstructors extends Fragment {
             linearLayout.setGravity(Gravity.CENTER_HORIZONTAL);
             linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             TextView textView = new TextView(getContext());
+            instructor.setCanTeach(instructor.getCanTeach().substring(2));
             String s = instructor.toString();
 
             textView.setText(s);

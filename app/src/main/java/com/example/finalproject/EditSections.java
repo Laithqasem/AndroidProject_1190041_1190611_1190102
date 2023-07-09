@@ -123,10 +123,7 @@ public class EditSections extends Fragment {
                         last = false;
                     }
                 };
-
-                // int style = AlertDialog.THEME_HOLO_DARK;
-
-                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), /*style,*/ onTimeSetListener, hour1, minute1, true);
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), onTimeSetListener, hour1, minute1, true);
 
                 timePickerDialog.setTitle("Select Time");
                 timePickerDialog.show();
@@ -159,9 +156,7 @@ public class EditSections extends Fragment {
                     }
                 };
 
-                // int style = AlertDialog.THEME_HOLO_DARK;
-
-                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), /*style,*/ onTimeSetListener, hour2, minute2, true);
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), onTimeSetListener, hour2, minute2, true);
 
                 timePickerDialog.setTitle("Select Time");
                 timePickerDialog.show();
@@ -341,7 +336,7 @@ public class EditSections extends Fragment {
                     instructor_text.setTextColor(Color.WHITE);
                 }
                 String MAX = max_students.getText().toString();
-                if(MAX.isEmpty()){
+                if(MAX.isEmpty() || Integer.parseInt(MAX) <= 0){
                     error = true;
                     max_students_text.setTextColor(Color.RED);
                 }
